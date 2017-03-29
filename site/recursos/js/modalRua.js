@@ -10,6 +10,7 @@ $(document).on('blur', "#id_codigo", function (e) {
         $(this).val('');
 //        disparo erro na tela 
         $("#msg").html('<div class="alert alert-danger"><strong>Código Inválido!</strong></div>');
+        $("#id_codigo").val($('#id_codigo_automatico').val());
     } else {
 //        atribuo o valor informado pelo usario no campo
         $(this).val(valor);
@@ -44,7 +45,7 @@ function validaInsercao(param) {
 //      caso retorno seja igual a 1
 //      lança mensagem de erro
             if (data === 1) {
-                $("#id_codigo").val('');
+                $("#id_codigo").val($('#id_codigo_automatico').val());
                 $("#msg").html('<div class="alert alert-danger"><strong>Código Já Cadastrado!</strong></div>');
             }
         }

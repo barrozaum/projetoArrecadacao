@@ -58,6 +58,7 @@ function formularioCadastro() {
                                 <?php
                                 //   INPUT - Codigo Bairro                             
                                 criar_input_text('Codigo', 'codigo', 'codigo', array('required' => 'true', 'maxlength' => '5', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod);
+                                criar_input_hidden('codigo_automatico',  array('required' => 'true', 'maxlength' => '5'), $cod);
                                 ?>
                             </div>
                             <div class="row">
@@ -70,7 +71,7 @@ function formularioCadastro() {
                             <div class="col-sm-12">
                                 <?php
                                 //   INPUT - Descricao Rua                             
-                                criar_input_text('Descrição-Rua', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Rua'), '', 'conter no minímo 3 caracteres [a-z A-Z]');
+                                criar_input_text('Descrição-Rua', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Rua'), '', 'conter no mínimo 3 caracteres');
                                 ?>
                             </div>
                         </div> 
