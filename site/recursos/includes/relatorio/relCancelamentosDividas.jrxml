@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relCancelamentosDividas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9ad774f7-4f7a-4ec7-9218-8126b44830e6">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="93"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="Estado" class="java.lang.String"/>
+    <parameter name="Prefeitura" class="java.lang.String"/>
+    <parameter name="Secretaria" class="java.lang.String"/>
+    <parameter name="Titulo" class="java.lang.String"/>
+    <parameter name="Titulo2" class="java.lang.String"/>
+    <parameter name="inscricaoInicial" class="java.lang.String"/>
+    <parameter name="inscricaoFinal" class="java.lang.String"/>
+    <parameter name="sqlDataInicial" class="java.lang.String"/>
+    <parameter name="sqlDataFinal" class="java.lang.String"/>
+    <queryString>
+		<![CDATA[SELECT convert(varchar,c.data_cancelamento,103) as Data_Cancelamento,
+       c.inscricao_imob,
+       c.ano_divida,
+       c.cod_divida,
+       c.sub_divida,
+       c.parcela,
+       convert(varchar,f.vencimento,103) as Vencimento,
+       replace(Str(f.valor*u.Vr_Ufir ,12,2),'.',',') as Vr_cancelado,
+       m.Desc_Motivo_Cancelamento,
+       c.usuario
+FROM  Cancelamentos_Imob c, motivo_cancelamento m,
+      financeiro_imob f, ufir u
+where c.inscricao_imob = f.inscricao_imob
+and   c.ano_divida = f.ano_divida
+and   c.cod_divida = f.cod_divida
+and   c.sub_divida = f.sub_divida
+and   c.parcela = f.parcela
+and   c.ano_divida = u.ano
+and   m.cod_motivo_cancelamento = c.cod_motivo_cancelamento
+and   c.inscricao_imob >= $P{inscricaoInicial}
+and   c.inscricao_imob <= $P{inscricaoFinal}
+and   c.cod_motivo_cancelamento <> '03'
+and   c.data_cancelamento between '$P{sqlDataInicial}' and '$P{sqlDataFinal}'
+Order by c.data_cancelamento, c.inscricao_imob, c.ano_divida, c.cod_divida, c.parcela]]>
+    </queryString>
+    <field name="Data_Cancelamento" class="java.lang.String"/>
+    <field name="inscricao_imob" class="java.lang.String"/>
+    <field name="ano_divida" class="java.lang.String"/>
+    <field name="cod_divida" class="java.lang.String"/>
+    <field name="sub_divida" class="java.lang.String"/>
+    <field name="parcela" class="java.lang.String"/>
+    <field name="Vencimento" class="java.lang.String"/>
+    <field name="Vr_cancelado" class="java.lang.String"/>
+    <field name="Desc_Motivo_Cancelamento" class="java.lang.String"/>
+    <field name="usuario" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="90" splitType="Stretch">
+            <image>
+                <reportElement x="4" y="3" width="52" height="55" uuid="ae12841f-2ee1-4e1a-9176-2c5fb3b3837e"/>
+                <imageExpression><![CDATA["..//..//imagens//estrutura//logo.jpg"]]></imageExpression>
+            </image>
+            <textField>
+                <reportElement x="63" y="19" width="210" height="18" uuid="73a876f3-de57-40e1-a90f-7c7e9767d729"/>
+                <textElement>
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{Prefeitura}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="62" y="4" width="211" height="15" uuid="4817c5dc-70d5-4988-be95-5e620709dfd4"/>
+                <textElement>
+                    <font fontName="Arial" size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{Estado}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="63" y="37" width="209" height="15" uuid="12d0c6c0-24e3-4df6-b7e4-d24e1f8aa90d"/>
+                <textElement>
+                    <font fontName="Arial" size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{Secretaria}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement isPrintRepeatedValues="false" x="7" y="58" width="541" height="15" uuid="2da15524-4d6f-40a9-9628-87676236786a"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial" size="10" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{Titulo}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement isPrintRepeatedValues="false" x="7" y="73" width="541" height="15" uuid="ac24c13c-2d69-4e2b-b631-47788b906af3"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial" size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{Titulo2}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="419" y="3" width="31" height="15" uuid="ce776943-9b84-4415-b049-f8347741d32a"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Data:]]></text>
+            </staticText>
+            <textField pattern="dd/MM/yyyy">
+                <reportElement x="451" y="3" width="100" height="15" uuid="a2527904-5447-4e5d-b23d-d56101f9b66b"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="9" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="20" splitType="Stretch">
+            <line>
+                <reportElement x="7" y="16" width="541" height="1" uuid="7dddbd3a-b174-47b9-9d75-e61bf1128a7e"/>
+            </line>
+            <staticText>
+                <reportElement x="7" y="0" width="56" height="17" uuid="e79a0820-222b-458a-b8bd-3774c5bd6540"/>
+                <text><![CDATA[Data Canc.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="68" y="0" width="47" height="17" uuid="29cf5909-a200-42ae-b9c8-05b1d0fa549e"/>
+                <text><![CDATA[Inscrição]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="142" y="0" width="28" height="16" uuid="f3947c67-0505-4077-92aa-271ed966efba"/>
+                <text><![CDATA[Ano]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="117" y="0" width="21" height="17" uuid="0d539645-456d-49a0-a6dd-a7210542891b"/>
+                <text><![CDATA[Dív]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="171" y="0" width="18" height="16" uuid="bdef6cc7-5d74-4fe0-bf54-f2a87a51adf8"/>
+                <text><![CDATA[Sd]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="189" y="0" width="22" height="16" uuid="630cc7e1-a93f-4762-b849-17ab9d2d0155"/>
+                <text><![CDATA[Pre]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="213" y="1" width="60" height="15" uuid="d0500f62-c33a-4086-b388-606491ad98e8"/>
+                <text><![CDATA[Vencimento]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="276" y="0" width="68" height="17" uuid="fd3b1994-15f9-47f7-b293-43aa0db88084"/>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Vr.Cancelado]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="352" y="0" width="53" height="16" uuid="2801db35-f212-4512-a734-c38c97aae4de"/>
+                <text><![CDATA[Motivo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="499" y="0" width="49" height="17" uuid="04b813de-7846-42e9-b1b1-010630ca855f"/>
+                <text><![CDATA[usuario]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <textField>
+                <reportElement x="7" y="2" width="56" height="15" uuid="3b62c799-34c6-4c18-af57-558b1d67a350"/>
+                <textFieldExpression><![CDATA[$F{Data_Cancelamento}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="68" y="2" width="45" height="15" uuid="e0acd2ad-cc4b-4203-9a10-de47bba88c60"/>
+                <textFieldExpression><![CDATA[$F{inscricao_imob}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="140" y="2" width="31" height="15" uuid="ac4bd83d-af71-4974-ac3f-8adbee0604e3"/>
+                <textFieldExpression><![CDATA[$F{ano_divida}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="121" y="2" width="18" height="15" uuid="0c8be26e-624d-4858-b573-896dadd5c489"/>
+                <textFieldExpression><![CDATA[$F{cod_divida}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="173" y="2" width="17" height="15" uuid="23510b65-b9ea-4cc1-9598-3bc552b368ab"/>
+                <textFieldExpression><![CDATA[$F{sub_divida}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="192" y="2" width="19" height="15" uuid="42c3b33c-6d57-4520-8932-673c507ed1ea"/>
+                <textFieldExpression><![CDATA[$F{parcela}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="213" y="2" width="59" height="15" uuid="7ee05b26-b55d-44c4-a51d-21e6b0117135"/>
+                <textFieldExpression><![CDATA[$F{Vencimento}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="276" y="2" width="68" height="15" uuid="22dfd8e5-0ed0-445a-8438-c8cc2e9bc911"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{Vr_cancelado}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="349" y="2" width="145" height="15" uuid="0795dc37-1e32-43b7-b202-84814c158945"/>
+                <textFieldExpression><![CDATA[$F{Desc_Motivo_Cancelamento}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="496" y="2" width="55" height="15" uuid="0a6a7db6-bd2a-46b5-a3bb-265bd45b9383"/>
+                <textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="9" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="32" splitType="Stretch">
+            <line>
+                <reportElement x="7" y="6" width="541" height="1" uuid="105e0f12-3227-49f0-8912-1d73962c801a"/>
+            </line>
+            <staticText>
+                <reportElement x="462" y="10" width="43" height="15" uuid="c2eea685-099d-44e8-81ed-1c7c89d6fd1c"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Página:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="507" y="10" width="35" height="15" uuid="2d96bf22-3bc0-46bf-9137-b8e514121424"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch">
+            <staticText>
+                <reportElement x="7" y="5" width="106" height="20" uuid="703d69b1-a050-4de9-a3fd-5040bd42da0b"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Quantidade Listada:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="115" y="5" width="100" height="20" uuid="b11f539e-bcd3-441e-a0c8-1651a60ec644"/>
+                <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>

@@ -1,0 +1,83 @@
+table {
+    border-color:black;
+    border-collapse:collapse;
+    width:100%;
+}
+
+td {
+    border-color:black;
+    font-size: 9pt;
+    padding-left: 2px;
+}
+
+td.parcela {
+    font-weight: bold;
+    font-size: 14pt;
+    text-align: right;
+}
+td.negrito {
+    font-weight: bold;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.prefeitura {
+    font-weight: bold;
+    font-size: 10pt;
+    padding-left: 20px;
+}
+
+td.tiny {
+    font-size: 7pt;
+}
+
+td.huge {
+    font-size: 13pt;
+}
+td.Arial {
+    font-family: arial;
+}
+.arialPadding {
+    font-family: arial;
+    padding-left: 15px;
+}
+.autentificacao {
+    text-align: center;
+    width: 150px;
+    font-family: arial;
+    font-size: 6pt;
+    font-weight: bold;
+}
+
+table.bordelessTop{
+
+    border-top-color:	transparent;
+    border-left-color:	transparent;
+    border-right-color:	transparent;
+
+}
+
+.dashedBorder{
+    border-top-color:	transparent;
+    border-left-color:	transparent;
+    border-right-color:	transparent;
+    border-bottom-style: dashed;
+}
+
+.partialBorderLess{
+    border-left-color:	transparent;
+    border-right-color:	transparent;
+    border-top-color:	transparent;
+}
+
+.bordeLess{
+    border-left-color:	transparent;
+    border-right-color:	transparent;
+    border-top-color:	transparent;
+    border-bottom-color:	transparent;
+}
+
+td.topbottombordeLess{
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+}

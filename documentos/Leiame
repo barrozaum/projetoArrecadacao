@@ -1,0 +1,114 @@
+--- arquivo base para documentação
+--- Lembrete, todas as funções começam com o prefix
+--- FUN_(nomedafuncao)
+
+
+
+// INICIO DOC FUNCAO FUN_DESCONTO_INDUSTRIA
+
+PASSO A PASSO 
+	1 - VERIFICO SE A INSCRIÇÃO DO IMOVÉL TEM O CAMPO (DESCONTO_INDUSTRIA)
+	COM O VALOR DIFERENTE DE "N"
+
+	2 - EXECUTO COMANDO SQL (
+		$sql_desconto = "SELECT Tipo_Enquadramento, Data_Enquadramento";
+        $sql_desconto = $sql_desconto . " FROM CAD_COMERCIAL";
+        $sql_desconto = $sql_desconto . " WHERE INSCRICAO_IMOB = '$inscricao'";
+        )
+
+	3 - VERIFICO O TIPO DO ENQUADRAMENTO
+		
+		|TIPO ENQUADREMANTO     |     VALOR RETORNADO |
+		|  1 OU MAIOR           |      50             |	
+		|       0 				|      80             | 
+
+
+	SE (DESCONTO_INDUSTRIA !== "N")
+		FAÇA
+			EXCUTA COMANDO SQL
+			RETORNA O VALOR DE DESCONTO
+		FIM;
+	SENAO
+		FAÇA
+			RETORNA VALOR = 0;
+		FIM; 
+
+
+// FIM DOC FUNCAO FUN_DESCONTO_INDUSTRIA
+
+***********************************************************************************************
+
+// INICIO DOC FUNCAO FUN_VALOR_METRO_QUADRADO_TERRENO
+
+PASSO A PASSO 
+	1 - PRECISO SABER A ZONA DO IMÓVEL E A SITUAÇÃO DO TERRENO
+
+	2 - EXECUTO COMANDO SQL (
+		$sql_metro_terreno = "SELECT * ";
+	    $sql_metro_terreno = $sql_metro_terreno . " FROM Valor_M2_Terreno ";
+	    $sql_metro_terreno = $sql_metro_terreno . " WHERE Zona_Fiscal = '$zona_imob'";
+	    $sql_metro_terreno = $sql_metro_terreno . " AND Cod_Utilizacao ='$situacao_terreno'";
+        )
+
+	3 - RETORNA O VALOR ENCONTRADO 
+
+
+// FIM DOC FUNCAO FUN_VALOR_METRO_QUADRADO_TERRENO
+
+***********************************************************************************************
+
+// INICIO DOC FUNCAO FUN_VALOR_METRO_QUADRADO_CONSTRUCAO
+	
+PASSO A PASSO
+	1 - PRECISO SABER A ZONA DO IMÓVEL, UTILIZAÇÃO DO IMÓVEL E A CATEGORIA
+
+	2 - EXECUTO COMANDO SQL (
+			$sql_metro_construcao = "SELECT * ";
+		    $sql_metro_construcao = $sql_metro_construcao . " FROM Valor_M2_Construcao ";
+		    $sql_metro_construcao = $sql_metro_construcao . " WHERE Zona_Fiscal = '$zona_imob'";
+		    $sql_metro_construcao = $sql_metro_construcao . " AND Cod_Utilizacao ='$cod_utilizacao'";
+		    $sql_metro_construcao = $sql_metro_construcao . " AND Cod_Categoria ='$cod_cat'";
+		)
+	3 - RETORNA O VALOR ENCONTRADO 
+
+// FIM DOC FUNCAO FUN_VALOR_METRO_QUADRADO_CONSTRUCAO
+
+***********************************************************************************************
+
+
+// INICIO DOC FUNCAO FUN_VALOR_VENAL_TERRENO
+	
+PASSO A PASSO
+	1 - PRECISO SABER O VALOR DA "FUN_VALOR_METRO_QUADRADO_TERRENO"
+	2 - SABER O TAMANHO DA AREA DO TERRENO
+	3 - MULTIPLICAR A AREA DO TERRENO COM O VALOR DA "FUN_VALOR_METRO_QUADRADO_TERRENO"
+
+// FIM DOC FUNCAO FUN_VALOR_VENAL_TERRENO
+
+***********************************************************************************************
+
+// INICIO DOC FUNCAO FUN_VALOR_VENAL_CONSTRUCAO
+	
+PASSO A PASSO
+	1 - PRECISO SABER O VALOR DA "FUN_VALOR_METRO_QUADRADO_CONSTRUCAO"
+	2 - SABER O TAMANHO DA AREA DA CONSTRUCAO
+	3 - MULTIPLICAR A AREA DO CONSTRUCAO COM O VALOR DA "FUN_VALOR_METRO_QUADRADO_CONSTRUCAO"
+
+// FIM DOC FUNCAO FUN_VALOR_VENAL_CONSTRUCAO
+
+***********************************************************************************************
+
+
+// INICIO DOC FUNCAO FUN_VALOR_TAXA_COLETA_LIXO
+	
+PASSO A PASSO
+	1 - PRECISO SABER O CAMPO TIPO_COLETA CONTÉM VALOR == S
+	2 - EXECUTO COMANDO SQL (
+			$tx_coleta = "SELECT * ";
+	        $tx_coleta = $tx_coleta . " FROM Tipo_Coleta";
+	        $tx_coleta = $tx_coleta . " WHERE Cod_Tipo_Coleta = '$tipo_coleta'";
+		)
+	
+// FIM DOC FUNCAO FUN_VALOR_TAXA_COLETA_LIXO
+
+***********************************************************************************************

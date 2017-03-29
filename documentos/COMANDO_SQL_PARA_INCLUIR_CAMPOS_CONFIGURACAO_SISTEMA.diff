@@ -1,0 +1,20 @@
+--- comando sql para criar campos 
+--- numero varchar(5)
+--- complemento varchar(30)
+--- cidade varchar(20)
+--- uf varchar(2)
+
+ALTER TABLE configuracao_sistema
+ADD numero varchar(5)
+
+ALTER TABLE configuracao_sistema
+ADD complemento varchar(30)
+
+ALTER TABLE configuracao_sistema
+ADD cidade varchar(20)
+
+ALTER TABLE configuracao_sistema
+ADD uf varchar(2)
+
+
+--- FIM DO COMANDO 
