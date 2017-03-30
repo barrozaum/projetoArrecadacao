@@ -3,6 +3,90 @@
 --- FUN_(nomedafuncao)
 
 
+// TABELA -> RUAS 
+
+	Páginas
+	L--> TabelaRua.php (arquivo base)
+	L--> /recursos/includes/formulario/formularioTabelaRua.php (formulario para (Cadastrar, Alterar, Excluir))
+	L--> /recursos/js/modalRua.js (Java Script da página)
+	L--> /recursos/includes/listar/listarRuas.php (monta datagrid com todas as ruas cadastradas)
+		L-->Cadastrar (recursos/includes/cadastrar/cadastrarRua.php);
+		L-->Alterar   (recursos/includes/alterar/alterarRua.php)
+		L-->Excluir   (recursos/includes/excluir/excluirRua.php)
+
+     _____________________________________________________________________
+	| CAMPO                 |  DESCRICAO                     | OBRIGATÓRIO|
+	|     CÓDIGO            | TIPO INTEIRO, (6-6)            |   SIM      |
+  	|     DESCRIÇÃO-RUA     | TIPO ALFA-NUMÉRICO (3 - 30)    |   SIM      |
+	|     TIPO              | TIPO ALFA (1 - 4)              |   SIM      |
+	|     CEP               | TIPO INTEIRO (8 - 8)           |   SIM      |
+	-----------------------------------------------------------------------
+
+
+
+// TABELA -> BAIRRO
+	
+	Páginas
+	L--> TabelaBairro.php (arquivo base)
+	L--> /recursos/includes/formulario/formularioTabelaBairro.php (formulario para (Cadastrar, Alterar, Excluir))
+	L--> /recursos/js/modalBairro.js (Java Script da página)
+	L--> /recursos/includes/listar/listarBairros.php (monta datagrid com todos os bairros cadastradas)
+		L-->Cadastrar (recursos/includes/cadastrar/cadastrarBairro.php);
+		L-->Alterar   (recursos/includes/alterar/alterarBairro.php)
+		L-->Excluir   (recursos/includes/excluir/excluirBairro.php)
+
+     _____________________________________________________________________
+	| CAMPO                 |  DESCRICAO                     | OBRIGATÓRIO|
+	|     CÓDIGO            | TIPO INTEIRO, (3-3)            |   SIM      |
+  	|     DESCRIÇÃO-BAIRRO  | TIPO ALFA-NUMÉRICO (3 - 30)    |   SIM      |
+	-----------------------------------------------------------------------
+
+
+
+
+// TABELA -> TIPO ISENCAO
+	
+	Páginas
+	L--> TabelaIsencao.php (arquivo base)
+	L--> /recursos/includes/formulario/formularioTipoIsencao.php (formulario para (Cadastrar, Alterar, Excluir))
+	L--> /recursos/js/modalTipoIsencao.js (Java Script da página)
+	L--> /recursos/includes/listar/listarTipoIsencoes.php (monta datagrid com todos os tipos de insenção cadastradas)
+		L-->Cadastrar (recursos/includes/cadastrar/cadastrarTipoIsencao.php);
+		L-->Alterar   (recursos/includes/alterar/alterarTipoIsencao.php)
+		L-->Excluir   (recursos/includes/excluir/excluirTipoIsencao.php)
+
+     _____________________________________________________________________
+	| CAMPO                 |  DESCRICAO                     | OBRIGATÓRIO|
+	|     CÓDIGO            | TIPO INTEIRO, (1 - 1)          |   SIM      |
+  	|     DESCRIÇÃO-ISENÇÃO | TIPO ALFA-NUMÉRICO (3 - 30)    |   SIM      |
+	-----------------------------------------------------------------------
+
+
+
+
+// TABELA -> TIPO COLETA DE LIXO
+	
+	Páginas
+	L--> TabelaColeta.php (arquivo base)
+	L--> /recursos/includes/formulario/formularioTabelaTipoColeta.php (formulario para (Cadastrar, Alterar, Excluir))
+	L--> /recursos/js/modalTipoIsencao.js (Java Script da página)
+	L--> /recursos/includes/listar/listarTipoColetas.php (monta datagrid com todos os tipos de coletas cadastradas)
+		L-->Cadastrar (recursos/includes/cadastrar/cadastrarTipoIsencao.php);
+		L-->Alterar   (recursos/includes/alterar/alterarTipoIsencao.php)
+		L-->Excluir   (recursos/includes/excluir/excluirTipoIsencao.php)
+
+     _____________________________________________________________________
+	| CAMPO                 |  DESCRICAO                     | OBRIGATÓRIO|
+	|     CÓDIGO            | TIPO INTEIRO, (1 - 1)          |   SIM      |
+  	|     DESCRIÇÃO-COLETA  | TIPO ALFA-NUMÉRICO (3 - 30)    |   SIM      |
+  	|     VALOR(UFIR)       | DINHEIRO QUATRO CASAS DECIMAIS |   SIM      |
+	-----------------------------------------------------------------------
+
+
+
+
+
+
 
 // INICIO DOC FUNCAO FUN_DESCONTO_INDUSTRIA
 

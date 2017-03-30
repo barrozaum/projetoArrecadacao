@@ -226,7 +226,7 @@ session_start();
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docarj <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Cadastrar</a></li>
-                                <li><a href="#">Consultar</a></li>
+                                <li><a href="ConsultaDam.php">Consultar</a></li>
                                 <li class="dropdown-submenu"> <a tabindex="-1" href="#">Emissão</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">DOCARJ não Pagos</a></li>

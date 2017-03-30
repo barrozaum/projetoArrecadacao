@@ -4,33 +4,33 @@ $(function () {
 //    adiciona formulario de numeros e anos
     $(document).on('click', '#id_seleciona_pesquisa_numero_ano', function (e) {
         $("#listar").html('');
-        buscar_formulario("recursos/includes/formulario/formularioConsultaItbi.php", 1, "formularioPesquisaItbi");
+        buscar_formulario("recursos/includes/formulario/formularioConsultaDam.php", 1, "formularioPesquisaItbi");
     });
 
 //    adiciona formulario para o campos do nome contribuinte
     $(document).on('click', '#id_seleciona_pesquisa_contribuinte', function (e) {
         $("#listar").html('');
-        buscar_formulario("recursos/includes/formulario/formularioConsultaItbi.php", 2, "formularioPesquisaItbi");
+        buscar_formulario("recursos/includes/formulario/formularioConsultaDam.php", 2, "formularioPesquisaItbi");
     });
 
 
 //    adiciona zeros no campo numero itbi
-    $(document).on('blur', '#id_numero_itbi', function (e) {
+    $(document).on('blur', '#id_numero_dam', function (e) {
         var valor = this.value;
         $(this).val(preencheZeros(valor, 6));
     });
 
 //    adiciona zeros no campo ano itbi
-    $(document).on('blur', '#id_ano_itbi', function (e) {
+    $(document).on('blur', '#id_ano_dam', function (e) {
         var valor = this.value;
         $(this).val(preencheZeros(valor, 4));
 
     });
 
 //    botão procurar numero ano
-    $(document).on('click', '#id_buscar_itbi_numero_ano', function (e) {
-        var numero = $('#id_numero_itbi').val();
-        var ano = $('#id_ano_itbi').val();
+    $(document).on('click', '#id_numero_ano_dam', function (e) {
+        var numero = $('#id_numero_dam').val();
+        var ano = $('#id_ano_dam').val();
         var msg = '';
 
 //      validar estrutura dos campos
@@ -48,18 +48,18 @@ $(function () {
             return false;
         } else { //senão executa busca
             $('#msg').html('');
-            $("#listar").html('<div style="margin-top:50px; margin-left:50%"><img src="recursos/imagens/ajax-loader.gif" alt="Atender" width="20px"></div>');
+            $("#listar").html('<div style="margin-top:50px; margin-left:50%"><img src="recursos/imagens/ajax-loader.gif" alt="loading" width="20px"></div>');
 
             $.ajax({
 //        Requisição pelo Method POST
                 method: "POST",
                 // url para o arquivo para validação
-                url: "recursos/includes/formulario/formularioConsultaItbi.php",
+                url: "recursos/includes/formulario/formularioConsultaDam.php",
 //        dados passados
                 data: {
                     id: 3,
-                    txt_numero_itbi: numero,
-                    txt_ano_itbi: ano
+                    txt_numero_dam: numero,
+                    txt_ano_dam: ano
                 },
                 // dataType json
                 dataType: "text",
@@ -72,26 +72,25 @@ $(function () {
         }
     });
 
-// botao procurar adquirinte
-    $(document).on('click', '#id_buscar_itbi_adquirinte', function (e) {
-        var adquirinte = $('#id_adquirinte').val();
-        var data_inicial = $('#id_dt_inicial').val();
-        var data_final = $('#id_dt_final').val();
-
-
-        $("#listar").html('<div style="margin-top:50px; margin-left:50%"><img src="recursos/imagens/ajax-loader.gif" alt="Atender" width="20px"></div>');
+// botao procurar contribuinte
+    $(document).on('click', '#id_buscar_dam_contribuinte', function (e) {
+        var contribuinte = $('#id_contribuinte').val();
+       
+       if(contribuinte.length < 3){
+            $('#msg').html('<div class="alert alert-danger text-center"></div>');
+       }
+       
+        $("#listar").html('<div style="margin-top:50px; margin-left:50%"><img src="recursos/imagens/ajax-loader.gif" alt="loading" width="20px"></div>');
 
         $.ajax({
 //        Requisição pelo Method POST
             method: "POST",
             // url para o arquivo para validação
-            url: "recursos/includes/listar/listarITBI.php",
+            url: "recursos/includes/listar/listarDAM.php",
 //        dados passados
             data: {
                 id: 2,
-                adquirinte: adquirinte,
-                data_incial: data_inicial,
-                data_final: data_final
+                txt_contribuinte: contribuinte,
             },
             // dataType json
             dataType: "text",

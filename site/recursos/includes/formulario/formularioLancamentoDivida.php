@@ -45,7 +45,7 @@ function formularioCadastro() {
                             <div class="col-sm-2">
                                 <?php
                                 //   INPUT - CODIGO (DIVIDA)
-                                criar_input_text('Codigo (MOEDA)', 'cod_moeda', 'cod_moeda', array(), '02');
+                                criar_input_text('Codigo (MOEDA)', 'cod_moeda', 'cod_moeda', array('readonly' => 'true'), '02');
                                 ?>
                             </div>
                             <div class="col-sm-10">
