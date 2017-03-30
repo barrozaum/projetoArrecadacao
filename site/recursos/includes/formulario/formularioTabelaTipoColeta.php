@@ -73,7 +73,7 @@ function formularioCadastro() {
                             <div class="col-sm-3">
                                 <?php
                                 //   INPUT - Descricao Tipo Coleta                             
-                                criar_input_text('Valor(UFIR)', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor(this, '.', ',', event);"), '', 'Conter apenas Numeros[0-9]');
+                                criar_input_text('Valor(UFIR)', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor_5Casas(this, '.', ',', event);"), '', 'Conter apenas Numeros[0-9]');
                                 ?>
                                 
                             </div>
