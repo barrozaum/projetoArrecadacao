@@ -8,6 +8,6 @@ function fun_retorna_descricao_cod_banco($pdo, $cod_banco) {
     if (($dados1 = $query1->fetch()) == true) {
         return $dados1['Desc_Banco'];
     } else {
-        return "NÃO ENCONTRADO";
+        return "";
     }
 }

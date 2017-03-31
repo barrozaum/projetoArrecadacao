@@ -54,10 +54,10 @@ $(function () {
 //        Requisição pelo Method POST
                 method: "POST",
                 // url para o arquivo para validação
-                url: "recursos/includes/formulario/formularioConsultaDam.php",
+                url: "recursos/includes/listar/listarDAM.php",
 //        dados passados
                 data: {
-                    id: 3,
+                    id: 1,
                     txt_numero_dam: numero,
                     txt_ano_dam: ano
                 },
@@ -75,11 +75,14 @@ $(function () {
 // botao procurar contribuinte
     $(document).on('click', '#id_buscar_dam_contribuinte', function (e) {
         var contribuinte = $('#id_contribuinte').val();
-       
-       if(contribuinte.length < 3){
-            $('#msg').html('<div class="alert alert-danger text-center"></div>');
-       }
-       
+
+        if (contribuinte.length < 3) {
+            $('#msg').html('<div class="alert alert-danger text-center">POR FAVOR PREENCHA CONTRIBUINTE DE ACORDO COM A ESPECIFICAÇÃO ABAIXO DO CAMPO</div>');
+            return false;
+        } else {
+            $('#msg').html('');
+        }
+
         $("#listar").html('<div style="margin-top:50px; margin-left:50%"><img src="recursos/imagens/ajax-loader.gif" alt="loading" width="20px"></div>');
 
         $.ajax({
