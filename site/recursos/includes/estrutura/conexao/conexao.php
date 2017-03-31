@@ -1,8 +1,7 @@
 <?php
     try {
-//       $Localizacao_Banco = "35.160.6.139";
-        $Localizacao_Banco = "BARROZO\SQLEXPRESS";
-   
+       $Localizacao_Banco = "34.208.42.129";
+     
         $nome_Base_Dados = "Japeri";
         $usuario_Banco = $_SESSION["usuario"];
         $senha_Banco = $_SESSION["senha"];
