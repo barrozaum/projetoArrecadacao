@@ -1,6 +1,6 @@
 <?php
     try {
-//       $Localizacao_Banco = "35.160.6.139";
+//      $Localizacao_Banco = "34.208.42.129";
         $Localizacao_Banco = "BARROZO\SQLEXPRESS";
    
         $nome_Base_Dados = "Japeri";

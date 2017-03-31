@@ -3,6 +3,9 @@
 --- FUN_(nomedafuncao)
 
 
+-- servidor da amazon esta com o ip publico bloqueador,
+-- utilzar o nome da maquina nos arquivos (conexao, validarLogin)
+
 // TABELA -> RUAS 
 
 	Páginas
