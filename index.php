@@ -10,6 +10,11 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <he asdasdasd>
+        asdsad
+        asd
+        as
+        dasdasd
         <script>
             location.href="site/";
         </script>
