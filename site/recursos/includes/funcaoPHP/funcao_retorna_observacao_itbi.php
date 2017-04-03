@@ -1,21 +1,24 @@
 <?php
+// inseri um campo na funcao 
+//$codigo_divida ele vai passar o código do cadastro da divida (DAM, Itbi)
 
-function FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao_enviada) {
+
+function FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $codigo_divida, $observacao_enviada) {
 //    preparo a observação enviada pelo formulario
     $observacao = $observacao_enviada . " USUÁRIO :" . $_SESSION["usuario"] . " DATA :" . date("d/m/Y");
 
 //     verifica se ibti ja tem alguma observação
-    $valor_observacao_banco = buscarObservacao($pdo, $num_itbi, $ano_itbi);
+    $valor_observacao_banco = buscarObservacao($pdo, $num_itbi, $ano_itbi, $codigo_divida);
     if ($valor_observacao_banco === "0") {
 //      persisto no banco de dados a observação atraves do comando insert
-        return FUN_INSERIR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao);
+        return FUN_INSERIR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $codigo_divida, $observacao);
         
     } else {
 //         concateno a observação do formuário com o histórico
         $observacao = $observacao . " | " . $valor_observacao_banco;
 
 //      FUNÇÃO QUE PERSISTE NO BANCO DE DADOS A OBSERVACÃO atraves do comando UPDATE         
-        return FUN_ALTERAR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao);
+        return FUN_ALTERAR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $codigo_divida, $observacao);
     }
 }
 
@@ -23,10 +26,10 @@ function FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao_en
 // caso ja contenha ele ira retornar a observação 
 // caso contrário ele ira retorna 0
 
-function buscarObservacao($pdo, $num_itbi, $ano_itbi) {
+function buscarObservacao($pdo, $num_itbi, $ano_itbi, $codigo_divida) {
     $sql_obs = "SELECT  * "
             . "FROM observacao_financ "
-            . "WHERE cod_cadastro = 4 "
+            . "WHERE cod_divida = '$codigo_divida' "
             . "AND Inscricao = '$num_itbi' "
             . "AND ano_divida = '$ano_itbi'";
 
@@ -43,9 +46,9 @@ function buscarObservacao($pdo, $num_itbi, $ano_itbi) {
 }
 
 //ESSA FUNÇÃO IRA SER EXECUTA CASO O ITBI JA CONTENHA HISTÓRICO
-function FUN_INSERIR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao_enviada) {
+function FUN_INSERIR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $codigo_divida, $observacao_enviada) {
 
-    $sql_inserir = "INSERT INTO Observacao_Financ (cod_cadastro,Inscricao, ano_divida,cod_divida, Sub_divida, Parcela, Observacao) VALUES ('4','$num_itbi', '$ano_itbi', '00', '00', '00', '$observacao_enviada')";
+    $sql_inserir = "INSERT INTO Observacao_Financ (cod_cadastro,Inscricao, ano_divida,cod_divida, Sub_divida, Parcela, Observacao) VALUES ('4','$num_itbi', '$ano_itbi', '$codigo_divida', '00', '00', '$observacao_enviada')";
 
     $executa = $pdo->query($sql_inserir);
     if ($executa) {
@@ -56,12 +59,12 @@ function FUN_INSERIR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao_env
 }
 
 //ESSA FUNÇÃO IRA SER EXECUTA CASO O ITBI JA CONTENHA HISTÓRICO
-function FUN_ALTERAR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $observacao_enviada) {
+function FUN_ALTERAR_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi,$codigo_divida, $observacao_enviada) {
 
 
     $sql_update = "UPDATE Observacao_Financ "
             . "SET Observacao= '$observacao_enviada'"
-            . "WHERE cod_cadastro =  '4' "
+            . "WHERE cod_divida =  '$codigo_divida' "
             . "AND Inscricao = '$num_itbi'"
             . "AND ano_divida = '$ano_itbi'"
             . "AND Sub_divida = '00'"

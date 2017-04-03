@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $obs_Itbi_Letra_Maiscula = "ESTORNO DO PAGAMENTO REALIZADO POR : ";
 
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, $obs_Itbi_Letra_Maiscula);
+            FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, '00', $obs_Itbi_Letra_Maiscula);
 
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */

@@ -75,7 +75,7 @@ function buscarObservacao($pdo, $num_itbi, $ano_itbi) {
     if (($dados = $query->fetch()) == true) {
         return $dados['Observacao'];
     } else {
-        return $sql;
+        return '';
     }
 }
 

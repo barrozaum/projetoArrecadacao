@@ -235,7 +235,7 @@ session_start();
                                 </li>
                                 <li class="dropdown-submenu"> <a tabindex="-1" href="#">Pagamento</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Baixa On Line</a></li>
+                                        <li><a href="BaixaOnlineDam.php">Baixa On Line</a></li>
                                         <li><a href="#">Estorno</a></li>
                                         <li><a href="#">Emissão de Comprovante</a></li>
                                     </ul>
