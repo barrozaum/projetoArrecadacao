@@ -3,6 +3,8 @@
 include_once '../estrutura/controle/validarSessao.php';
 include_once '../funcaoPHP/funcaoData.php';
 include_once '../funcaoPHP/funcaoDinheiro.php';
+include_once '../funcaoPHP/funcao_retorna_descricao_cod_banco.php';
+include_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
 
 if ($_REQUEST['op'] == '1') {
     retornaDadosItbi();
@@ -37,8 +39,8 @@ function retornaDadosItbi() {
         $ano_processo = $dados['ANO_PROCESSO_BAIXA'];
         $lote_banco = $dados['Lote'];
         $cod_banco = $dados['cod_banco'];
-        $desc_banco = buscaNomeBanco($pdo, $cod_banco);
-        $obs_itbi_pago = buscarObservacao($pdo, $numero, $ano);
+        $desc_banco = fun_retorna_descricao_cod_banco($pdo, $cod_banco);
+        $obs_itbi_pago = buscarObservacao($pdo, $numero, $ano, '00');
         $cod_situacao_itbi= $dados['cod_situacao_divida'];;
     } else {
 
@@ -79,64 +81,6 @@ function retornaDadosItbi() {
     echo json_encode($var);
 }
 
-//busca as observações
-function buscaObsItbi($pdo, $cod_banco) {
-
-
-// preparo para realizar o comando sql
-    $sql = "SELECT * FROM Banco WHERE Cod_banco = '$cod_banco'";
-    $query = $pdo->prepare($sql);
-//executo o comando sql
-    $query->execute();
-
-// Faço uma comparação para saber se a busca trouxe algum resultado
-    if (($dados = $query->fetch()) == true) {
-
-        return $dados['Desc_Banco'];
-    } else {
-
-        return "BANCO NÃO ENCONTRADO ";
-    }
-}
-
-function buscarObservacao($pdo, $num_itbi, $ano_itbi) {
-    $sql = "SELECT  * "
-            . "FROM observacao_financ "
-            . "WHERE cod_cadastro = 4 "
-            . "AND Inscricao = '$num_itbi' "
-            . "AND ano_divida = '$ano_itbi'";
-
-    $query = $pdo->prepare($sql);
-//executo o comando sql
-    $query->execute();
-
-// Faço uma comparação para saber se a busca trouxe algum resultado
-    if (($dados = $query->fetch()) == true) {
-        return $dados['Observacao'];
-    } else {
-        return "";
-    }
-}
-
-// busca o nome do Banco que houve pagamento
-function buscaNomeBanco($pdo, $cod_banco) {
-
-
-// preparo para realizar o comando sql
-    $sql = "SELECT * FROM Banco WHERE Cod_banco = '$cod_banco'";
-    $query = $pdo->prepare($sql);
-//executo o comando sql
-    $query->execute();
-
-// Faço uma comparação para saber se a busca trouxe algum resultado
-    if (($dados = $query->fetch()) == true) {
-
-        return $dados['Desc_Banco'];
-    } else {
-
-        return "BANCO NÃO ENCONTRADO ";
-    }
-}
 
 function calcularValorItbi($Tem_Multa, $valor_itbi) {
     if ($Tem_Multa == "N")

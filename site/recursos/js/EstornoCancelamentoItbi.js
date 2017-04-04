@@ -64,11 +64,13 @@ function buscarDadosItbi(param, param2) {
                 $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>IBTI Não Encontrado !!!</strong></div>');
                 tela_formulario('');
             } else {
+                console.log(data);
                 $("#id_adquirinte").val(data.campo1);
                 $("#id_transmitente").val(data.campo2);
                 $("#id_data").val(data.campo3);
                 $("#id_valor_itbi").val(data.campo4);
                 $("#id_obs_itbi").val(data.campo6);
+                $("#id_motivo_cancelamento").val(data.campo7);
                
                 if (data.campo5 === "07")
                 {

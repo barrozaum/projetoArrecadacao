@@ -52,6 +52,7 @@ function retornaDadosItbi() {
         "campo3" => "$Data_Transacao",
         "campo4" => "$Valor_Itbi",
         "campo5" => "$Situacao_divida"
+     
     );
 // convertemos em json e colocamos na tela
     echo json_encode($var);

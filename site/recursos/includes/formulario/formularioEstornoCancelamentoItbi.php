@@ -58,6 +58,12 @@ if (empty($_REQUEST['id'])) {
                                 criar_input_text('Valor ITBI', 'valor_itbi', 'valor_itbi', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'R$00,00'), '', '');
                                 ?>
                             </div>
+                            <div class="col-sm-6">
+                              <?php
+                                //   INPUT -                              
+                                criar_input_text('Motivo Cancelamento', 'motivo_cancelamento', 'motivo_cancelamento', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Motivo Cancelamento'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                                ?>  
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
