@@ -18,7 +18,6 @@ $(document).on('blur', "#id_numero_dam", function (e) {
 });
 
 
-
 // quando o campo código sofrer alteração executo
 $(document).on('blur', "#id_ano_dam", function (e) {
 // pego o valor informado no campo
@@ -36,7 +35,26 @@ $(document).on('blur', "#id_ano_dam", function (e) {
 
     }
 
-    buscarDadosItbi($('#id_numero_itbi').val(), valor);
+});
+
+
+// quando o campo código sofrer alteração executo
+$(document).on('blur', "#id_parcela", function (e) {
+// pego o valor informado no campo
+// coloco no formato correto 
+// atribuo o valor formatado na variavel valor
+    var valor = preencheZeros(this.value, 2);
+//    comparo se o valor é menor que
+    if (valor < '01') {
+//        zero o campo cdigo
+        $(this).val('01');
+
+    } else {
+//        atribuo o valor informado pelo usario no campo
+        $(this).val(valor);
+
+    }
+    buscarDadosDam(valor);
 });
 
 // quando o campo código sofrer alteração executo
@@ -77,7 +95,7 @@ $(document).on('blur', "#id_ano_processo", function (e) {
 
     }
 
-    $("#id_obs_itbi").val("Baixa conforme processo: " + $('#id_numero_processo').val() + "/" + $('#id_ano_processo').val());
+    $("#id_obs_dam").val("Baixa conforme processo: " + $('#id_numero_processo').val() + "/" + $('#id_ano_processo').val());
 });
 
 // quando o campo código sofrer alteração executo
@@ -120,44 +138,54 @@ $(document).on('blur', "#id_banco", function (e) {
 
 });
 
-function buscarDadosItbi(param, param2) {
-    $("#formularioItbi").attr("action", "recursos/includes/cadastrar/cadastrarBaixaItbiOnline.php");
+function buscarDadosDam(parcela) {
+    var numero_dam = $('#id_numero_dam').val();
+    var ano_dam = $('#id_ano_dam').val();
+    var parcela_dam = parcela;
+
+
+
+    $("#formularioDam").attr("action", "recursos/includes/cadastrar/cadastrarBaixaDamOnline.php");
     $("#msg").html('');
     $("#button").html('');
     carregaTela();
-    
+
     $.ajax({
 //      Requisição pelo Method POST
         method: "POST",
 //      url para o arquivo para validação
-        url: "recursos/includes/retornaValor/retornaBaixaOnlineItbi.php",
-  //      dados passados
+        url: "recursos/includes/retornaValor/retornaBaixaOnlineDam.php",
+        //      dados passados
         data: {
-            op: 1,
-            numero: param,
-            ano: param2
+            txt_op: 1,
+            txt_numero_dam: numero_dam,
+            txt_ano_dam: ano_dam,
+            txt_parcela_dam: parcela_dam
         },
         // dataType json
         dataType: "json",
         // função para de sucesso
         success: function (data) {
+            console.log(data);
             // vamos gerar um html e guardar nesta variável
             if (data.achou == 0) {
-                $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>IBTI Não Encontrado !!!</strong></div>');
+                $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Não Encontrado !!!</strong></div>');
                 limpaTela();
             } else {
-                $("#id_adquirinte").val(data.campo1);
+                $("#id_contribuinte").val(data.campo1);
                 $("#id_data_vencimento").val(data.campo3);
-                $("#id_valor_itbi").val(data.campo4);
+                $("#id_valor_dam").val(data.campo4);
 
                 if (data.campo5 === "07" || data.campo5 === "04")
                 {
-                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>IBTI Pago ou Cancelado </strong></div>');
+                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Pago ou Cancelado </strong></div>');
                 } else {
-                    $("#msg").html('<div class="alert alert-success" style="text-align:center; font-size:15px;"><strong>BAIXA ONLINE </strong></div>');
-                    $("#button").html('<button type="button" class="btn btn-danger" id="btn-enviar">BAIXAR ITBI ONLINE</button>');
+                    $("#msg").html('<div class="alert alert-success" style="text-align:center; font-size:15px;"><strong>BAIXA ONLINE DOCARJ (DAM) </strong></div>');
+                    $("#button").html('<button type="button" class="btn btn-danger" id="btn-enviar">BAIXAR DAM ONLINE </button>');
                 }
             }
+        }, error: function (error) {
+            console.log(error.responseText);
         }
     });//termina o ajax
 
@@ -165,9 +193,9 @@ function buscarDadosItbi(param, param2) {
 }
 
 function limpaTela() {
-    $("#id_adquirinte").val("");
+    $("#id_contribuinte").val("");
     $("#id_data_vencimento").val("");
-    $("#id_valor_itbi").val("");
+    $("#id_valor_dam").val("");
     $("#id_data").val("");
     $("#id_valor_pagamento").val("");
     $("#id_numero_processo").val("");
@@ -175,14 +203,14 @@ function limpaTela() {
     $("#id_lote").val("");
     $("#id_banco").val("");
     $("#id_descricao_banco").val("");
-    $("#id_obs_itbi").val("");
+    $("#id_obs_dam").val("");
     return;
 }
 
 function carregaTela() {
-    $("#id_adquirinte").val("...");
+    $("#id_contribuinte").val("...");
     $("#id_data_vencimento").val("...");
-    $("#id_valor_itbi").val("...");
+    $("#id_valor_dam").val("...");
     $("#id_data").val("");
     $("#id_valor_pagamento").val("");
     $("#id_numero_processo").val("");
@@ -190,7 +218,7 @@ function carregaTela() {
     $("#id_lote").val("");
     $("#id_banco").val("");
     $("#id_descricao_banco").val("");
-    $("#id_obs_itbi").val("");
+    $("#id_obs_dam").val("");
     return;
 }
 
@@ -200,11 +228,11 @@ function buscaDescricaoBanco(valor) {
 //      Requisição pelo Method POST
         method: "POST",
 //      url para o arquivo para validação
-        url: "recursos/includes/retornaValor/retornaBaixaOnlineItbi.php",
+        url: "recursos/includes/retornaValor/retornaBaixaOnlineDam.php",
 //      dados passados
         data: {
-            op: 2,
-            cod: valor
+            txt_op: 2,
+            txt_cod_banco: valor
         },
         // dataType json
         dataType: "json",
@@ -231,7 +259,7 @@ function descricaoNumeroProcesso() {
     var campNumero = $("#numeroProcesso");
     var campAno = $("#anoProcesso");
 
-    $("#obs_itbi").val("Baixa conforme processo: " + campNumero.val() + "/" + campAno.val());
+    $("#obs_dam").val("Baixa conforme processo: " + campNumero.val() + "/" + campAno.val());
 }
 
 
@@ -239,9 +267,9 @@ function descricaoNumeroProcesso() {
 $(document).on('click', '#btn-enviar', function (e) {
 //  armazeno valor dos campos do formuario em váriaveis
 
-    var adquirinte = $('#id_adquirinte').val();
+    var contribuinte = $('#id_contribuinte').val();
     var dt_vencimento = $('#id_data_vencimento').val();
-    var valor_itbi = $('#id_valor_itbi').val();
+    var valor_dam = $('#id_valor_dam').val();
     var dt_pagamento = $('#id_data').val();
     var vlr_pagamento = $('#id_valor_pagamento').val();
     var num_processo = $('#id_numero_processo').val();
@@ -255,7 +283,7 @@ $(document).on('click', '#btn-enviar', function (e) {
 
 
 
-    if (adquirinte.length < 3) {
+    if (contribuinte.length < 3) {
         msg = msg + "POR FAVOR ENTRE COM ADQUIRINTE VÁLIDO !!! <BR />";
     }
 
@@ -263,11 +291,11 @@ $(document).on('click', '#btn-enviar', function (e) {
     if (dt_vencimento === "") {
         msg = msg + "POR FAVOR ENTRE COM DATA VENCIMENTO VÁLIDA !!! <BR />";
     }
-    
 
 
-    if (valor_itbi.length < 4) {
-        msg = msg + "POR FAVOR ENTRE COM VALOR ITBI VÁLIDO !!! <BR />";
+
+    if (valor_dam.length < 4) {
+        msg = msg + "POR FAVOR ENTRE COM VALOR DAM VÁLIDO !!! <BR />";
     }
 
 
@@ -313,7 +341,7 @@ $(document).on('click', '#btn-enviar', function (e) {
     } else {
 //        limpo mensagem de erro na tela
         $('#msg_erro').html(msg);
-        $('#formularioItbi').submit();
+        $('#formularioDam').submit();
     }
 
 

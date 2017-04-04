@@ -1,4 +1,5 @@
 <?php
+//die(print_r($_POST));
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
@@ -21,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 //    aplica filtro na string enviada (LetraMaiuscula)
-    $numero_itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_itbi']);
-    $ano_itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_itbi']);
-    $adquirinte_Letra_Maiscula = letraMaiuscula($_POST['txt_adquirinte']);
+    $numero_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_dam']);
+    $ano_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_dam']);
+    $parcela_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_parcela']);
+    $contribuinte_Letra_Maiscula = letraMaiuscula($_POST['txt_contribuinte']);
     $data_vencimento_Letra_Maiscula = letraMaiuscula($_POST['txt_data_vencimento']);
-    $valor_itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_itbi']);
+    $valor_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_dam']);
     $data_pagamento_Letra_Maiscula = letraMaiuscula($_POST['txt_data_pagto']);
     $valor_pagamento_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_pagamento']);
     $numero_processo_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_processo']);
@@ -33,28 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lote_Letra_Maiscula = letraMaiuscula($_POST['txt_lote']);
     $banco_Letra_Maiscula = letraMaiuscula($_POST['txt_banco']);
     $descricao_banco_Letra_Maiscula = letraMaiuscula($_POST['txt_descricao_banco']);
-    $obs_Itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_itbi']);
+    $obs_Itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_dam']);
 
-//    NUMERO ITBI
-    if ((strlen($numero_itbi_Letra_Maiscula) == 6) || is_int($numero_itbi_Letra_Maiscula) === TRUE) {
-        $num_itbi = $numero_itbi_Letra_Maiscula;
+//    NUMERO DAM
+    if ((strlen($numero_dam_Letra_Maiscula) == 6) || is_int($numero_dam_Letra_Maiscula) === TRUE) {
+        $num_dam = $numero_dam_Letra_Maiscula;
     } else {
-        $array_erros['numero_itbi_Letra_Maiscula'] = 'POR FAVOR ENTRE COM UM NÚMERO ITBI VÁLIDO \n';
+        $array_erros['numero_dam_Letra_Maiscula'] = 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO \n';
     }
 
-//    ANO ITBI
-    if ((strlen($ano_itbi_Letra_Maiscula) == 4) || is_int($ano_itbi_Letra_Maiscula) === TRUE) {
-        $ano_itbi = $ano_itbi_Letra_Maiscula;
+//    ANO DAM
+    if ((strlen($ano_dam_Letra_Maiscula) == 4) || is_int($ano_dam_Letra_Maiscula) === TRUE) {
+        $ano_dam = $ano_dam_Letra_Maiscula;
     } else {
-        $array_erros['txt_ano_itbi'] = 'POR FAVOR ENTRE COM UM ANO ITBI VÁLIDO \n';
+        $array_erros['txt_ano_dam'] = 'POR FAVOR ENTRE COM UM ANO DAM VÁLIDO \n';
+    }
+//    PARCELA DAM
+    if ((strlen($parcela_dam_Letra_Maiscula) == 2) || is_int($parcela_dam_Letra_Maiscula) === TRUE) {
+        $parcela = $parcela_dam_Letra_Maiscula;
+    } else {
+        $array_erros['txt_parcela_dam'] = 'POR FAVOR ENTRE COM PARCELA DAM VÁLIDA \n';
     }
 
-//    ADQUIRINTE
-    if ((strlen($adquirinte_Letra_Maiscula) > 3) && (strlen($adquirinte_Letra_Maiscula) < 51)) {
-        $adquirinte = $adquirinte_Letra_Maiscula;
+//    CONTRIBUINTE
+    if ((strlen($contribuinte_Letra_Maiscula) > 3) && (strlen($contribuinte_Letra_Maiscula) < 51)) {
+        $contribuinte = $contribuinte_Letra_Maiscula;
     } else {
-        $array_erros['txt_adquirinte'] = 'POR FAVOR ENTRE COM O ADQUIRENTE VÁLIDO \n';
+        $array_erros['txt_contribuinte'] = 'POR FAVOR ENTRE COM O CONTRIBUINTE VÁLIDO \n';
     }
+
+
 
 //    DATA vencimento
 //  valida se o tipo da data está correta
@@ -65,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-//    VALOR ITBI
+//    VALOR DAM
 //       filtro pra saber se o valor está correto
-    if (is_numeric(inserirDinheiro($valor_itbi_Letra_Maiscula)) && strlen($valor_itbi_Letra_Maiscula) >= 3) {
-        $valor_Itbi = inserirDinheiro($valor_itbi_Letra_Maiscula);
+    if (is_numeric(inserirDinheiro($valor_dam_Letra_Maiscula)) && strlen($valor_dam_Letra_Maiscula) >= 3) {
+        $valor_Itbi = inserirDinheiro($valor_dam_Letra_Maiscula);
     } else {
-        $array_erros['txt_valor_itbi'] = 'POR FAVOR ENTRE COM UM VALOR ITBI VÁLIDO \n';
+        $array_erros['txt_valor_dam'] = 'POR FAVOR ENTRE COM UM VALOR DAM VÁLIDO \n';
     }
 
 
@@ -104,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ((strlen($ano_processo_Letra_Maiscula) == 4) || is_int($ano_processo_Letra_Maiscula) === TRUE) {
         $ano_Processo = $ano_processo_Letra_Maiscula;
     } else {
-        $array_erros['txt_ano_itbi'] = 'POR FAVOR ENTRE COM UM ANO PROCESSO VÁLIDO \n';
+        $array_erros['txt_ano_dam'] = 'POR FAVOR ENTRE COM UM ANO PROCESSO VÁLIDO \n';
     }
 
 
@@ -151,20 +161,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //      Comando sql a ser executado  
 
-        $sql = "UPDATE itbi SET ";
-        $sql = $sql . "cod_situacao_divida ='04',";
-        $sql = $sql . "data_pagamento ='$data_Pagamento',";
-        $sql = $sql . "valor_pagamento ='$valor_Pagamento',";
-        $sql = $sql . "Cod_Banco ='$banco',";
-        $sql = $sql . "Lote ='$lote',";
-        $sql = $sql . "NUM_PROCESSO_BAIXA ='$numero_Processo',";
-        $sql = $sql . "ANO_PROCESSO_BAIXA ='$ano_Processo',";
-        $sql = $sql . "tipo_pagto ='M',";
-        $sql = $sql . "usuario_pagto = '$usuario_logado',";
-        $sql = $sql . "estacao_pagto = '$hostname',";
-        $sql = $sql . "dia_hora_pagto ='$dia_hora_pagamento'";
-        $sql = $sql . " WHERE Num_ITBI ='$num_itbi' ";
-        $sql = $sql . " AND Ano_ITBI ='$ano_itbi' ";
+
+
+
+        $sql = "UPDATE Financeiro_Dam SET ";
+        $sql = $sql . " Cod_Situacao_divida ='04',";
+        $sql = $sql . " Data_Pagamento ='$data_Pagamento',";
+        $sql = $sql . " Valor_Pagamento ='$valor_Pagamento',";
+        $sql = $sql . " Cod_Banco ='$banco',";
+        $sql = $sql . " Lote ='$lote'"; 
+//        $sql = $sql . " NUM_PROCESSO_BAIXA ='$numero_Processo',";
+//        $sql = $sql . " ANO_PROCESSO_BAIXA ='$ano_Processo',";
+//        $sql = $sql . " tipo_pagto ='M',";
+//        $sql = $sql . " usuario_pagto = '$usuario_logado',";
+//        $sql = $sql . " estacao_pagto = '$hostname',";
+//        $sql = $sql . " dia_hora_pagto ='$dia_hora_pagamento'";
+        $sql = $sql . " WHERE Num_Dam ='$num_dam' ";
+        $sql = $sql . " AND Ano_DAM ='$ano_dam' ";
+        $sql = $sql . " AND Parcela = '$parcela'  ";
 
 
 //      execução com comando sql    
@@ -174,13 +188,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$executa) {
 //          Caso tenha errro 
 //          lanço erro na tela
-            die('<script>window.alert("ERROR AO REALIZAR BAIXA  !!!");location.href = "../../../BaixaOnlineItbi.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
+            die('<script>window.alert("ERROR AO REALIZAR BAIXA  !!!");//location.href = "../../../BaixaOnlineItbi.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
         } else {
 //            inclusão da biblioteca para cadastrar observação itbi
-            require_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
+            require_once '../funcaoPHP/funcao_retorna_observacao_dam.php';
 
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO($pdo, 4, $num_itbi, $ano_itbi,  $obs_Itbi_Letra_Maiscula);
+            FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_dam, $ano_dam, '00', $obs_Itbi_Letra_Maiscula);
 
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
@@ -191,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Dispara mensagem de sucesso -->
         <script>
             window.alert("<?php echo "BAIXA EFETUADA COM SUCESSO !!!"; ?> ");
-            location.href = "../../../BaixaOnlineItbi.php";
+        //            location.href = "../../../BaixaOnlineItbi.php";
         </script>
 
         <?php
@@ -203,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../BaixaOnlineItbi.php";
+//               location.href = "../../../BaixaOnlineItbi.php";
         </script>';
     }
 

@@ -317,7 +317,7 @@ $sql = $sql . " WHERE Inscricao_Imob = '$inscricao_imob'";
 
 $executa = $pdo->query($sql);
 if (!$executa) {
-    die("Erro na realização do procedimento");
+      die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
 }
 
 
@@ -328,7 +328,7 @@ $sql_delete_alugados = "DELETE FROM Alugado_Pela_Prefeitura WHERE Inscricao_Imob
 
 $executa = $pdo->query($sql_delete_alugados);
 if (!$executa) {
-    die("Erro na realização do procedimento");
+      die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
 }
 
 
@@ -364,7 +364,7 @@ if ($_POST) {
             $sql_alugado = $sql_alugado . "'$dataFinalDocumento[$i]') ";
             $executa_alugado = $pdo->query($sql_alugado);
             if (!$executa_alugado) {
-                die("Erro na realização do procedimento");
+                  die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
             }
         }
     }
@@ -388,7 +388,7 @@ if ($_POST['observacao_imovel'] != "") {
 
 
     if (!$executa_observacao) {
-        die("Erro na realização do procedimento");
+          die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
     }
 }
 

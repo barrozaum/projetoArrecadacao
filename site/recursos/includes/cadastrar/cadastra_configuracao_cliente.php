@@ -139,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = $sql . "uf =  '$uf_empresa', ";
         $sql = $sql . "cidade =  '$cidade_empresa', ";
         $sql = $sql . "complemento =  '$complemento_end_empresa' ";
+
 //      execução com comando sql    
         $executa = $pdo->query($sql);
 //      Verifico se comando foi realizado      
@@ -188,11 +189,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                location.href = "../../../Man_Configuracao.php";
         </script>';
     }
-
-
-
-
-
 
 
 // if($_SERVER['REQUEST_METHOD'] === 'POST'){ 

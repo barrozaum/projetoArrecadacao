@@ -32,7 +32,7 @@ set_time_limit(0); //coloco para não haver limite de tempo
                         <th>Inscrição</th>
                         <th>Adquirente</th>
                         <th>Transmitente</th>
-                        <th>Alterar</th>
+                        <th>Consultar</th>
 
                     </tr>
                 </thead>
@@ -73,7 +73,7 @@ set_time_limit(0); //coloco para não haver limite de tempo
                             <td><?php echo $dados['Inscricao_Imob']; ?></td>
                             <td><?php echo $dados['Adquirente']; ?></td>
                             <td><?php echo $dados['Transmitente']; ?></td>
-                            <td><a href="#" id="edit-consultar" data-id="<?php echo $dados['Num_Itbi'] . "|" . $dados['Ano_Itbi']; ?>"><img src="recursos/imagens/estrutura/lupa.png" height="20px;" alt="alterar"></a></td>
+                            <td align="center"><a href="#" id="edit-consultar" data-id="<?php echo $dados['Num_Itbi'] . "|" . $dados['Ano_Itbi']; ?>"><img src="recursos/imagens/estrutura/lupa.png" height="20px;" alt="alterar"></a></td>
                         </tr>
 
                         <?php

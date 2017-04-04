@@ -60,7 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = $sql . " Cod_Banco  = null ,";
         $sql = $sql . " Lote  = null ,";
         $sql = $sql . " Num_Processo_Baixa  = null ,";
-        $sql = $sql . " Ano_Processo_Baixa  = null ";
+        $sql = $sql . " Ano_Processo_Baixa  = null, ";
+        $sql = $sql . " tipo_pagto = '',";
+        $sql = $sql . " usuario_pagto = '',";
+        $sql = $sql . " estacao_pagto = '',";
+        $sql = $sql . " dia_hora_pagto = null";
         $sql = $sql . " WHERE Num_Itbi = '$num_itbi' AND Ano_Itbi = '$ano_itbi' ";
 
 
@@ -71,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$executa) {
 //          Caso tenha errro 
 //          lanço erro na tela
-            die('<script>window.alert("ERROR AO REALIZAR ESTORNO PAGAMENTO  !!!");//location.href = "../../../EstornoPagamentoItbi.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
+            die('<script>window.alert("ERROR AO REALIZAR ESTORNO PAGAMENTO  !!!");location.href = "../../../EstornoPagamentoItbi.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
         } else {
 //            inclusão da biblioteca para cadastrar observação itbi
             require_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
@@ -79,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $obs_Itbi_Letra_Maiscula = "ESTORNO DO PAGAMENTO REALIZADO POR : ";
 
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_itbi, $ano_itbi, '00', $obs_Itbi_Letra_Maiscula);
-
+            FUN_CONTROLE_OBSERVACAO($pdo, 4, $num_itbi, $ano_itbi, $obs_Itbi_Letra_Maiscula);
+          
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
         }

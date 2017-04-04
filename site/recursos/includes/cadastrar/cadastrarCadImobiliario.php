@@ -394,7 +394,8 @@ $sql = $sql . ")";
 
 $executa = $pdo->query($sql);
 if (!$executa) {
-    die("Erro na realização do procedimento");
+    die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
+        
 }
 
 
@@ -432,7 +433,7 @@ if ($_POST) {
 
             $executa_alugado = $pdo->query($sql_alugado);
             if (!$executa_alugado) {
-                die("Erro na realização do procedimento");
+                  die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
             }
         }
     }
@@ -445,7 +446,7 @@ $observacao_imovel = $_POST['observacao_imovel'] . " USUÁRIO :" . $_SESSION["us
 $sql_observacao = "INSERT INTO observacao_imob (Inscricao_imob, Observacao) VALUES ('$inscricao_imob', '$observacao_imovel') ";
 $executa_observacao = $pdo->query($sql_observacao);
 if (!$executa_observacao) {
-    die("Erro na realização do procedimento");
+       die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
 }
 
 
@@ -456,7 +457,7 @@ if (comparaProximoNumero($pdo, $inscricao_imob) == 0) {
     $sql_sisparametro = "UPDATE SisParametros SET Prox_Inscricao_Imob = '$proxima_inscricao'";
     $executa_sisparametro = $pdo->query($sql_sisparametro);
     if (!$executa_sisparametro) {
-        die("Erro na realização do procedimento");
+           die('<script>window.alert("ERROR AO REALIZAR CADASTRO IMOBILIÁRIO  !!!");location.href = "../../../CadastroImovel.php";</script>'); 
     }
 }
 

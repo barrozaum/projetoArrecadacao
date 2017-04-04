@@ -459,7 +459,7 @@ function formularioCadastro($pdo) {
                         <button type="submit" class="btn btn-success" >Calcular</button>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button type="button" class="btn btn-danger" onclick="window.close()">Sair</button>
+                        <button type="button" class="btn btn-danger" onclick="javascript:location.href='CadastroImovel.php'">Sair</button>
                     </div>
                 </div>
             </div>

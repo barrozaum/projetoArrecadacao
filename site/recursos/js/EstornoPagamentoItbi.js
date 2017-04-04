@@ -39,46 +39,6 @@ $(document).on('blur', "#id_ano_itbi", function (e) {
     buscarDadosItbi($('#id_numero_itbi').val(), valor);
 });
 
-// quando o campo código sofrer alteração executo
-$(document).on('blur', "#id_numero_processo", function (e) {
-// pego o valor informado no campo
-// coloco no formato correto 
-// atribuo o valor formatado na variavel valor
-    var valor = preencheZeros(this.value, 6);
-//    comparo se o valor é menor que
-    if (valor < '000001') {
-//        zero o campo cdigo
-        $(this).val('00000');
-
-    } else {
-//        atribuo o valor informado pelo usario no campo
-        $(this).val(valor);
-
-    }
-
-});
-
-
-
-// quando o campo código sofrer alteração executo
-$(document).on('blur', "#id_ano_processo", function (e) {
-// pego o valor informado no campo
-// coloco no formato correto 
-// atribuo o valor formatado na variavel valor
-    var valor = preencheZeros(this.value, 4);
-//    comparo se o valor é menor que
-    if (valor < '0001') {
-//        zero o campo cdigo
-        $(this).val('0000');
-
-    } else {
-//        atribuo o valor informado pelo usario no campo
-        $(this).val(valor);
-
-    }
-
-    $("#id_obs_itbi").val("Baixa conforme processo: " + $('#id_numero_processo').val() + "/" + $('#id_ano_processo').val());
-});
 
 // quando o campo código sofrer alteração executo
 $(document).on('blur', "#id_lote", function (e) {
@@ -114,7 +74,7 @@ $(document).on('blur', "#id_banco", function (e) {
     } else {
 //        atribuo o valor informado pelo usario no campo
         $(this).val(valor);
-        buscaDescricaoBanco(valor);
+     
     }
 
 
@@ -167,6 +127,8 @@ function buscarDadosItbi(param, param2) {
                     $("#button").html(' <button type="SUBMIT" class="btn btn-danger">Estornar Pagamento</button>');
                 }
             }
+        }, error: function (error) {
+            console.log(error.responseText);
         }
     });//termina o ajax
 
@@ -202,47 +164,6 @@ function carregaTela() {
     $("#id_obs_itbi").val("");
     return;
 }
-
-function buscaDescricaoBanco(valor) {
-
-    $.ajax({
-//      Requisição pelo Method POST
-        method: "POST",
-//      url para o arquivo para validação
-        url: "recursos/includes/retornaValor/retornaBaixaOnlineItbi.php",
-//      dados passados
-        data: {
-            op: 2,
-            cod: valor
-        },
-        // dataType json
-        dataType: "json",
-        // função para de sucesso
-        success: function (data) {
-            if (data.achou == 1) {
-                $("#id_descricao_banco").val(data.descricao);
-                $("#msg_banco").html("");
-            } else {
-                $("#id_descricao_banco").val("");
-                $("#msg_banco").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>BANCO NÃO ENCONTRADO !!!</strong></div>');
-            }
-        }, error: function (error) {
-            console.log(error.responseText);
-        }
-
-    }); //termina o ajax
-
-
-}
-
-function descricaoNumeroProcesso() {
-
-    var campNumero = $("#numeroProcesso");
-    var campAno = $("#anoProcesso");
-
-    $("#obs_itbi").val("Baixa conforme processo: " + campNumero.val() + "/" + campAno.val());
-}
-
 
 //validação dos campos
 $(document).on('click', '#btn-enviar', function (e) {

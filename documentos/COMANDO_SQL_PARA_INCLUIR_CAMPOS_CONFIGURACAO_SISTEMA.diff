@@ -1,8 +1,24 @@
 --- comando sql para criar campos 
+--- Tabela configuracao_sistema
 --- numero varchar(5)
 --- complemento varchar(30)
 --- cidade varchar(20)
 --- uf varchar(2)
+
+ALTER TABLE configuracao_sistema
+ADD CNPJ_Prefeitura varchar(20)
+
+
+ALTER TABLE configuracao_sistema
+ADD Endereco_Prefeitura varchar(40)
+
+
+ALTER TABLE configuracao_sistema
+ADD Bairro_Prefeitura varchar(20)
+
+
+ALTER TABLE configuracao_sistema
+ADD Cep_Prefeitura varchar(9)
 
 ALTER TABLE configuracao_sistema
 ADD numero varchar(5)
@@ -17,4 +33,30 @@ ALTER TABLE configuracao_sistema
 ADD uf varchar(2)
 
 
---- FIM DO COMANDO 
+
+--- Verifiquei um problema na tabela Alugado_Pela_Prefeitura, ela n está permitindo que eu cadastre mais de um processo
+ALTER TABLE [dbo].[Alugado_Pela_Prefeitura]  
+DROP  CONSTRAINT [PK_Alugado_Pela_Prefeitura_1__10]     
+GO
+ALTER TABLE [dbo].[Alugado_Pela_Prefeitura]
+ALTER COLUMN [Processo] [char](20) NOT NULL
+GO
+ALTER TABLE [dbo].[Alugado_Pela_Prefeitura] WITH NOCHECK ADD 
+CONSTRAINT [PK_Alugado_Pela_Prefeitura_1__10] PRIMARY KEY  NONCLUSTERED 
+	(
+		[Inscricao_Imob],
+		[Processo]
+	)  ON [PRIMARY] 
+GO
+
+--- adicionando numero_processo_baixa, ano_processo_baixa
+
+ALTER TABLE [dbo].[Itbi]
+ADD [NUM_PROCESSO_BAIXA] [char](6) NULL,
+	[ANO_PROCESSO_BAIXA] [char](4) NULL
+GO
+
+ALTER TABLE [dbo].[log_Itbi]
+ADD [NUM_PROCESSO_BAIXA] [char](6) NULL,
+	[ANO_PROCESSO_BAIXA] [char](4) NULL
+GO

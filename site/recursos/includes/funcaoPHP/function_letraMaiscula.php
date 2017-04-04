@@ -64,6 +64,7 @@ function aplicar_filtro_string($filtra_string) {
     $filtra_string = str_replace("ù", "u", $filtra_string);
     $filtra_string = str_replace("û", "u", $filtra_string);
     $filtra_string = str_replace("ü", "u", $filtra_string);
+    $filtra_string = str_replace("   ", "", $filtra_string);
 
 
 //    Letra C
