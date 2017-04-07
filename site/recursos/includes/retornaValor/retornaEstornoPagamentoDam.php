@@ -5,8 +5,9 @@ include_once '../funcaoPHP/funcaoData.php';
 include_once '../funcaoPHP/funcaoDinheiro.php';
 include_once '../estrutura/conexao/conexao.php';
 include_once '../funcaoPHP/funcao_retorna_descricao_cod_banco.php';
+include_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
 
-if ($_REQUEST['txt_op'] == '1') {
+if ($_POST['txt_op'] == '1') {
     retornaDadosDam($pdo);
     die();
 }
@@ -41,13 +42,25 @@ function retornaDadosDam($pdo) {
         $contrinbuinte = $dados['Nome_Contribuinte'];
         $Data_Vencimento = dataBrasileiro($dados['Vencimento']);
         $Valor_dam = mostrarDinheiro($dados['Valor']);
+        $Data_Pagamento = dataBrasileiro($dados['Data_Pagamento']);
+        $Valor_Pagamento= mostrarDinheiro($dados['Valor_Pagamento']);
+        $Lote= $dados['Lote'];
+        $Cod_Banco= $dados['Cod_Banco'];
+        $Desc_Banco= fun_retorna_descricao_cod_banco($pdo, $dados['Cod_Banco']);
         $Situacao_divida = $dados['Cod_Situacao_divida'];
+        $obs_dam_pago = buscarObservacao($pdo, 3, $numero, $ano, '00', $parcela);
     } else {
 
         $achou = "0";
         $contrinbuinte = "";
         $Data_Vencimento = "";
         $Valor_dam = "";
+        $Data_Pagamento = "";
+        $Valor_Pagamento = "";
+        $Lote = "";
+        $Cod_Banco = "";
+        $Desc_Banco = "";
+        $obs_dam_pago = "";
         $Situacao_divida = "";
     }
     $pdo = null;
@@ -56,9 +69,15 @@ function retornaDadosDam($pdo) {
     $var = Array(
         "achou" => "$achou",
         "campo1" => "$contrinbuinte",
-        "campo3" => "$Data_Vencimento",
-        "campo4" => "$Valor_dam",
-        "campo5" => "$Situacao_divida"
+        "campo2" => "$Data_Vencimento",
+        "campo3" => "$Valor_dam",
+        "campo4" => "$Data_Pagamento",
+        "campo5" => "$Valor_Pagamento",
+        "campo6" => "$Lote",
+        "campo7" => "$Cod_Banco",
+        "campo8" => "$Desc_Banco",
+        "campo9" => "$obs_dam_pago",
+        "campo12" => "$Situacao_divida"
     );
 // convertemos em json e colocamos na tela
     echo json_encode($var);
