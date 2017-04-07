@@ -48,6 +48,7 @@ $(document).on('blur', "#id_parcela", function (e) {
     if (valor < '01') {
 //        zero o campo cdigo
         $(this).val('01');
+        valor = '01';
 
     } else {
 //        atribuo o valor informado pelo usario no campo

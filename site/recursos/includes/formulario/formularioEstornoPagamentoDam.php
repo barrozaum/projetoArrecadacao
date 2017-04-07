@@ -9,7 +9,7 @@ include_once '../funcaoPHP/funcaoCriacaoInput.php';
 if (empty($_REQUEST['id'])) {
     ?>
 
-    <form  method="post" action="" name="formularioItbi" id="formularioItbi">   <!-- inicio do formulário --> 
+    <form  method="post" action="" name="formularioDam" id="formularioDam">   <!-- inicio do formulário --> 
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div id="msg"></div>
             <div id="msg_erro"></div>
@@ -80,7 +80,7 @@ if (empty($_REQUEST['id'])) {
 
                             </div>
 
-                            <div class="col-sm-3">
+<!--                            <div class="col-sm-3">
                                 <?php
                                 //   INPUT -                      
                                 criar_input_text('Número Processo', 'numero_processo', 'numero_processo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '6', 'placeholder' => '000000', 'onkeypress' => 'return SomenteNumero(event)'), '');
@@ -91,7 +91,7 @@ if (empty($_REQUEST['id'])) {
                                 //   INPUT -                      
                                 criar_input_text('Ano Processo', 'ano_processo', 'ano_processo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '4', 'placeholder' => '0000', 'onkeypress' => 'return SomenteNumero(event)'), '');
                                 ?>
-                            </div>
+                            </div>-->
 
                         </div> 
                         <div class="row">

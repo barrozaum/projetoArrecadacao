@@ -36,7 +36,7 @@ $(document).on('blur', "#id_ano_dam", function (e) {
 
     }
 
-  
+
 });
 
 // quando o campo código sofrer alteração executo
@@ -46,17 +46,17 @@ $(document).on('blur', "#id_parcela", function (e) {
 // atribuo o valor formatado na variavel valor
     var valor = preencheZeros(this.value, 2);
 //    comparo se o valor é menor que
-    if (valor < '0001') {
+    if (valor < '01') {
 //        zero o campo cdigo
-        $(this).val('0000');
+        $(this).val('01');
+        valor = '01';
 
     } else {
 //        atribuo o valor informado pelo usario no campo
         $(this).val(valor);
 
     }
-
-     buscarDadosDam(valor);
+    buscarDadosDam(valor);
 });
 
 
@@ -94,7 +94,7 @@ $(document).on('blur', "#id_banco", function (e) {
     } else {
 //        atribuo o valor informado pelo usario no campo
         $(this).val(valor);
-     
+
     }
 
 
@@ -104,19 +104,19 @@ function buscarDadosDam(parcela) {
     var numero_dam = $('#id_numero_dam').val();
     var ano_dam = $('#id_ano_dam').val();
     var parcela_dam = parcela;
-    
-    
-    $("#formularioItbi").attr("action", "recursos/includes/cadastrar/cadastrarEstornoPagamentoDam.php");
+
+
+    $("#formularioDam").attr("action", "recursos/includes/cadastrar/cadastrarEstornoPagamentoDam.php");
     $("#msg").html('');
     $("#button").html('');
     carregaTela();
-    
+
     $.ajax({
 //      Requisição pelo Method POST
         method: "POST",
 //      url para o arquivo para validação
         url: "recursos/includes/retornaValor/retornaEstornoPagamentoDam.php",
-  //      dados passados
+        //      dados passados
         data: {
             txt_op: 1,
             txt_numero_dam: numero_dam,
@@ -138,17 +138,15 @@ function buscarDadosDam(parcela) {
                 $("#id_valor_dam").val(data.campo3);
                 $("#id_data").val(data.campo4);
                 $("#id_valor_pagamento").val(data.campo5);
-                $("#id_numero_processo").val(data.campo6);
-                $("#id_ano_processo").val(data.campo7);
-                $("#id_lote").val(data.campo8);
-                $("#id_banco").val(data.campo9);
-                $("#id_descricao_banco").val(data.campo10);
-                $("#id_obs_dam").val(data.campo11);
+                $("#id_lote").val(data.campo6);
+                $("#id_banco").val(data.campo7);
+                $("#id_descricao_banco").val(data.campo8);
+                $("#id_obs_dam").val(data.campo9);
 
 
                 if (data.campo12 != "04")
                 {
-                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>IBTI NÃO Pago ou Cancelado </strong></div>');
+                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DAM NÃO PAGO OU CANCELADO </strong></div>');
                 } else {
                     $("#button").html(' <button type="SUBMIT" class="btn btn-danger">Estornar Pagamento</button>');
                 }
@@ -166,8 +164,6 @@ function limpaTela() {
     $("#id_data_vencimento").val("");
     $("#id_valor_dam").val("");
     $("#id_data").val("");
-    $("#id_valor_pagamento").val("");
-    $("#id_numero_processo").val("");
     $("#id_ano_processo").val("");
     $("#id_lote").val("");
     $("#id_banco").val("");
@@ -182,8 +178,6 @@ function carregaTela() {
     $("#id_valor_dam").val("...");
     $("#id_data").val("");
     $("#id_valor_pagamento").val("");
-    $("#id_numero_processo").val("");
-    $("#id_ano_processo").val("");
     $("#id_lote").val("");
     $("#id_banco").val("");
     $("#id_descricao_banco").val("");
@@ -195,13 +189,11 @@ function carregaTela() {
 $(document).on('click', '#btn-enviar', function (e) {
 //  armazeno valor dos campos do formuario em váriaveis
 
-    var adquirinte = $('#id_adquirinte').val();
-    var dt_transacao = $('#id_data_transacao').val();
-    var valor_itbi = $('#id_valor_itbi').val();
+    var adquirinte = $('#id_contribuinte').val();
+    var dt_transacao = $('#id_data_vencimento').val();
+    var valor_itbi = $('#id_valor_dam').val();
     var dt_pagamento = $('#id_data').val();
     var vlr_pagamento = $('#id_valor_pagamento').val();
-    var num_processo = $('#id_numero_processo').val();
-    var ano_processo = $('#id_ano_processo').val();
     var lote = $('#id_lote').val();
     var banco = $('#id_banco').val();
     var descricao_banco = $('#id_descricao_banco').val();
@@ -231,7 +223,7 @@ $(document).on('click', '#btn-enviar', function (e) {
 
 
     if (valor_itbi.length < 4) {
-        msg = msg + "POR FAVOR ENTRE COM VALOR ITBI VÁLIDO !!! <BR />";
+        msg = msg + "POR FAVOR ENTRE COM VALOR DAM VÁLIDO !!! <BR />";
     }
 
 
@@ -251,23 +243,14 @@ $(document).on('click', '#btn-enviar', function (e) {
     if (vlr_pagamento.length < 4) {
         msg = msg + "POR FAVOR ENTRE COM VALOR PAGAMENTO  VÁLIDO !!! <BR />";
     }
-    if ((num_processo.length < 5) || (num_processo < 000001)) {
-        msg = msg + "POR FAVOR ENTRE COM NÚMERO PROCESSO VÁLIDO !!! <BR />";
-    }
-    if ((ano_processo.length < 3) || (ano_processo < 0001)) {
-        msg = msg + "POR FAVOR ENTRE COM ANO PROCESSO VÁLIDO !!! <BR />";
-    }
 
-    if ((lote.length < 3) || (ano_processo < 0001)) {
+    if (lote.length < 3) {
         msg = msg + "POR FAVOR ENTRE COM LOTE VÁLIDO !!! <BR />";
     }
 
-    if ((banco.length < 2) || (ano_processo < 001) || (descricao_banco.length < 2)) {
+    if ((banco.length < 2) || (descricao_banco.length < 2)) {
         msg = msg + "POR FAVOR ENTRE COM BANCO VÁLIDO !!! <BR />";
     }
-
-
-
 
 
     if (msg !== "") {
@@ -277,7 +260,7 @@ $(document).on('click', '#btn-enviar', function (e) {
     } else {
 //        limpo mensagem de erro na tela
         $('#msg_erro').html(msg);
-        $('#formularioItbi').submit();
+        $('#formularioDam').submit();
     }
 
 
