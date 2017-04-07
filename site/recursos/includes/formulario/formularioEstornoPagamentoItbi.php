@@ -16,7 +16,7 @@ if (empty($_REQUEST['id'])) {
             <div class="well"><!-- div que coloca a cor no formulário -->
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
-                    <div class="panel-heading text-center">ESTORNO PAGAMENTO</div>
+                    <div class="panel-heading text-center">ESTORNO PAGAMENTO (ITBI)</div>
                     <div class="panel-body">
                         <!-- inicio dados inscrição-->
                         <div class="row">

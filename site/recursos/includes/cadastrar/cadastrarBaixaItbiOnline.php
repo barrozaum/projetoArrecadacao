@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../BaixaOnlineItbi.php";
+//               location.href = "../../../BaixaOnlineItbi.php";
         </script>';
     }
 

@@ -36,7 +36,7 @@ function retornaDadosItbi() {
         $Data_Transacao = dataBrasileiro($dados['Data_Transacao']);
         $Valor_Itbi = mostrarDinheiro($dados['Valor_Itbi']);
         $Situacao_divida = $dados['cod_situacao_divida'];
-        $observacao = buscarObservacao($pdo, 4, $numero, $ano, '00');
+        $observacao = buscarObservacao($pdo, 4, $numero, $ano, '00', '00');
         $motivo_cancelamento = retorna_descricao_cod_mot_cancelamento($pdo, $dados['Cod_Motivo_Cancelamento']);
     } else {
 

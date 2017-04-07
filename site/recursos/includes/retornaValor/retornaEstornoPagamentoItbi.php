@@ -40,7 +40,7 @@ function retornaDadosItbi() {
         $lote_banco = $dados['Lote'];
         $cod_banco = $dados['cod_banco'];
         $desc_banco = fun_retorna_descricao_cod_banco($pdo, $cod_banco);
-        $obs_itbi_pago = buscarObservacao($pdo, 4, $numero, $ano);
+        $obs_itbi_pago = buscarObservacao($pdo, 4, $numero, $ano, '00', '00');
         $cod_situacao_itbi= $dados['cod_situacao_divida'];;
     } else {
 

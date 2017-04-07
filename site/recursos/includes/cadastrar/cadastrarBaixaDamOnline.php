@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lote_Letra_Maiscula = letraMaiuscula($_POST['txt_lote']);
     $banco_Letra_Maiscula = letraMaiuscula($_POST['txt_banco']);
     $descricao_banco_Letra_Maiscula = letraMaiuscula($_POST['txt_descricao_banco']);
-    $obs_Itbi_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_dam']);
+    $obs_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_dam']);
 
 //    NUMERO DAM
     if ((strlen($numero_dam_Letra_Maiscula) == 6) || is_int($numero_dam_Letra_Maiscula) === TRUE) {
@@ -188,13 +188,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$executa) {
 //          Caso tenha errro 
 //          lanço erro na tela
-            die('<script>window.alert("ERROR AO REALIZAR BAIXA  !!!");//location.href = "../../../BaixaOnlineItbi.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
+            die('<script>window.alert("ERROR AO REALIZAR BAIXA  !!!");location.href = "../../../BaixaOnlineDam.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
         } else {
 //            inclusão da biblioteca para cadastrar observação itbi
-            require_once '../funcaoPHP/funcao_retorna_observacao_dam.php';
+            require_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
 
+            
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO_ITBI($pdo, $num_dam, $ano_dam, '00', $obs_Itbi_Letra_Maiscula);
+            FUN_CONTROLE_OBSERVACAO($pdo, 3, $num_dam, $ano_dam , $obs_dam_Letra_Maiscula, '00', $parcela);
 
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
@@ -205,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Dispara mensagem de sucesso -->
         <script>
             window.alert("<?php echo "BAIXA EFETUADA COM SUCESSO !!!"; ?> ");
-        //            location.href = "../../../BaixaOnlineItbi.php";
+                    location.href = "../../../BaixaOnlineDam.php";
         </script>
 
         <?php
@@ -217,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-//               location.href = "../../../BaixaOnlineItbi.php";
+//               location.href = "../../../BaixaOnlineDam.php";
         </script>';
     }
 
