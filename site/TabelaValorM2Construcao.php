@@ -40,7 +40,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaValorM2Construcao.php');
                 $('#listar').load('recursos/includes/listar/listarValorM2Construcoes.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
 
             }
          </script>

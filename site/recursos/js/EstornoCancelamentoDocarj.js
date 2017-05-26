@@ -1,5 +1,5 @@
 // quando o campo código sofrer alteração executo
-$(document).on('blur', "#id_numero_dam", function (e) {
+$(document).on('blur', "#id_numero_Docarj", function (e) {
 // pego o valor informado no campo
 // coloco no formato correto 
 // atribuo o valor formatado na variavel valor
@@ -19,7 +19,7 @@ $(document).on('blur', "#id_numero_dam", function (e) {
 
 
 // quando o campo código sofrer alteração executo
-$(document).on('blur', "#id_ano_dam", function (e) {
+$(document).on('blur', "#id_ano_Docarj", function (e) {
 // pego o valor informado no campo
 // coloco no formato correto 
 // atribuo o valor formatado na variavel valor
@@ -55,7 +55,7 @@ $(document).on('blur', "#id_parcela", function (e) {
         $(this).val(valor);
 
     }
-    buscarDadosDam(valor);
+    buscarDadosDocarj(valor);
 });
 
 // quando o campo código sofrer alteração executo
@@ -96,7 +96,7 @@ $(document).on('blur', "#id_ano_processo", function (e) {
 
     }
 
-    $("#id_obs_dam").val("Baixa conforme processo: " + $('#id_numero_processo').val() + "/" + $('#id_ano_processo').val());
+    $("#id_obs_Docarj").val("Baixa conforme processo: " + $('#id_numero_processo').val() + "/" + $('#id_ano_processo').val());
 });
 
 // quando o campo código sofrer alteração executo
@@ -139,14 +139,14 @@ $(document).on('blur', "#id_banco", function (e) {
 
 });
 
-function buscarDadosDam(parcela) {
-    var numero_dam = $('#id_numero_dam').val();
-    var ano_dam = $('#id_ano_dam').val();
-    var parcela_dam = parcela;
+function buscarDadosDocarj(parcela) {
+    var numero_Docarj = $('#id_numero_Docarj').val();
+    var ano_Docarj = $('#id_ano_Docarj').val();
+    var parcela_Docarj = parcela;
 
 
 
-    $("#formularioDam").attr("action", "recursos/includes/cadastrar/cadastrarBaixaDamOnline.php");
+    $("#formularioDocarj").attr("action", "recursos/includes/cadastrar/cadastrarEstornoCancelamentoDocarj.php");
     $("#msg").html('');
     $("#button").html('');
     carregaTela();
@@ -155,13 +155,13 @@ function buscarDadosDam(parcela) {
 //      Requisição pelo Method POST
         method: "POST",
 //      url para o arquivo para validação
-        url: "recursos/includes/retornaValor/retornaBaixaOnlineDam.php",
+        url: "recursos/includes/retornaValor/retornaEstornoCancelamentoDocarj.php",
         //      dados passados
         data: {
             txt_op: 1,
-            txt_numero_dam: numero_dam,
-            txt_ano_dam: ano_dam,
-            txt_parcela_dam: parcela_dam
+            txt_numero_Docarj: numero_Docarj,
+            txt_ano_Docarj: ano_Docarj,
+            txt_parcela_Docarj: parcela_Docarj
         },
         // dataType json
         dataType: "json",
@@ -170,19 +170,21 @@ function buscarDadosDam(parcela) {
             console.log(data);
             // vamos gerar um html e guardar nesta variável
             if (data.achou == 0) {
-                $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Não Encontrado !!!</strong></div>');
+                $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ Não Encontrado !!!</strong></div>');
                 limpaTela();
             } else {
                 $("#id_contribuinte").val(data.campo1);
                 $("#id_data_vencimento").val(data.campo3);
-                $("#id_valor_dam").val(data.campo4);
+                $("#id_valor_Docarj").val(data.campo4);
+                $("#id_historico").val(data.campo9);
 
-                if (data.campo5 === "07" || data.campo5 === "04")
+
+                if (data.campo5 === "07")
                 {
-                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Pago ou Cancelado </strong></div>');
+
+                    $("#button").html(' <button type="SUBMIT" class="btn btn-danger">Cancelar DOCARJ</button>');
                 } else {
-                    $("#msg").html('<div class="alert alert-success" style="text-align:center; font-size:15px;"><strong>BAIXA ONLINE DOCARJ (DAM) </strong></div>');
-                    $("#button").html('<button type="button" class="btn btn-danger" id="btn-enviar">BAIXAR DAM ONLINE </button>');
+                    $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Não Cancelado </strong></div>');
                 }
             }
         }, error: function (error) {
@@ -196,7 +198,7 @@ function buscarDadosDam(parcela) {
 function limpaTela() {
     $("#id_contribuinte").val("");
     $("#id_data_vencimento").val("");
-    $("#id_valor_dam").val("");
+    $("#id_valor_Docarj").val("");
     $("#id_data").val("");
     $("#id_valor_pagamento").val("");
     $("#id_numero_processo").val("");
@@ -204,14 +206,14 @@ function limpaTela() {
     $("#id_lote").val("");
     $("#id_banco").val("");
     $("#id_descricao_banco").val("");
-    $("#id_obs_dam").val("");
+    $("#id_obs_Docarj").val("");
     return;
 }
 
 function carregaTela() {
     $("#id_contribuinte").val("...");
     $("#id_data_vencimento").val("...");
-    $("#id_valor_dam").val("...");
+    $("#id_valor_Docarj").val("...");
     $("#id_data").val("");
     $("#id_valor_pagamento").val("");
     $("#id_numero_processo").val("");
@@ -219,7 +221,7 @@ function carregaTela() {
     $("#id_lote").val("");
     $("#id_banco").val("");
     $("#id_descricao_banco").val("");
-    $("#id_obs_dam").val("");
+    $("#id_obs_Docarj").val("");
     return;
 }
 
@@ -229,7 +231,7 @@ function buscaDescricaoBanco(valor) {
 //      Requisição pelo Method POST
         method: "POST",
 //      url para o arquivo para validação
-        url: "recursos/includes/retornaValor/retornaBaixaOnlineDam.php",
+        url: "recursos/includes/retornaValor/retornaBaixaOnlineDocarj.php",
 //      dados passados
         data: {
             txt_op: 2,
@@ -260,7 +262,7 @@ function descricaoNumeroProcesso() {
     var campNumero = $("#numeroProcesso");
     var campAno = $("#anoProcesso");
 
-    $("#obs_dam").val("Baixa conforme processo: " + campNumero.val() + "/" + campAno.val());
+    $("#obs_Docarj").val("Baixa conforme processo: " + campNumero.val() + "/" + campAno.val());
 }
 
 
@@ -270,7 +272,7 @@ $(document).on('click', '#btn-enviar', function (e) {
 
     var contribuinte = $('#id_contribuinte').val();
     var dt_vencimento = $('#id_data_vencimento').val();
-    var valor_dam = $('#id_valor_dam').val();
+    var valor_Docarj = $('#id_valor_Docarj').val();
     var dt_pagamento = $('#id_data').val();
     var vlr_pagamento = $('#id_valor_pagamento').val();
     var num_processo = $('#id_numero_processo').val();
@@ -295,7 +297,7 @@ $(document).on('click', '#btn-enviar', function (e) {
 
 
 
-    if (valor_dam.length < 4) {
+    if (valor_Docarj.length < 4) {
         msg = msg + "POR FAVOR ENTRE COM VALOR DAM VÁLIDO !!! <BR />";
     }
 
@@ -342,7 +344,7 @@ $(document).on('click', '#btn-enviar', function (e) {
     } else {
 //        limpo mensagem de erro na tela
         $('#msg_erro').html(msg);
-        $('#formularioDam').submit();
+        $('#formularioDocarj').submit();
     }
 
 

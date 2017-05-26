@@ -48,7 +48,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="formulario"></div>
         </div>
         <hr />
-       
+         <div id="modal"></div>
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>

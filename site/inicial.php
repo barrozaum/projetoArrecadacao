@@ -32,17 +32,22 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         </script>
     </head>
     <body>
+        <body>
+
         <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o menu do site -->
         </div>
-        <hr />
 
         <div id="acessoRapido">
 
         </div>
-        
+
+        <div id="modal"></div>
+        <hr >
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>
+
+    </body>
     </body>
 </html>

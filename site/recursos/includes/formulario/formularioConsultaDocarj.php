@@ -60,26 +60,26 @@ function formularioMenuLateral() {
         <div id="formularioPesquisaItbi">
             <div class="col-sm-9">
                 <div class="well">
-                    <div class="panel-title">Consulta Número DAM<hr></div>
+                    <div class="panel-title">Consulta Número DOCARJ (DAM)<hr></div>
                     <div class="row">
                         <div id="msg"></div>
                         <div class="col-sm-4">
                             <?php
                             //   INPUT - 
-                            criar_input_text('Número', 'numero_dam', 'numero_dam', array('required' => 'true', 'maxlength' => '6', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), '', 'somente numeros');
+                            criar_input_text('Número', 'numero_Docarj', 'numero_Docarj', array('required' => 'true', 'maxlength' => '6', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), '', 'somente numeros');
                             ?>
                         </div>
                         <div class="col-sm-4">
                             <?php
                             //   INPUT -                              
-                            criar_input_text('Ano', 'ano_dam', 'ano_dam', array('required' => 'true', 'maxlength' => '4', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), '', 'somente numeros');
+                            criar_input_text('Ano', 'ano_Docarj', 'ano_Docarj', array('required' => 'true', 'maxlength' => '4', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), '', 'somente numeros');
                             ?>
                         </div>
                     </div> 
 
                     <div class="row">
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-success" id="id_numero_ano_dam">Procurar</button>
+                            <button type="button" class="btn btn-success" id="id_numero_ano_Docarj">Procurar</button>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ function formularioPesquisaContribuinte() {
     <div id="formularioConsulta">
         <div class="col-sm-9">
             <div class="well">
-                <div class="panel-title">Consulta Contribuinte DAM<hr></div>
+                <div class="panel-title">Consulta Contribuinte DOCARJ (DAM)<hr></div>
                 <div class="row">
                     <div id="msg"></div>
                     <div class="col-sm-12">
@@ -115,7 +115,7 @@ function formularioPesquisaContribuinte() {
 
                 <div class="row">
                     <div class="col-sm-2">
-                        <button type="button" class="btn btn-success" id="id_buscar_dam_contribuinte">Procurar</button>
+                        <button type="button" class="btn btn-success" id="id_buscar_Docarj_contribuinte">Procurar</button>
                     </div>
                 </div>
             </div>

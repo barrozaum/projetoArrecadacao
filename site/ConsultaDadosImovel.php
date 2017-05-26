@@ -40,7 +40,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioConsultaDadosImovel.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+
 
             }
         </script>
@@ -62,18 +62,11 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
                 <div id="listar"></div>
             </div>
         </div>
-
-
-        <div class="modal fade" id="dialog-example" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
+        <hr> 
+        <div id="modal"></div>
 
         <div id="rodape">
-
+            <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>
 
     </body>

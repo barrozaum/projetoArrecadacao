@@ -9,26 +9,26 @@ include_once '../funcaoPHP/funcaoCriacaoInput.php';
 if (empty($_REQUEST['id'])) {
     ?>
 
-    <form  method="post" action="" name="formularioDam" id="formularioDam">   <!-- inicio do formulário --> 
+    <form  method="post" action="" name="formularioDocarj" id="formularioDocarj">   <!-- inicio do formulário --> 
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div id="msg"></div>
             <div id="msg_erro"></div>
             <div class="well"><!-- div que coloca a cor no formulário -->
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
-                    <div class="panel-heading text-center">BAIXA ON LINE DOCARJ (DAM)</div>
+                    <div class="panel-heading text-center">BAIXA ON LINE DOCARJ </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-4">
                                 <?php
                                 //   INPUT -                      
-                                criar_input_text('Número', 'numero_dam', 'numero_dam', array('required' => 'true', 'maxlength' => '6', 'placeholder' => '000000', 'onkeypress' => 'return SomenteNumero(event)'), '');
+                                criar_input_text('Número', 'numero_Docarj', 'numero_Docarj', array('required' => 'true', 'maxlength' => '6', 'placeholder' => '000000', 'onkeypress' => 'return SomenteNumero(event)'), '');
                                 ?>
                             </div>
                             <div class="col-sm-4">
                                 <?php
                                 //   INPUT -                      
-                                criar_input_text('Ano', 'ano_dam', 'ano_dam', array('required' => 'true', 'maxlength' => '4', 'placeholder' => '0000', 'onkeypress' => 'return SomenteNumero(event)'), '');
+                                criar_input_text('Ano', 'ano_Docarj', 'ano_Docarj', array('required' => 'true', 'maxlength' => '4', 'placeholder' => '0000', 'onkeypress' => 'return SomenteNumero(event)'), '');
                                 ?>
                             </div>
                             <div class="col-sm-4">
@@ -56,7 +56,7 @@ if (empty($_REQUEST['id'])) {
                             <div class="col-sm-3">
                                 <?php
                                 //   INPUT -                              
-                                criar_input_text('Valor DAM', 'valor_dam', 'valor_dam', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'R$00,00'), '', '');
+                                criar_input_text('Valor DAM', 'valor_Docarj', 'valor_Docarj', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'R$00,00'), '', '');
                                 ?>
                             </div>
 
@@ -126,7 +126,7 @@ if (empty($_REQUEST['id'])) {
                         <div class="row">
                             <div class="col-sm-12">
                                 <?php
-                                criar_textarea('OBSERVAÇÃO', 'obs_dam', 'obs_dam', '', array('required' => 'true', 'maxlength' => '254'));
+                                criar_textarea('OBSERVAÇÃO', 'obs_Docarj', 'obs_Docarj', '', array('required' => 'true', 'maxlength' => '254'));
                                 ?>
                             </div>
                         </div>

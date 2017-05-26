@@ -56,6 +56,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <!--  Inicio Fomulario  -->
             </div>
         </div>
+          <div id="modal"></div>
         <div id="rodape"></div>
 
     </body>

@@ -46,21 +46,90 @@ $(function () {
         $('#listar').html('');
     });
 
+//  validar se usuario existe no sistema
+    $(document).on('blur', '#id_login', function () {
+
+        var login = $("#id_login").val();
+
+        if (login.length < 1) {
+            func_bloquear_form();
+            return false;
+        }
+
+        if (login.length < 3) {
+            func_bloquear_form();
+            $('#msg_error').html('<div class="alert alert-danger">LOGIN INVÁLIDO</div>');
+            return false;
+
+        }
+        $('#msg_error').html('');
+        $.ajax({
+//        Requisição pelo Method POST
+            method: "POST",
+            // url para o arquivo para validação
+            url: "recursos/includes/funcaoPHP/func_validar_novo_login.php",
+//        dados passados
+            data: {
+                cmd: 1,
+                login: login
+            },
+            // dataType json
+            dataType: "json",
+            // função para de sucesso
+            success: function (data) {
+                if (data == "0") {
+                    func_liberar_form();
+                } else {
+                    $('#msg_error').html("<div class='alert alert-danger'>Login já cadastrado no sistema</div>");
+                    func_bloquear_form();
+
+                }
+            }, error: function (error) {
+                $('#msg_error').html(error.responseText);
+            }
+        });//termina o ajax
+    });
+
+    function func_liberar_form() {
+        $('#id_matricula').removeAttr('readonly');
+        $('#id_nome_completo').removeAttr('readonly');
+        $('#id_nivel_permissao').removeAttr('readonly');
+        $('#id_nivel_permissao').empty();
+        $('#id_nivel_permissao').append('<option value="">SELECIONE O NIVEL PERMISSÃO</option>');
+        $('#id_nivel_permissao').append('<option value="0">USUARIO</option>');
+        $('#id_nivel_permissao').append('<option value="1">ADMINISTRADOR</option>');
+        $('#id_senha_novo_login').removeAttr('readonly');
+        $('#id_confirma_senha_novo_login').removeAttr('readonly');
+    }
+
+    function func_bloquear_form() {
+        $('#id_matricula').attr('readonly', 'true');
+        $('#id_nome_completo').attr('readonly', 'true');
+        $('#id_nivel_permissao').attr('readonly', 'true');
+        $('#id_nivel_permissao').empty();
+        $('#id_nivel_permissao').append('<option value="">SELECIONE O NIVEL PERMISSÃO</option>');
+        $('#id_senha_novo_login').attr('readonly', 'true');
+        $('#id_confirma_senha_novo_login').attr('readonly', 'true');
+    }
+
+
+// Cadastrando novo usuario no sistema
     $(document).on('click', '#id_cadastrar', function (e) {
 //      campos do formulario
         var login = $("#id_login").val();
-        var matricula = $("#id_matricula").val();
+        var permissao = $("#id_nivel_permissao").val();
         var nome_completo = $("#id_nome_completo").val();
         var senha = $("#id_senha_novo_login").val();
         var confrma_senha = $("#id_confirma_senha_novo_login").val();
+        
 
         var msg = "";
 
         if ((login.length < 2) || (login.length > 30)) {
             msg = msg + "POR FAVOR ENTRE COM LOGIN VÁLIDO !!! <BR />";
         }
-        if ((matricula.length < 1) || (matricula.length > 5)) {
-            msg = msg + "POR FAVOR ENTRE COM MATRÍCULA VÁLIDO !!! <BR />";
+        if (permissao === "") {
+            msg = msg + "POR FAVOR ENTRE COM PERMISSAO VÁLIDO !!! <BR />";
         }
         if ((nome_completo.length < 3) || (nome_completo.length > 40)) {
             msg = msg + "POR FAVOR ENTRE COM NOME COMPLETO VÁLIDO !!! <BR />";

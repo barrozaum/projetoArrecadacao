@@ -38,7 +38,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaPatrimonio.php');
                 $('#listar').load('recursos/includes/listar/listarPatrimonios.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
 
             }
         </script>

@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 //    aplica filtro na string enviada (LetraMaiuscula)
-    $numero_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_dam']);
-    $ano_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_dam']);
-    $parcela_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_parcela']);
+    $numero_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_Docarj']);
+    $ano_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_Docarj']);
+    $parcela_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_parcela']);
     $contribuinte_Letra_Maiscula = letraMaiuscula($_POST['txt_contribuinte']);
     $data_vencimento_Letra_Maiscula = letraMaiuscula($_POST['txt_data_vencimento']);
-    $valor_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_dam']);
+    $valor_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_Docarj']);
     $data_pagamento_Letra_Maiscula = letraMaiuscula($_POST['txt_data_pagto']);
     $valor_pagamento_Letra_Maiscula = letraMaiuscula($_POST['txt_valor_pagamento']);
     $numero_processo_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_processo']);
@@ -35,26 +35,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lote_Letra_Maiscula = letraMaiuscula($_POST['txt_lote']);
     $banco_Letra_Maiscula = letraMaiuscula($_POST['txt_banco']);
     $descricao_banco_Letra_Maiscula = letraMaiuscula($_POST['txt_descricao_banco']);
-    $obs_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_dam']);
+    $obs_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_obs_Docarj']);
 
 //    NUMERO DAM
-    if ((strlen($numero_dam_Letra_Maiscula) == 6) || is_int($numero_dam_Letra_Maiscula) === TRUE) {
-        $num_dam = $numero_dam_Letra_Maiscula;
+    if ((strlen($numero_Docarj_Letra_Maiscula) == 6) || is_int($numero_Docarj_Letra_Maiscula) === TRUE) {
+        $num_Docarj = $numero_Docarj_Letra_Maiscula;
     } else {
-        $array_erros['numero_dam_Letra_Maiscula'] = 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO \n';
+        $array_erros['numero_Docarj_Letra_Maiscula'] = 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO \n';
     }
 
 //    ANO DAM
-    if ((strlen($ano_dam_Letra_Maiscula) == 4) || is_int($ano_dam_Letra_Maiscula) === TRUE) {
-        $ano_dam = $ano_dam_Letra_Maiscula;
+    if ((strlen($ano_Docarj_Letra_Maiscula) == 4) || is_int($ano_Docarj_Letra_Maiscula) === TRUE) {
+        $ano_Docarj = $ano_Docarj_Letra_Maiscula;
     } else {
-        $array_erros['txt_ano_dam'] = 'POR FAVOR ENTRE COM UM ANO DAM VÁLIDO \n';
+        $array_erros['txt_ano_Docarj'] = 'POR FAVOR ENTRE COM UM ANO DAM VÁLIDO \n';
     }
 //    PARCELA DAM
-    if ((strlen($parcela_dam_Letra_Maiscula) == 2) || is_int($parcela_dam_Letra_Maiscula) === TRUE) {
-        $parcela = $parcela_dam_Letra_Maiscula;
+    if ((strlen($parcela_Docarj_Letra_Maiscula) == 2) || is_int($parcela_Docarj_Letra_Maiscula) === TRUE) {
+        $parcela = $parcela_Docarj_Letra_Maiscula;
     } else {
-        $array_erros['txt_parcela_dam'] = 'POR FAVOR ENTRE COM PARCELA DAM VÁLIDA \n';
+        $array_erros['txt_parcela_Docarj'] = 'POR FAVOR ENTRE COM PARCELA DAM VÁLIDA \n';
     }
 
 //    CONTRIBUINTE
@@ -77,10 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //    VALOR DAM
 //       filtro pra saber se o valor está correto
-    if (is_numeric(inserirDinheiro($valor_dam_Letra_Maiscula)) && strlen($valor_dam_Letra_Maiscula) >= 3) {
-        $valor_Itbi = inserirDinheiro($valor_dam_Letra_Maiscula);
+    if (is_numeric(inserirDinheiro($valor_Docarj_Letra_Maiscula)) && strlen($valor_Docarj_Letra_Maiscula) >= 3) {
+        $valor_Itbi = inserirDinheiro($valor_Docarj_Letra_Maiscula);
     } else {
-        $array_erros['txt_valor_dam'] = 'POR FAVOR ENTRE COM UM VALOR DAM VÁLIDO \n';
+        $array_erros['txt_valor_Docarj'] = 'POR FAVOR ENTRE COM UM VALOR DAM VÁLIDO \n';
     }
 
 
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ((strlen($ano_processo_Letra_Maiscula) == 4) || is_int($ano_processo_Letra_Maiscula) === TRUE) {
         $ano_Processo = $ano_processo_Letra_Maiscula;
     } else {
-        $array_erros['txt_ano_dam'] = 'POR FAVOR ENTRE COM UM ANO PROCESSO VÁLIDO \n';
+        $array_erros['txt_ano_Docarj'] = 'POR FAVOR ENTRE COM UM ANO PROCESSO VÁLIDO \n';
     }
 
 
@@ -176,8 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //        $sql = $sql . " usuario_pagto = '$usuario_logado',";
 //        $sql = $sql . " estacao_pagto = '$hostname',";
 //        $sql = $sql . " dia_hora_pagto ='$dia_hora_pagamento'";
-        $sql = $sql . " WHERE Num_Dam ='$num_dam' ";
-        $sql = $sql . " AND Ano_DAM ='$ano_dam' ";
+        $sql = $sql . " WHERE Num_Dam ='$num_Docarj' ";
+        $sql = $sql . " AND Ano_DAM ='$ano_Docarj' ";
         $sql = $sql . " AND Parcela = '$parcela'  ";
 
 
@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO($pdo, 3, $num_dam, $ano_dam , $obs_dam_Letra_Maiscula, '00', $parcela);
+            FUN_CONTROLE_OBSERVACAO($pdo, 3, $num_Docarj, $ano_Docarj , $obs_Docarj_Letra_Maiscula, '00', $parcela);
 
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Dispara mensagem de sucesso -->
         <script>
             window.alert("<?php echo "BAIXA EFETUADA COM SUCESSO !!!"; ?> ");
-                    location.href = "../../../BaixaOnlineDam.php";
+                    location.href = "../../../BaixaOnlineDocarj.php";
         </script>
 
         <?php
@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-//               location.href = "../../../BaixaOnlineDam.php";
+//               location.href = "../../../BaixaOnlineDocarj.php";
         </script>';
     }
 

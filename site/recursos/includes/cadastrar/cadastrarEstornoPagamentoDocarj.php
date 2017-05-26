@@ -21,26 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 //    aplica filtro na string enviada (LetraMaiuscula)
-    $numero_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_dam']);
-    $ano_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_dam']);
-    $parcela_dam_Letra_Maiscula = letraMaiuscula($_POST['txt_parcela']);
+    $numero_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_Docarj']);
+    $ano_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_Docarj']);
+    $parcela_Docarj_Letra_Maiscula = letraMaiuscula($_POST['txt_parcela']);
 
 //    NUMERO ITBI
-    if ((strlen($numero_dam_Letra_Maiscula) == 6) || is_int($numero_dam_Letra_Maiscula) === TRUE) {
-        $num_dam = $numero_dam_Letra_Maiscula;
+    if ((strlen($numero_Docarj_Letra_Maiscula) == 6) || is_int($numero_Docarj_Letra_Maiscula) === TRUE) {
+        $num_Docarj = $numero_Docarj_Letra_Maiscula;
     } else {
-        $array_erros['txt_numero_dam'] = 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO \n';
+        $array_erros['txt_numero_Docarj'] = 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO \n';
     }
 
 //    ANO ITBI
-    if ((strlen($ano_dam_Letra_Maiscula) == 4) || is_int($ano_dam_Letra_Maiscula) === TRUE) {
-        $ano_dam = $ano_dam_Letra_Maiscula;
+    if ((strlen($ano_Docarj_Letra_Maiscula) == 4) || is_int($ano_Docarj_Letra_Maiscula) === TRUE) {
+        $ano_Docarj = $ano_Docarj_Letra_Maiscula;
     } else {
-        $array_erros['txt_ano_dam'] = 'POR FAVOR ENTRE COM UM ANO DAM VÁLIDO \n';
+        $array_erros['txt_ano_Docarj'] = 'POR FAVOR ENTRE COM UM ANO DAM VÁLIDO \n';
     }
 //    ANO ITBI
-    if ((strlen($parcela_dam_Letra_Maiscula) == 2) || is_int($parcela_dam_Letra_Maiscula) === TRUE) {
-        $parcela = $parcela_dam_Letra_Maiscula;
+    if ((strlen($parcela_Docarj_Letra_Maiscula) == 2) || is_int($parcela_Docarj_Letra_Maiscula) === TRUE) {
+        $parcela = $parcela_Docarj_Letra_Maiscula;
     } else {
         $array_erros['txt_parcela'] = 'POR FAVOR ENTRE COM A PARCELA DAM VÁLIDO \n';
     }
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = $sql . " Cod_Banco  = null ,";
         $sql = $sql . " Lote  = null ,";
         $sql = $sql . " Data_Pagamento = null";
-        $sql = $sql . " WHERE Num_Dam = '$num_dam'";
-        $sql = $sql . " AND Ano_Dam = '$ano_dam' ";
+        $sql = $sql . " WHERE Num_Dam = '$num_Docarj'";
+        $sql = $sql . " AND Ano_Dam = '$ano_Docarj' ";
         $sql = $sql . " AND Parcela= '$parcela' ";
 
 
@@ -79,15 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$executa) {
 //          Caso tenha errro 
 //          lanço erro na tela
-            die('<script>window.alert("ERROR AO REALIZAR ESTORNO PAGAMENTO  !!!");location.href = "../../../EstornoPagamentoDam.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
+            die('<script>window.alert("ERROR AO REALIZAR ESTORNO PAGAMENTO  !!!");location.href = "../../../EstornoPagamentoDocarj.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
         } else {
 //            inclusão da biblioteca para cadastrar observação itbi
             require_once '../funcaoPHP/funcao_retorna_observacao_itbi.php';
 
-            $obs_Letra_Maiscula = "ESTORNO DO PAGAMENTO REALIZADO POR : ";
+            $obs_Letra_Maiscula = "MOTIVO ESTORNO :"  .  letraMaiuscula($_POST['txt_obs_Docarj']). " ESTORNO DO PAGAMENTO REALIZADO POR : ";
 
 //        O PROCESSO DE CADASTRO DA OBSERVAÇÃO É REALIZADO PELA FUNÇÃO ABAIXO    
-            FUN_CONTROLE_OBSERVACAO($pdo, 3, $num_dam, $ano_dam, $obs_Letra_Maiscula, '00' , $parcela);
+            FUN_CONTROLE_OBSERVACAO($pdo, 3, $num_Docarj, $ano_Docarj, $obs_Letra_Maiscula, '00' , $parcela);
           
 //          salvo alteração no banco de dados
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Dispara mensagem de sucesso -->
         <script>
             window.alert("<?php echo "ESTORNO PAGAMENTO EFETUADO COM SUCESSO !!!"; ?> ");
-            location.href = "../../../EstornoPagamentoDam.php";
+            location.href = "../../../EstornoPagamentoDocarj.php";
         </script>
 
         <?php
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../EstornoPagamentoDam.php";
+               location.href = "../../../EstornoPagamentoDocarj.php";
         </script>';
     }
 

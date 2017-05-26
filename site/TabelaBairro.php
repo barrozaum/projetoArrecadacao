@@ -38,7 +38,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaBairro.php');
                 $('#listar').load('recursos/includes/listar/listarBairros.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
 
             }
         </script>

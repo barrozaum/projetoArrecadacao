@@ -37,7 +37,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaRua.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
             }
         </script>
 

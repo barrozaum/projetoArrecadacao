@@ -65,13 +65,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="listar"></div>
         </div>
         <hr> 
-        <div class="modal fade" id="dialog-example" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
+          <div id="modal"></div>
 
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->

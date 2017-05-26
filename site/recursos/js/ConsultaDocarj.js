@@ -4,33 +4,33 @@ $(function () {
 //    adiciona formulario de numeros e anos
     $(document).on('click', '#id_seleciona_pesquisa_numero_ano', function (e) {
         $("#listar").html('');
-        buscar_formulario("recursos/includes/formulario/formularioConsultaDam.php", 1, "formularioPesquisaItbi");
+        buscar_formulario("recursos/includes/formulario/formularioConsultaDocarj.php", 1, "formularioPesquisaItbi");
     });
 
 //    adiciona formulario para o campos do nome contribuinte
     $(document).on('click', '#id_seleciona_pesquisa_contribuinte', function (e) {
         $("#listar").html('');
-        buscar_formulario("recursos/includes/formulario/formularioConsultaDam.php", 2, "formularioPesquisaItbi");
+        buscar_formulario("recursos/includes/formulario/formularioConsultaDocarj.php", 2, "formularioPesquisaItbi");
     });
 
 
 //    adiciona zeros no campo numero itbi
-    $(document).on('blur', '#id_numero_dam', function (e) {
+    $(document).on('blur', '#id_numero_Docarj', function (e) {
         var valor = this.value;
         $(this).val(preencheZeros(valor, 6));
     });
 
 //    adiciona zeros no campo ano itbi
-    $(document).on('blur', '#id_ano_dam', function (e) {
+    $(document).on('blur', '#id_ano_Docarj', function (e) {
         var valor = this.value;
         $(this).val(preencheZeros(valor, 4));
 
     });
 
 //    botão procurar numero ano
-    $(document).on('click', '#id_numero_ano_dam', function (e) {
-        var numero = $('#id_numero_dam').val();
-        var ano = $('#id_ano_dam').val();
+    $(document).on('click', '#id_numero_ano_Docarj', function (e) {
+        var numero = $('#id_numero_Docarj').val();
+        var ano = $('#id_ano_Docarj').val();
         var msg = '';
 
 //      validar estrutura dos campos
@@ -54,12 +54,12 @@ $(function () {
 //        Requisição pelo Method POST
                 method: "POST",
                 // url para o arquivo para validação
-                url: "recursos/includes/listar/listarDAM.php",
+                url: "recursos/includes/listar/listarDOCARJ.php",
 //        dados passados
                 data: {
                     id: 1,
-                    txt_numero_dam: numero,
-                    txt_ano_dam: ano
+                    txt_numero_Docarj: numero,
+                    txt_ano_Docarj: ano
                 },
                 // dataType json
                 dataType: "text",
@@ -73,7 +73,7 @@ $(function () {
     });
 
 // botao procurar contribuinte
-    $(document).on('click', '#id_buscar_dam_contribuinte', function (e) {
+    $(document).on('click', '#id_buscar_Docarj_contribuinte', function (e) {
         var contribuinte = $('#id_contribuinte').val();
 
         if (contribuinte.length < 3) {
@@ -89,7 +89,7 @@ $(function () {
 //        Requisição pelo Method POST
             method: "POST",
             // url para o arquivo para validação
-            url: "recursos/includes/listar/listarDAM.php",
+            url: "recursos/includes/listar/listarDOCARJ.php",
 //        dados passados
             data: {
                 id: 2,

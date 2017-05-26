@@ -19,21 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_POST['id'] == 1) {
         //   filtrar campos enviados pelo formulario
-        $numero_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_dam']);
-        $ano_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_dam']);
+        $numero_Letra_Maiscula = letraMaiuscula($_POST['txt_numero_Docarj']);
+        $ano_Letra_Maiscula = letraMaiuscula($_POST['txt_ano_Docarj']);
 
         //     validação dos campos
         if ((strlen($numero_Letra_Maiscula) === 6) || is_int($numero_Letra_Maiscula) === TRUE) {
-            $numero_dam = $numero_Letra_Maiscula;
+            $numero_Docarj = $numero_Letra_Maiscula;
         } else {
-            $msg_erro .= 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO <br />';
+            $msg_erro .= 'POR FAVOR ENTRE COM UM NÚMERO DOCARJ VÁLIDO <br />';
         }
 
 
         if ((strlen($ano_Letra_Maiscula) === 4) || is_int($numero_Letra_Maiscula) === TRUE) {
-            $ano_dam = $ano_Letra_Maiscula;
+            $ano_Docarj = $ano_Letra_Maiscula;
         } else {
-            $msg_erro .= 'POR FAVOR ENTRE COM UM NÚMERO DAM VÁLIDO <br />';
+            $msg_erro .= 'POR FAVOR ENTRE COM UM NÚMERO DOCARJ VÁLIDO <br />';
         }
 
 
@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //            tabelas da consulta
             $sql = $sql . " FROM DAM d, Financeiro_Dam fd";
 //            condições da consulta
-            $sql = $sql . " WHERE d.Num_Dam = '$numero_dam'";
-            $sql = $sql . " AND d.Ano_Dam = '$ano_dam'";
+            $sql = $sql . " WHERE d.Num_Dam = '$numero_Docarj'";
+            $sql = $sql . " AND d.Ano_Dam = '$ano_Docarj'";
             $sql = $sql . " AND d.Num_Dam = fd.Num_Dam";
             $sql = $sql . " AND d.Ano_Dam = fd.Ano_Dam";
 
 
-            func_buscar_dados_dam($sql);
+            func_buscar_dados_Docarj($sql);
         } else {
             print $msg_erro;
         }
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = $sql . " AND d.Num_Dam = fd.Num_Dam";
         $sql = $sql . " AND d.Ano_Dam = fd.Ano_Dam";
         if ($msg_erro == "") {
-            func_buscar_dados_dam($sql);
+            func_buscar_dados_Docarj($sql);
         } else {
             print $msg_erro;
         }
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php
 
-function func_buscar_dados_dam($sql) {
+function func_buscar_dados_Docarj($sql) {
     ?>
     <!DOCTYPE html>
     <html>

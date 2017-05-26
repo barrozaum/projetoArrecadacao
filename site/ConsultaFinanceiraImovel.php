@@ -39,7 +39,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioConsultaFinanceiraImovel.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
 
             }
 
@@ -64,13 +64,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="listar_dividas"></div>
         </div>
 
-        <div class="modal fade" id="dialog-example" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
+          <div id="modal"></div>
         
         
         <div id="rodape">

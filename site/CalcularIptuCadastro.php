@@ -47,6 +47,6 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="formulario"></div>
         </div>
 
-        
+        <div id="modal"></div>  
     </body>
 </html>

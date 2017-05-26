@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $man_login_letra_maiuscula = letraMaiuscula($_POST['txt_login']);
-    $man_matricula_letra_maiuscula = letraMaiuscula($_POST['txt_matricula']);
+    $man_matricula = letraMaiuscula($_POST['txt_matricula']);
     $man_nome_completo_letra_maiuscula = letraMaiuscula($_POST['txt_nome_completo']);
     $man_senha_novo_login_letra_maiuscula = letraMaiuscula($_POST['txt_senha_novo_login']);
     $man_confirma_senha_novo_login_letra_maiuscula = letraMaiuscula($_POST['txt_confirma_senha_novo_login']);
@@ -43,11 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $array_erros['txt_login'] = 'POR FAVOR ENTRE COM UM LOGIN VÁLIDO \n';
     }
 
-    if ((strlen($man_matricula_letra_maiuscula) > 1) && (strlen($man_matricula_letra_maiuscula) < 6)) {
-        $man_matricula = $man_matricula_letra_maiuscula;
-    } else {
-        $array_erros['txt_matricula'] = 'POR FAVOR ENTRE COM A MATRÍCULA VÁLIDA \n';
-    }
 
     if ((strlen($man_nome_completo_letra_maiuscula) > 2) && (strlen($man_nome_completo_letra_maiuscula) < 41)) {
         $man_nome_completo = $man_nome_completo_letra_maiuscula;
@@ -100,16 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
 
 //   criar usuário no banco de dados (Usuario sql)
-            $sql_1 = "exec sp_addlogin '$man_login', '$man_senha', 'Japeri'";
-            $sql_2 = "exec sp_adduser '$man_login'";
-            $sql_3 = "exec sp_changegroup 'db_owner','$man_login' ";
 
-            $stmt1 = $pdo->prepare($sql_1);
+
+            $stmt1 = $pdo->prepare("sp_addlogin '$man_login', '$man_senha', 'Japeri' ");
             $stmt1->execute();
-            $stmt2 = $pdo->prepare($sql_1);
+            $stmt2 = $pdo->prepare("sp_adduser '$man_login' ");
             $stmt2->execute();
-            $stmt3 = $pdo->prepare($sql_1);
-            $stmt3->execute();
         }
 
 

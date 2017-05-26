@@ -15,9 +15,6 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <link href="recursos/css/bootstrap.css" rel="stylesheet">
         <link href="recursos/css/menu.css" rel="stylesheet">
 
-        <!--[if lt IE 9]>
-          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
         <script src="recursos/js/jquery.min.js"></script>
         <script src="recursos/js/bootstrap.min.js"></script>
         <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
@@ -34,27 +31,27 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             });
 
             function estruturaPagina() {
-                $('#listar').load('recursos/includes/listar/listarUsuarios.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                $('#formulario').load('recursos/includes/formulario/formulario_permissao.php');
             }
         </script>
 
     </head>
     <body>
         <div id="cabecalho">
-            <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
-        </div>
-        <div id="menu">
             <!-- Não apagar, pois é onde encontra-se o menu do site -->
         </div>
-        <div class="container bg-4 ">
-            <h2>Manutenção Permissão Usuário</h2>
+
+        <div class="container text center">
+            <div id="formulario"></div>
         </div>
         <hr />
-       
         <div class="container bg-4 text center">
             <div id="listar"></div>
         </div>
+
         <div id="modal"></div>
+        <div id="rodape">
+            <!-- Não apagar, pois é onde encontra-se o rodape da página -->
+        </div>
     </body>
 </html>

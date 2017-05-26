@@ -46,8 +46,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
     <div id="cabecalho">
         <!-- Não apagar, pois é onde encontra-se o menu do site -->
     </div>
-    <hr />
-
+  
     <div id="acessoRapido">
 
     </div>
@@ -55,7 +54,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
     <div class="container bg-4 text center">
         <div id="formulario"></div>
     </div>
-
+  <div id="modal"></div>
     <hr />
     <div id="rodape">
         <!-- Não apagar, pois é onde encontra-se o rodape da página -->

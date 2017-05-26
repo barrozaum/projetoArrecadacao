@@ -37,7 +37,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioEstornoPagamentoItbi.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
             }
         </script>
 
@@ -57,7 +57,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="listar"></div>
         </div>
 
-        
+          <div id="modal"></div>
         <div id="rodape"></div>
 
     </body>

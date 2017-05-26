@@ -62,7 +62,12 @@ function formularioMenuLateral() {
                 <div class="well">
                     <div class="panel-title">Consulta Número ITBI<hr></div>
                     <div class="row">
-                        <div id="msg"></div>
+                        <div class="col-sm-12">
+                            <div id="msg"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm-4">
                             <?php
                             //   INPUT - 

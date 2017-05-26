@@ -44,7 +44,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioBaixaOnlineItbi.php');
-                $('#modal').load('recursos/includes/estrutura/modal.html');
+                
             }
         </script>
 
@@ -57,7 +57,6 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div class="container text center">
             <div id="formulario"></div>
         </div>
-        <hr />
        
         <div id="modal"></div>
         <hr />

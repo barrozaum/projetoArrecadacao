@@ -52,6 +52,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
         <div id="modal"></div>
         <hr />
+        
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>

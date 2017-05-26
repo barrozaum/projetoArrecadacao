@@ -78,3 +78,12 @@ function aplicar_filtro_string($filtra_string) {
 //    retorna dados após filtro
     return $filtra_string;
 }
+
+
+function fun_aplica_validacao_campo($dados_form, $minimo, $maximo){
+    $valor = letraMaiuscula($dados_form);
+    if(strlen($valor)>= $minimo && strlen($valor) <= $maximo){
+        return true;
+    }
+    return false;
+}

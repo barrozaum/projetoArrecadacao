@@ -18,7 +18,8 @@ try {
     $_SESSION['carregar_parametros'] = TRUE;
     echo "<meta http-equiv='refresh' content='0;url=carrega_parametros.php'>";
 } catch (PDOException $e) {
-    echo "<meta http-equiv='refresh' content='0;url=../../../../'>";
+   
     $_SESSION['mensagem'] = "USUÁRIO NÃO ENCONTRADO !!! <br /> VERIFIQUE SEU USUÁRIO E SENHA !!";
+     echo "<meta http-equiv='refresh' content='0;url=../../../../'>";
 }
 ?>

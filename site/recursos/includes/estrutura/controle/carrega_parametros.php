@@ -1,6 +1,7 @@
 <?php
 
-require_once './validarSessao.php';
+include_once './validarSessao.php';
+include_once '../../funcaoPHP/funcaoCpfCnpj.php';
 
 // função para pegar
 // nome do cliente na base
@@ -22,7 +23,7 @@ function arquivo_configuracao($pdo) {
         $_SESSION['C_SECRETARIA'] = $dados_arquivo['Secretaria'];
         $_SESSION['C_ESTADO'] = $dados_arquivo['Estado'];
         $_SESSION['C_LOGO_PB'] = $dados_arquivo['logo_pb'];
-        $_SESSION['C_CNPJ'] = $dados_arquivo['CNPJ_Prefeitura'];
+        $_SESSION['C_CNPJ'] = FUN_COLOCAR_MASCARA_CPF_CNPJ($dados_arquivo['CNPJ_Prefeitura']);
         $_SESSION['C_CEP'] = str_replace('-', '', $dados_arquivo['Cep_Prefeitura']);
         $_SESSION['C_ENDERECO'] = $dados_arquivo['Endereco_Prefeitura'];
         $_SESSION['C_NUMERO'] = $dados_arquivo['numero'];
@@ -31,6 +32,7 @@ function arquivo_configuracao($pdo) {
         $_SESSION['C_CIDADE'] = $dados_arquivo['cidade'];
         $_SESSION['C_UF'] = $dados_arquivo['uf'];
     }
+    
 }
 
 //função para pegar valor moeda dia (ufir)
@@ -79,7 +81,9 @@ if ($_SESSION['carregar_parametros'] == "TRUE") {
 //    chamada da função valor moeda dia
         valor_moeda_dia($pdo);
     } catch (PDOException $ex) {
-        $ex->getMessage();
+        $_SESSION['mensagem'] = $ex->getMessage();
+        header('location:../../../../inicial.php');
+    exit();
     }
 } else {
 

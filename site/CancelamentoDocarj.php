@@ -25,36 +25,33 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <script src="recursos/js/estrutura.js"></script>
         <script src="recursos/js/adiciona_zero.js"></script>
-        <script src="recursos/js/EstornoPagamentoDam.js"></script>
+        <script src="recursos/js/CancelarDocarj.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
 
-     
-        
         <script>
             $(document).ready(function () {
                 estruturaPagina();
             });
 
             function estruturaPagina() {
-                $('#formulario').load('recursos/includes/formulario/formularioEstornoPagamentoDam.php');
+                $('#formulario').load('recursos/includes/formulario/formularioCancelarDocarj.php');
             }
         </script>
 
     </head>
     <body>
-       <div id="cabecalho">
-            <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
+        <div id="cabecalho">
+            <!-- Não apagar, pois é onde encontra-se o menu do site -->
         </div>
-       
         <hr />
-        
         <div class="container text center">
             <div id="formulario"></div>
         </div>
         <hr />
-       
-        
-        <div id="rodape"></div>
+         <div id="modal"></div>
+        <div id="rodape">
+            <!-- Não apagar, pois é onde encontra-se o rodape da página -->
+        </div>
 
     </body>
 </html>
