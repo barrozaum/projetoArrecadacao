@@ -1,5 +1,4 @@
 <?php
-
 // label = Nome em Cima do campo
 // name = Nome do campo
 // id = Id do campo
@@ -8,7 +7,7 @@
 //  CAMPO TIPO TEXTO NORMAL
 function criar_input_text($label, $name, $id, $extras = array(), $value = '', $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='text' name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -37,7 +36,7 @@ function criar_input_hidden($name, $extras = array(), $value = '', $span = '') {
 function criar_input_data($label, $name, $id, $extras = array(), $value = '', $span = '') {
 
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='text' name='txt_" . $name . "'. id='id_" . $id . "' maxlength='10'";
 
     foreach ($extras as $k => $v) {
@@ -53,7 +52,7 @@ function criar_input_data($label, $name, $id, $extras = array(), $value = '', $s
 //  CAMPO TIPO TEXT-AREA
 function criar_textarea($label, $name, $id, $value = '', $extras = array()) {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<textarea class='form-control'  name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -70,9 +69,9 @@ function criar_textarea($label, $name, $id, $value = '', $extras = array()) {
 //  CAMPO TIPO CONSULTA (COM LUPA DE PESQUISA)
 function criar_input_text_com_lupa($label, $name, $id, $extras = array(), $value = '', $span = '', $id_lupa = 'lupa') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<div class='input-group'>";
-    $saida = $saida . "<span class='input-group-addon' id='id_" . $id_lupa . "'><i class='glyphicon glyphicon-zoom-in'></i></span>";
+    $saida = $saida . "<span class='input-group-addon' id='id_" . $id_lupa . "'><button class='glyphicon glyphicon-zoom-in'></button></span>";
     $saida = $saida . "<input class='form-control' type='text' name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -90,7 +89,7 @@ function criar_input_text_com_lupa($label, $name, $id, $extras = array(), $value
 //  CAMPO TIPO  SELECT
 function criar_input_select($label, $name, $id, $extras = array(), $value = array(), $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" .strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" .letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<select class='form-control'  name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -109,7 +108,7 @@ function criar_input_select($label, $name, $id, $extras = array(), $value = arra
 //  CAMPO TIPO  CEP
 function criar_input_text_cep($label, $name, $id, $extras = array(), $value = '', $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" .strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" .letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='text' name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -126,7 +125,7 @@ function criar_input_text_cep($label, $name, $id, $extras = array(), $value = ''
 
 function criar_input_password($label, $name, $id, $extras = array(), $value = '', $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='password' name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -149,7 +148,7 @@ function criar_input_checkbox($label, $name, $id, $extras = array(), $value = ''
     }
 
     $saida = $saida . "value='" . $value . "'> &nbsp &nbsp &nbsp&nbsp";
-    $saida = $saida . "<label for='id_" . $name . "'>:" . strtoupper($label). " </label>";
+    $saida = $saida . "<label for='id_" . $name . "'>:" . letraMaiuscula($label). " </label>";
     $saida = $saida . '<span class="help-block">' . $span . '</span>';
     $saida = $saida . "</div>";
     print $saida;
@@ -158,7 +157,7 @@ function criar_input_checkbox($label, $name, $id, $extras = array(), $value = ''
 // CAMPO TIPO FILE
 function criar_input_file($label, $name, $id, $extras = array(), $value = '', $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='file' name='txt_" . $name . "'. id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {
@@ -176,7 +175,7 @@ function criar_input_file($label, $name, $id, $extras = array(), $value = '', $s
 
 function criar_input_text_telefone($label, $name, $id, $extras = array(), $value = '', $span = '') {
     $saida = "<div class='form-group'>";
-    $saida = $saida . "<label for='id_" . $name . "'>" . strtoupper($label) . " :</label>";
+    $saida = $saida . "<label for='id_" . $name . "'>" . letraMaiuscula($label) . " :</label>";
     $saida = $saida . "<input class='form-control' type='tel' name='txt_" . $name . "'  id='id_" . $id . "'";
 
     foreach ($extras as $k => $v) {

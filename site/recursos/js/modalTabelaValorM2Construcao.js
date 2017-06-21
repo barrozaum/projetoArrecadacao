@@ -20,7 +20,7 @@ $(document).on('blur', "#id_zona", function (e) {
 
 // quando o campo código sofrer alteração executo
 $(document).on('blur', "#id_cod_utilizacao", function (e) {
-        // atribuição mensagem de erro
+    // atribuição mensagem de erro
     var error = '<div class="alert alert-danger"><strong>Código Utilização Inválido!</strong></div>';
 
 // pego o valor informado no campo
@@ -70,7 +70,7 @@ $(document).on('blur', "#id_cod_cat", function (e) {
 
 function retornaCampo(param, mostraCampo, escolha, error) {
     // inicio uma requisição
-   
+
     var valor = param;
     $("#msg").html('');
     $.ajax({

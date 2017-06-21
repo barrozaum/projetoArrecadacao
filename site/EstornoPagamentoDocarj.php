@@ -24,8 +24,8 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/EstornoPagamentoDocarj.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
 
-     
-        
+
+
         <script>
             $(document).ready(function () {
                 estruturaPagina();
@@ -38,18 +38,18 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
     </head>
     <body>
-       <div id="cabecalho">
+        <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
         </div>
-       
+
         <hr />
-        
+
         <div class="container text center">
             <div id="formulario"></div>
         </div>
         <hr />
-       
-          <div id="modal"></div>
+
+        <div id="modal"></div>
         <div id="rodape"></div>
 
     </body>

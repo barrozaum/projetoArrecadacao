@@ -1,5 +1,9 @@
 <?php
 include_once '../estrutura/controle/validarSessao.php';
+//validacao
+include_once '../funcaoPHP/function_letraMaiscula.php';
+// criacao dos campos inputs 
+include_once '../funcaoPHP/funcaoCriacaoInput.php';
 ?>
 <form method="post" action="recursos/includes/exportar/exportaFunesBom.php">    
     <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->

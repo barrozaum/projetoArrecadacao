@@ -30,16 +30,16 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/mascaraData.js"></script>
         <script src="recursos/js/valida_cpf_cnpj.js"></script>
         <script src="recursos/js/buscaCep.js"></script>
-      
 
-         <!-- Includes para Colocar o Calendário na data -->
+
+        <!-- Includes para Colocar o Calendário na data -->
         <link rel="stylesheet" href="recursos/css/redmond/jquery-ui-1.10.1.custom.css" />
         <script src="recursos/js/data_calendario.js" type="text/javascript"></script>
         <script src="recursos/js/calendario.js" type="text/javascript"></script>
         <script src="recursos/js/mascaraData.js"></script>
         <!-- fim dos includes para Colocar a Data -->
-        
-        
+
+
         <script>
             $(document).ready(function () {
                 estruturaPagina();
@@ -56,7 +56,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
         </div>
-       
+
         <div class="container bg-4 "></div>
         <hr />
 
@@ -64,7 +64,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="formulario"></div>
         </div>
         <hr >
-          <div id="modal"></div>
+        <div id="modal"></div>
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>

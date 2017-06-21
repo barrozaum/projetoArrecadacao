@@ -37,14 +37,14 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioMotivoCancelamento.php');
                 $('#listar').load('recursos/includes/listar/listarMotivoCancelamentos.php');
-                
+
 
             }
         </script>
 
     </head>
     <body>
-         <div id="cabecalho">
+        <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o menu do site -->
         </div>
         <hr />

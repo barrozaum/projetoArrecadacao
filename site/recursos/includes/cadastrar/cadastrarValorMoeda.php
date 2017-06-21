@@ -90,6 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } // fim do for
         $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
 
+//        atualizando na sessao do sistema
+        $_SESSION['C_VALOR_MOEDA_DIA_UFIR'] = mostrarDinheiro5Casas($valor_moeda);
         $pdo = null;
         ?>
 

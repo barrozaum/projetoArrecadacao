@@ -60,3 +60,13 @@ ALTER TABLE [dbo].[log_Itbi]
 ADD [NUM_PROCESSO_BAIXA] [char](6) NULL,
 	[ANO_PROCESSO_BAIXA] [char](4) NULL
 GO
+
+
+---- alterando o tamanho do campo Cod_Atividade DAM
+
+ALTER TABLE [dbo].[DAM]
+ALTER COLUMN [Cod_Atividade] [char](8) 
+
+ALTER TABLE [dbo].[Log_DAM]
+ALTER COLUMN [Cod_Atividade] [char](8) 
+GO

@@ -27,7 +27,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/adiciona_zero.js"></script>
         <script src="recursos/js/modalBairro.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
-     
+
         <link rel="stylesheet" href="recursos/css/jquery.dataTables.min.css">
         <script src="recursos/js/jquery.dataTables.min.js"></script>
         <script>
@@ -38,7 +38,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaBairro.php');
                 $('#listar').load('recursos/includes/listar/listarBairros.php');
-                
+
 
             }
         </script>

@@ -563,7 +563,6 @@ a.bg-danger:hover {
 }
 .page-header {
     padding-bottom: 70px;
-    background-image: url(../imagens/estrutura/cabecalho.png);
     background-position: center;
     background-repeat: no-repeat; 
 }
@@ -735,14 +734,14 @@ pre code {
 .pre-scrollable {
     max-height: 340px;
     overflow-y: scroll;
-   
+
 }
 .container {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-   
+
 }
 @media (min-width: 768px) {
     .container {
@@ -3469,7 +3468,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li {
     position: relative;
     display: block;
-    
+
 }
 .nav > li > a {
     position: relative;

@@ -14,7 +14,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="recursos/css/bootstrap.css" rel="stylesheet">
         <link href="recursos/css/menu.css" rel="stylesheet">
-    
+
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -26,7 +26,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/estrutura.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
         <script src="recursos/js/ConsultaFinanceira.js"></script>
-     
+
 
         <link rel="stylesheet" href="recursos/css/jquery.dataTables.min.css">
         <script src="recursos/js/jquery.dataTables.min.js"></script>
@@ -39,7 +39,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioConsultaFinanceiraImovel.php');
-                
+
 
             }
 
@@ -49,10 +49,10 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
     </head>
     <body>
-          <div id="cabecalho">
+        <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
         </div>
-       
+
         <div class="container bg-4 "></div>
         <hr />
         <div class="container text center">
@@ -64,9 +64,9 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             <div id="listar_dividas"></div>
         </div>
 
-          <div id="modal"></div>
-        
-        
+        <div id="modal"></div>
+
+
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>

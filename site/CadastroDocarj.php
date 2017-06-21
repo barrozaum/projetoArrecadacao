@@ -21,8 +21,16 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <script src="recursos/js/estrutura.js"></script>
         <script src="recursos/js/adiciona_zero.js"></script>
-        <script src="recursos/js/CadastroDam.js"></script>
+        <script src="recursos/js/chamarJanelasSelecionar.js"></script>
+        <script src="recursos/js/CadastroDocarj.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
+        <script src="recursos/js/buscaCep.js"></script>
+        <script src="recursos/js/mascaraValor.js"></script>
+        <script src="recursos/js/mascaraCpfCnpj.js"></script>
+        <script src="recursos/js/valida_cpf_cnpj.js"></script>
+        <script src="recursos/js/Selecionar_Dentro_Select.js"></script>
+        <script src="recursos/js/mascaraValor.js"></script>
+
 
         <!-- Includes para Colocar o Calendário na data -->
         <link rel="stylesheet" href="recursos/css/redmond/jquery-ui-1.10.1.custom.css" />

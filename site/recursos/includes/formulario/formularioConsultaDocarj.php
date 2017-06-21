@@ -2,6 +2,7 @@
 include_once '../estrutura/controle/validarSessao.php';
 include_once '../funcaoPHP/funcaoData.php';
 include_once '../funcaoPHP/funcaoDinheiro.php';
+include_once '../funcaoPHP/function_letraMaiscula.php';
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
 include_once '../funcaoPHP/funcao_retorna_situacao_divida.php';
 include_once '../funcaoPHP/funcao_retorna_descricao_cod_banco.php';

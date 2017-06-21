@@ -19,7 +19,7 @@ $(document).focusin(function (e) {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-   
+
     $("#id_data").datepicker({
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
@@ -70,7 +70,7 @@ $(document).focusin(function (e) {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-   
+
     $("#data_concessao").datepicker({
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
@@ -81,7 +81,7 @@ $(document).focusin(function (e) {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-   
+
     $("#data_averbacao").datepicker({
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
@@ -112,5 +112,5 @@ $(document).focusin(function (e) {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-   
+
 });

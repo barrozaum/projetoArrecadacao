@@ -17,15 +17,15 @@ function tamanhoCampo(nomeCampo) {
 
 
     if (nomeCampo.value < '000001') {
-        nomeCampo.value='000001';
+        nomeCampo.value = '000001';
         nomeCampo.focus();
-    }else if(nomeCampo.name== "txtInscricaoFinal"){
+    } else if (nomeCampo.name == "txtInscricaoFinal") {
         var inscIni = document.getElementById("txtInscricaoInicial").value;
-        if(nomeCampo.value < inscIni){
+        if (nomeCampo.value < inscIni) {
             alert("Inscrição Final não Pode ser Menor que a Inicial");
             document.getElementById("txtInscricaoFinal").focus();
         }
-        
+
     }
-    
+
 }

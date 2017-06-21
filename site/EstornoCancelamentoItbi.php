@@ -43,9 +43,9 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
         </div>
-       
+
         <hr />
-        
+
         <div class="container text center">
             <div id="formulario"></div>
         </div>
@@ -53,7 +53,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div class="container bg-4 text center">
             <div id="listar"></div>
         </div>
-          <div id="modal"></div>
+        <div id="modal"></div>
         <div id="rodape"></div>
 
     </body>

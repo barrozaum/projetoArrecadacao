@@ -8,3 +8,9 @@ function chamarJanelaRua() {
     window.open(url, 'galeria', 'width=1024,height=508');
     return false;
 }
+$(document).on('click', '#id_lupa_atividade_contribuinte', function (e) {
+    var url = "recursos/includes/selecionar/selecionarAtividade.php?janela=1";
+    window.open(url, 'galeria', 'width=1024,height=508');
+    return false;
+});
+

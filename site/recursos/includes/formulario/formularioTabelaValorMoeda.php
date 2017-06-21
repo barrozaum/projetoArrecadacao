@@ -4,6 +4,8 @@ include_once '../estrutura/controle/validarSessao.php';
 include_once '../funcaoPHP/funcaoData.php';
 // importa função para mascarar valores
 include_once '../funcaoPHP/funcaoDinheiro.php';
+// validacao
+include_once '../funcaoPHP/function_letraMaiscula.php';
 // criacao dos campos inputs 
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
 ?>

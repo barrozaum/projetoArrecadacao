@@ -6,7 +6,7 @@ if(isset($_SESSION['IMPRIMIR_GUIA_ITBI'])){
     include_once '../funcaoPHP/funcaoDinheiro.php';
     include_once '../funcaoPHP/funcaoData.php';
     include_once './complemento_guia.php';
-    include_once './controle_guia_itbi.php';
+    include_once './controle/controle_guia_itbi.php';
     include_once './barcode.php';
     include_once './util.php';
 

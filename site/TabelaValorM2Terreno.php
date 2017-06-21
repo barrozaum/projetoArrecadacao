@@ -38,7 +38,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaValorM2Terreno.php');
                 $('#listar').load('recursos/includes/listar/listarValorM2Terrenos.php');
-                
+
 
             }
         </script>

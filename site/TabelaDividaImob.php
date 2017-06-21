@@ -35,8 +35,8 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/calendario.js" type="text/javascript"></script>
         <script src="recursos/js/mascaraData.js"></script>
         <!-- fim dos includes para Colocar a Data -->
-        
-        
+
+
         <link rel="stylesheet" href="recursos/css/jquery.dataTables.min.css">
         <script src="recursos/js/jquery.dataTables.min.js"></script>
         <script>

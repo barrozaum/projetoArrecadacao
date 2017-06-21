@@ -38,14 +38,14 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
                 $('#formulario').load('recursos/includes/formulario/formularioExportaFunesBom.php');
             }
         </script>
-   
 
-</head>
-<body>
-     <div id="cabecalho">
+
+    </head>
+    <body>
+        <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o menu do site -->
         </div>
-     
+
         <div id="acessoRapido">
 
         </div>
@@ -59,5 +59,5 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div id="rodape">
             <!-- Não apagar, pois é onde encontra-se o rodape da página -->
         </div>
-</body>
+    </body>
 </html>

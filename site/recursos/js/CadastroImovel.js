@@ -179,11 +179,11 @@ function cadastro_formulario(inscricao) {
     msg = msg + "</div>";
     $("#msg").html(msg);
 
-var button = "";
-button += "<div class='row'>";
-                button += "<div class='col-md-6 text-left'>";
-                button = button + '<button type="button" class="btn btn-success" onclick="validarCampos()">Cad. Imóvel</button>';
-                button += "</div>";
+    var button = "";
+    button += "<div class='row'>";
+    button += "<div class='col-md-6 text-left'>";
+    button = button + '<button type="button" class="btn btn-success" onclick="validarCampos()">Cad. Imóvel</button>';
+    button += "</div>";
 
     $("#buttons").html(button);
 
@@ -231,9 +231,15 @@ function retornaDescRua(campo) {
 
 function buscarRua(cod_rua) {
     $.ajax({
+        method: "post",
         // url para o arquivo json.php
         //op == 1 equivale a função retornaRua
-        url: "recursos/includes/retornaValor/retornaCadastroImovel.php?cod=" + cod_rua + "&op=1",
+        url: "recursos/includes/retornaValor/retornaCadastroImovel.php",
+//        dados
+        data: {
+            op: 1,
+            cod: cod_rua
+        },
         // dataType json
         dataType: "json",
         // função para de sucesso
@@ -248,7 +254,11 @@ function buscarRua(cod_rua) {
                 $("#rua_preenchida").val("0");
                 $("#cod_logr_imovel").val("");
             }
+        }, error: function (erro) {
+            console.log(erro.responseText);
         }
+
+
 
     }); //termina o ajax
 }
@@ -270,9 +280,13 @@ function retornaDescBairro(campo) {
 
 function buscarBairro(cod_bairro) {
     $.ajax({
-        // url para o arquivo json.php
+        method: "post",
         //op == 2 equivale a função retornaBairro
-        url: "recursos/includes/retornaValor/retornaCadastroImovel.php?cod=" + cod_bairro + "&op=2",
+        url: "recursos/includes/retornaValor/retornaCadastroImovel.php",
+        data: {
+            op: 2,
+            cod: cod_bairro
+        },
         // dataType json
         dataType: "json",
         // função para de sucesso
@@ -285,6 +299,8 @@ function buscarBairro(cod_bairro) {
                 $("#bairro_preenchido").val("0");
                 $("#cod_bairro_imovel").val("");
             }
+        }, error: function (erro) {
+            console.log(erro.responseText);
         }
     }); //termina o ajax
 }

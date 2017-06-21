@@ -181,7 +181,7 @@ function buscarDadosDocarj(parcela) {
                 {
                     $("#msg").html('<div class="alert alert-warning" style="text-align:center; font-size:15px;"><strong>DOCARJ (DAM) Pago ou Cancelado </strong></div>');
                 } else {
-                        $("#msg").html('<div class="alert alert-success" style="text-align:center; font-size:15px;"><strong>BAIXA ONLINE DOCARJ (DAM) </strong></div>');
+                    $("#msg").html('<div class="alert alert-success" style="text-align:center; font-size:15px;"><strong>BAIXA ONLINE DOCARJ (DAM) </strong></div>');
                     $("#button").html('<button type="button" class="btn btn-danger" id="btn-enviar">BAIXAR DOCARJ ONLINE </button>');
                 }
             }

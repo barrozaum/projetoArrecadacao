@@ -15,7 +15,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <link href="recursos/css/bootstrap.css" rel="stylesheet">
         <link href="recursos/css/menu.css" rel="stylesheet">
 
-       
+
         <script src="recursos/js/jquery.min.js"></script>
         <script src="recursos/js/bootstrap.min.js"></script>
         <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
@@ -48,15 +48,15 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o cabecalho do site -->
         </div>
-       
-        
+
+
         <hr />
         <div class="container text center">
             <div id="formulario">
-            <!--  Inicio Fomulario  -->
+                <!--  Inicio Fomulario  -->
             </div>
         </div>
-          <div id="modal"></div>
+        <div id="modal"></div>
         <div id="rodape"></div>
 
     </body>

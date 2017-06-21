@@ -3,7 +3,7 @@ include_once './controle/validarSessao.php';
 //lembre-se não pode alterar a ordem do menu
 // cada código representa uma parte do menu
 ?>
-
+<div class="row">
 <div class="page-header">
     <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
         <div class="row">
@@ -296,3 +296,4 @@ include_once './controle/validarSessao.php';
     </div>
 </div>
 <hr />
+</div>

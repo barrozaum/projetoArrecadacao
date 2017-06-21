@@ -27,8 +27,8 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <script src="recursos/js/modalTabelaValorM2Construcao.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
         <script src="recursos/js/mascaraValor.js"></script>
-        
-        
+
+
 
         <link rel="stylesheet" href="recursos/css/jquery.dataTables.min.css">
         <script src="recursos/js/jquery.dataTables.min.js"></script>
@@ -40,10 +40,10 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaValorM2Construcao.php');
                 $('#listar').load('recursos/includes/listar/listarValorM2Construcoes.php');
-                
+
 
             }
-         </script>
+        </script>
 
     </head>
     <body>

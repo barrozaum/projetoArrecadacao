@@ -2,7 +2,10 @@
 
 include_once '../estrutura/controle/validarSessao.php';
 include_once '../funcaoPHP/funcaoData.php';
+include_once '../funcaoPHP/function_letraMaiscula.php';
 include_once '../funcaoPHP/funcaoDinheiro.php';
+include_once '../funcaoPHP/funcao_retorna_rua.php';
+include_once '../funcaoPHP/funcao_retorna_bairro.php';
 // chamo a conexao com o banco de dados
 include_once '../estrutura/conexao/conexao.php';
 if ($_REQUEST['op'] == '0') {
@@ -10,11 +13,13 @@ if ($_REQUEST['op'] == '0') {
     die();
 }
 if ($_REQUEST['op'] == '1') {
-    retornaRua($pdo);
+    $cod_rua = letraMaiuscula($_POST['cod']);
+    FUNC_RETORNA_JSON_DESCRICAO_RUA_E_CEP($pdo, $cod_rua);
     die();
 }
 if ($_REQUEST['op'] == '2') {
-    retornaBairro($pdo);
+    $cod_bairro = letraMaiuscula($_POST['cod']);
+    FUNC_RETORNA_JSON_DESCRICAO_BAIRRO($pdo, $cod_bairro);
     die();
 }
 if ($_REQUEST['op'] == '3') {
@@ -36,8 +41,6 @@ if ($_REQUEST['op'] == '5') {
 // buscaCadastroImovel
 
 function retornaCadImob($pdo) {
-
-
 
     $insc_imovel = $_REQUEST['cod'];
 
@@ -326,64 +329,6 @@ function retornaProximoValor($pdo) {
 
 
 <?php
-
-function retornaRua($pdo) {
-    $cod_rua = $_REQUEST ['cod'];
-
-// preparo para realizar o comando sql
-    $sql = "SELECT * FROM Rua WHERE Cod_Rua = '$cod_rua'";
-    $query = $pdo->prepare($sql);
-//executo o comando sql
-    $query->execute();
-
-// Faço uma comparação para saber se a busca trouxe algum resultado
-    if (($dados = $query->fetch()) == true) {
-        $achou = 1;
-        $descricao = $dados['Desc_rua'];
-        $cep = $dados['cep'];
-    } else {
-        $achou = "";
-        $descricao = "";
-        $cep = "" . $sql;
-    }
-
-
-    $var = Array(
-        "achou" => "$achou",
-        "descricao" => "$descricao",
-        "cep" => "$cep"
-    );
-// convertemos em json e colocamos na tela
-    echo json_encode($var);
-}
-
-function retornaBairro($pdo) {
-    $cod_bairro = $_REQUEST['cod'];
-
-
-// preparo para realizar o comando sql
-    $sql = "SELECT * FROM Bairro WHERE Cod_Bairro = '$cod_bairro'";
-    $query = $pdo->prepare($sql);
-//executo o comando sql
-    $query->execute();
-
-// Faço uma comparação para saber se a busca trouxe algum resultado
-    if (($dados = $query->fetch()) == true) {
-        $achou = 1;
-        $descricao = $dados['Desc_Bairro'];
-    } else {
-        $achou = "";
-        $descricao = "" . $sql;
-    }
-
-
-    $var = Array(
-        "achou" => "$achou",
-        "descricao" => "$descricao"
-    );
-// convertemos em json e colocamos na tela
-    echo json_encode($var);
-}
 
 function tipo_pessoa($valor) {
     if ($valor == "F")

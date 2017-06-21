@@ -1,7 +1,10 @@
 <?php
 include_once '../estrutura/controle/validarSessao.php';
+// validacao
+include_once '../funcaoPHP/function_letraMaiscula.php';
 // criacao dos campos inputs 
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
+//conexao
 include_once '../estrutura/conexao/conexao.php';
 ?>
 <?php

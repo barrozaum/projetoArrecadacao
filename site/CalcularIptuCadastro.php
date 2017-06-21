@@ -42,7 +42,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
 
     </head>
     <body>
-        
+
         <div class="container text center">
             <div id="formulario"></div>
         </div>

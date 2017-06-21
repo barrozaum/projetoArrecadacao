@@ -10,9 +10,9 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-       
+
         <script>
-            location.href="site/";
+            location.href = "site/";
         </script>
     </body>
 </html>

@@ -55,7 +55,7 @@ function validar_cpf_cnpj(obj, tipo_pessoa) { // recebe um objeto
             return false;
         }
         obj.value = maskCPF(s);	// se validou o CPF mascaramos corretamente
-        document.getElementById(tipo_pessoa).value = "FÍSICA";
+        document.getElementById(tipo_pessoa).value = "FISICA";
         return true;
     }
 
@@ -68,7 +68,7 @@ function validar_cpf_cnpj(obj, tipo_pessoa) { // recebe um objeto
             return false;
         }
         obj.value = maskCNPJ(s);	// se validou o CNPJ mascaramos corretamente
-        document.getElementById(tipo_pessoa).value = "JURÍDICA";
+        document.getElementById(tipo_pessoa).value = "JURIDICA";
         return true;
     }
 }

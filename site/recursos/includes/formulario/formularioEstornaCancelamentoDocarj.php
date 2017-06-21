@@ -1,8 +1,8 @@
 <?php
-// validar login
 include_once '../estrutura/controle/validarSessao.php';
-
-// campo para criação dos inputs
+//validacao
+include_once '../funcaoPHP/function_letraMaiscula.php';
+// criacao dos campos inputs 
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
 ?>
 <?php

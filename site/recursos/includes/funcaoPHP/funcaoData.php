@@ -130,3 +130,10 @@ function validar_estrutura_data($data_brasil) {
         return false;
     }
 }
+
+//data deve vir no formato brasileiro
+function acrescentar_periodo_a_data($data, $periodo = "1 months"){
+    $data_formatada = str_replace("/", "-", $data);
+    return date('d-m-Y', strtotime($periodo , strtotime($data_formatada)));
+ 
+}

@@ -38,7 +38,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             function estruturaPagina() {
                 $('#formulario').load('recursos/includes/formulario/formularioTabelaSituacaoDivida.php');
                 $('#listar').load('recursos/includes/listar/listarSituacaoDividas.php');
-                
+
 
             }
         </script>

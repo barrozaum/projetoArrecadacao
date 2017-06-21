@@ -1,4 +1,6 @@
-<?php //inicia e finaliza a sessao e redireciona para a tela de login
+<?php
+
+//inicia e finaliza a sessao e redireciona para a tela de login
 
 session_start();
 session_destroy();

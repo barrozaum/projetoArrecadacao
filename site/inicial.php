@@ -32,7 +32,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         </script>
     </head>
     <body>
-        <body>
+    <body>
 
         <div id="cabecalho">
             <!-- Não apagar, pois é onde encontra-se o menu do site -->
@@ -49,5 +49,5 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         </div>
 
     </body>
-    </body>
+</body>
 </html>
