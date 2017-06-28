@@ -176,7 +176,7 @@ include_once './controle/validarSessao.php';
                                     </li>
                                     <li class="dropdown-submenu"> <a tabindex="-1" href="#">Certidões</a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Certidões Negativa</a></li>
+                                            <li><a href="RelCertidaoNegativa.php">Certidões Negativa</a></li>
                                             <li><a href="#">Certidões Positiva</a></li>
                                             <li><a href="#">Certidões Regularidade Fiscal</a></li>
                                         </ul>

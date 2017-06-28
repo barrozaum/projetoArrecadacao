@@ -70,3 +70,10 @@ ALTER COLUMN [Cod_Atividade] [char](8)
 ALTER TABLE [dbo].[Log_DAM]
 ALTER COLUMN [Cod_Atividade] [char](8) 
 GO
+
+
+--- comando sql para alterar tabela certidao
+
+ALTER TABLE [dbo].[certidao]
+ADD	[USUARIO] [varchar](30) NULL,
+	[ESTACAO] [varchar](30) NULL

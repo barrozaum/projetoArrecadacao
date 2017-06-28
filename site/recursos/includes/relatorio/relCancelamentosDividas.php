@@ -10,13 +10,13 @@ unset($query);
 set_time_limit(0);
 
 include_once('class/tcpdf/tcpdf.php');
-include_once("class/PHPJasperXML.inc.php");
+include_once('class/PHPJasperXML.inc.php');
 include_once ('setting.php');
 
-$estado= $_SESSION['C_ESTADO']; //recebendo o parâmetro descrição
-$prefeitura= $_SESSION['C_PREFEITURA']; //recebendo o parâmetro descrição
-$secretaria= $_SESSION['C_SECRETARIA']; //recebendo o parâmetro descrição
-$dt_inicial= $_POST['txt_dt_inicial'];
+$estado = $_SESSION['C_ESTADO']; //recebendo o parâmetro descrição
+$prefeitura = $_SESSION['C_PREFEITURA']; //recebendo o parâmetro descrição
+$secretaria = $_SESSION['C_SECRETARIA']; //recebendo o parâmetro descrição
+$dt_inicial = $_POST['txt_dt_inicial'];
 $dt_final  = $_POST['txt_dt_final'];
 $inscricao_inicial = $_POST['txt_inscricao_inicial'];
 $inscricao_final = $_POST['txt_inscricao_final'];

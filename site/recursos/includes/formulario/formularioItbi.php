@@ -289,7 +289,7 @@ function formularioCadastro() {
                                             <div class="col-sm-2">
                                                 <?php
                                                 //   INPUT -                         
-                                                criar_input_text('VALOR VENAL(R$)', 'valor_venal', 'valor_venal', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$XXXX,XX', 'onkeypress' => 'return SomenteNumero(event)'), '', '');
+                                                criar_input_text('VALOR VENAL', 'valor_venal', 'valor_venal', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$XXXX,XX', 'onkeypress' => 'return SomenteNumero(event)'), '', '');
                                                 ?>
 
                                             </div>

@@ -37,36 +37,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // verifico se tem erro na validação
     if (empty($array_erros)) {
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+        try {
+//              Conexao com o banco de dados  
+            include_once '../estrutura/conexao/conexao.php';
 
 //      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            $pdo->beginTransaction();
 
 //      Comando sql a ser executado  
-        $sql = "INSERT INTO bairro (Cod_Bairro, Desc_Bairro) VALUES ('$codigo', '$descricao')";
-//      execução com comando sql    
-        $executa = $pdo->query($sql);
+            $sql = "INSERT INTO bairro (Cod_Bairro, Desc_Bairro) VALUES (:codigo, :descricao)";
 
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao Cadastrar  !!!");location.href = "../../../TabelaBairro.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+//      execução com comando sql    
+            $executa = $pdo->prepare($sql);
+            $executa->bindParam(':codigo', $codigo_Letra_Maiscula);
+            $executa->bindParam(':descricao', $descricao_Letra_Maiscula);
+            $executa->execute();
+
+//      mando inserir no banco de dados 
+            $pdo->commit();
+            $msg = "BAIRRO CADASTRADO COM SUCESSO !!!";
+        } catch (Exception $exc) {
+            $pdo->rollBack();
+            $msg = "ERRO ". $exc->getMessage() ."!!!";
         }
+
 //        fecho conexao
         $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Bairro Cadastrado com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaBairro.php";
-        </script>
-
-        <?php
+//        exibo mensagem    
+       
+         
 //  if (empty($array_erros)) {
     } else {
         $msg_erro = '';
