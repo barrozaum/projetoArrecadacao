@@ -52,14 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             func_executa_sql($pdo);
             $pdo->commit();   
            
-            header("Location: relatorio_certidao_negativa.php");
+            header("Location: relatorio_certidao_positiva.php");
             
          
             
 //    $pdo->commit();
         } catch (Exception $ex) {
              echo '<script>window.alert("' . $ex->getMessage() . '");
-               location.href = "../../../RelCertidaoNegativa.php";
+               location.href = "../../../RelCertidaoPositiva.php";
         </script>';
         }
     } else {
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../RelCertidaoNegativa.php";
+               location.href = "../../../RelCertidaoPositiva.php";
         </script>';
     }
 
@@ -104,7 +104,7 @@ function func_executa_sql($pdo) {
     $requerente = $_POST['txt_nome_completo_requerente'];
     $obs = $_POST['txt_obs'];
     $data_emissao = dataAmericano(date('d/m/Y'));
-    $tipo_certidao = '01';
+    $tipo_certidao = '02';
     
 
     $sql_insert = "INSERT INTO Certidao (Num_Certidao, Ano_Certidao, Inscricao, Cadastro, Cod_Divida, Requerente, Obs, Data_Emissao, Tipo_Certidao, USUARIO, ESTACAO)";
@@ -174,7 +174,7 @@ $_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . ", CPF = ". $_SESSION['REL_REQ
 $_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . ", IDENTIDADE ". $_SESSION['REL_REQUERENTE_IDENTIDADE'];
 $_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . ", situado ". $_SESSION['REL_REQUERENTE_ENDERECO'];
 $_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . ", de acordo com as informações constantes em nossa base de dados, que o imóvel acima ";
-$_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . " descrito encontra-se QUITE com o Imposto respectivos";
+$_SESSION['REL_CARTA'] = $_SESSION['REL_CARTA'] . " descrito encontra-se EM DÉBITO com o Imposto respectivos";
 $_SESSION['REL_OBSERVACAO'] = letraMaiuscula($_POST['txt_obs']);
 }
 ?>

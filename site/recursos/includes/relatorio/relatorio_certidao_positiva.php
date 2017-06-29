@@ -1,9 +1,11 @@
 <?php
+
 session_start();
 if ($_SESSION['PASSOU_CONTROLE'] === 'OK') {
 include_once '../funcaoPHP/funcaoData.php';
 include_once '../funcaoPHP/funcaoDinheiro.php';
 include_once '../funcaoPHP/funcao_retorna_descricao_cod_banco.php';
+include_once '../funcaoPHP/funcao_calcular_juros_multa.php';
 
 
 #Possibilita a correta operação no IE 
@@ -18,7 +20,6 @@ date_default_timezone_set("America/Sao_Paulo");
 // incluo a biblioteca do fpdf 
 
 include '../estrutura/fpdf/fpdf.php';
-
 
 //CRIO MINHA CLASSE E UTILIZO HERANÇA DELA DA CLASSE fpdf
 class PDF extends FPDF {
@@ -46,7 +47,7 @@ class PDF extends FPDF {
         $this->SetFont('Arial', '', 10);
 //       titulo do relatório
         $this->setFont('arial', 'B', 9);
-        $this->Cell(0, 0, utf8_decode("CERTIDAO DE QUITAÇÃO FISCAL IMOBILIÁRIA"), 3, 0, 'C');
+        $this->Cell(0, 0, utf8_decode("CERTIDAO DE DÉBITO FISCAL IMOBILIÁRIA"), 3, 0, 'C');
         $this->Ln(5);
         $this->Cell(0, 0, utf8_decode("N°" . $_SESSION['REL_NUMERO_CERTIDAO'] . "/" . $_SESSION['REL_ANO_CERTIDAO']), 3, 0, 'C');
 
@@ -121,6 +122,92 @@ class PDF extends FPDF {
         $this->Ln(3);
     }
 
+    function func_descricao_divida() {
+       
+        $this->setFont('arial', '', 8);
+        include_once '../estrutura/conexao/conexao.php';
+        // CRIEI ARRAYS PARA SIMULAR DADOS VINDO DO BANCO DE DADOS
+        // preparo para realizar o comando sql
+        $sql = "SELECT F.INSCRICAO_IMOB,F.ANO_DIVIDA,F.COD_DIVIDA,D.DESC_DIVIDA,
+       '99' PARCELA ,SUM(F.VALOR) VALOR , SUM(F.VLR_BASE) VLR_BASE ,
+       '01/12/'+Ano_Divida vencimento
+       FROM FINANCEIRO_IMOB F, DIVIDA_IMOB D WHERE
+            F.COD_DIVIDA = D.COD_DIVIDA_IMOB AND
+            F.INSCRICAO_IMOB='{$_SESSION['REL_INSCRICAO']}' AND
+            F.COD_DIVIDA IN ('01','02') AND
+            F.COD_SITUACAO_DIVIDA IN ('01','02','03') AND
+            F.ANO_DIVIDA >=CONVERT(VARCHAR(4),DATEPART(YEAR,GETDATE())-8) AND
+            F.ANO_DIVIDA < CONVERT(VARCHAR(4),DATEPART(YEAR,GETDATE()))
+            GROUP BY F.INSCRICAO_IMOB,F.ANO_DIVIDA,F.COD_DIVIDA,D.DESC_DIVIDA
+        union
+        SELECT F.INSCRICAO_IMOB,F.ANO_DIVIDA,F.COD_DIVIDA,D.DESC_DIVIDA,
+               '00' PARCELA ,SUM(F.VALOR) VALOR , SUM(F.VLR_BASE) VLR_BASE ,
+               '31/03/'+Ano_Divida vencimento
+               FROM FINANCEIRO_IMOB F, DIVIDA_IMOB D WHERE
+        F.COD_DIVIDA = D.COD_DIVIDA_IMOB AND
+        F.INSCRICAO_IMOB='{$_SESSION['REL_INSCRICAO']}' AND
+        F.COD_DIVIDA IN ('01','02') AND
+        F.COD_SITUACAO_DIVIDA IN ('01','02','03') AND
+        F.ANO_DIVIDA = CONVERT(VARCHAR(4),DATEPART(YEAR,GETDATE())) and
+        F.VENCIMENTO < GETDATE()
+        GROUP BY F.INSCRICAO_IMOB,F.ANO_DIVIDA,F.COD_DIVIDA,D.DESC_DIVIDA
+        ORDER BY F.ANO_DIVIDA";
+        $query = $pdo->prepare($sql);
+        //executo o comando sql
+        $query->execute();
+        $linha = false;
+        $valor_base = 0.;
+        $multas = 0.;
+        $juros = 0.;
+        $valor_em_reais = 0.;
+        $valor_Total_debito = 0.;
+
+
+//        cabecalho 
+        $this->setFont('arial', 'B', 9);
+        $this->Cell(200, 6, utf8_decode("DEMONSTRATIVO DOS DÉBITOS"), 1, 0, 'C');
+        $this->Ln();
+        $this->Cell(20, 6, "ANO", 1, 0, 'C');
+        $this->Cell(20, 6, "COD ", 1, 0, 'C');
+        $this->Cell(40, 6, "DESCRICAO", 1, 0, 'C');
+        $this->Cell(30, 6, "VALOR BASE", 1, 0, 'C');
+        $this->Cell(30, 6, "MULTAS", 1, 0, 'C');
+        $this->Cell(30, 6, "JUROS", 1, 0, 'C');
+        $this->Cell(30, 6, "VALOR", 1, 0, 'C');
+        $this->setFont('arial', '', 8);
+        $this->Ln();
+        //loop para listar todos os dados encontrados
+        for ($i = 0; $dados = $query->fetch(); $i++) {
+            $Cod_Bairro = $dados['INSCRICAO_IMOB'];
+            $valor_base = calcula_valor_base($dados['VALOR'], $_SESSION['C_VALOR_MOEDA_DIA_UFIR'], 1);
+            $multas = mostrarDinheiro(calcula_multa(1, $dados['ANO_DIVIDA'], $dados['vencimento'], $valor_base));
+            $juros = mostrarDinheiro(calcula_juros(1, $dados['vencimento'], $valor_base));
+            $valor_em_reais = mostrarDinheiro(calcula_valor_total($valor_base, $multas, $juros));
+
+            if ($linha == true)
+                $linha = false;
+            else
+                $linha = true;
+
+            // ALIMENTO A LINHA DA TABELA
+            $this->Cell(20, 6, $dados['ANO_DIVIDA'], 1, 0, 'C', $linha);
+            $this->Cell(20, 6, $dados['COD_DIVIDA'], 1, 0, 'C', $linha);
+            $this->Cell(40, 6, $dados['DESC_DIVIDA'], 1, 0, 'C', $linha);
+            $this->Cell(30, 6, "R$ " . mostrarDinheiro($valor_base), 1, 0, 'C', $linha);
+            $this->Cell(30, 6, "R$ " . $multas, 1, 0, 'C', $linha);
+            $this->Cell(30, 6, "R$ " . $juros, 1, 0, 'C', $linha);
+            $this->Cell(30, 6, "R$ " . $valor_em_reais, 1, 0, 'C', $linha);
+            $valor_Total_debito += inserirDinheiro($valor_em_reais);
+            $this->Ln();
+        }
+        
+        
+        $this->setFont('arial', 'B', 9);
+        $this->Cell(20, 6, "TOTAL ", 1, 0, 'C');
+        $this->Cell(180, 6, "R$ " .mostrarDinheiro($valor_Total_debito), 1, 0, 'R');
+        $this->setFont('arial', '', 8);
+    }
+
     function func_composicao_carta() {
         $this->Ln(10);
         $this->setFont('arial', 'B', 10);
@@ -141,7 +228,6 @@ class PDF extends FPDF {
     }
 
 }
-
 
 ?>
 <?php
@@ -164,8 +250,10 @@ try {
 
 // PREENCHO A PAGINA EM BRANCO COM O MÉTODO QUE EU CRIE ACIMA
     $pdf->func_dados_imovel();
+    $pdf->func_descricao_divida();
     $pdf->func_composicao_carta();
     $pdf->func_observacao();
+
 
 // FECHO E GERO O ARQUIVO NA TELA
     $pdf->Output();
@@ -173,12 +261,9 @@ try {
     print $e;
 }
 }else{
-       die(header("Location: ../../../RelCertidaoNegativa.php"));
+       die(header("Location: ../../../RelCertidaoPositiva.php"));
 }
-
-
 //limpando variaveis de sessao
-
 //VARIAVEIS DE SESSAO
 unset($_SESSION['PASSOU_CONTROLE']); 
 unset($_SESSION['REL_NUMERO_CERTIDAO']); 

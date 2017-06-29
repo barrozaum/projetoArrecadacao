@@ -649,16 +649,6 @@ function retornaAjuizados_imob($pdo, $num_certidao, $ano_certidao) {
     }
 }
 
-function calcula_valor_base($valor, $moeda_do_dia, $situacao) {
-
-    if ($situacao == 1 || $situacao == 2 || $situacao == 3) {
-        return  $valor * $moeda_do_dia;
-    }
-}
-
-function calcula_valor_total($valor_base, $retorna_multa, $retorna_juros) {
-    return $valor_base + $retorna_multa + $retorna_juros;
-}
 
 function moeda($pdo) {
 

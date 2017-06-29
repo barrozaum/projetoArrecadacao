@@ -193,14 +193,14 @@ function moeda() {
     return $_SESSION['C_VALOR_MOEDA_DIA_UFIR'];
 }
 
-function fun_verifica_divida($pdo, $inscricao) {
+function fun_verifica_divida($pdo, $inscricao){
 //    data atual
-    $data_atual = dataAmericano(date('d/m/Y'));
+    $ano_atual = date('Y');
 //    função verifica se a inscricao tem débitos
     $sql = "SELECT * FROM financeiro_imob";
-    $sql = $sql . " WHERE inscricao_imob = '{$inscricao}' ";
-    $sql = $sql . " AND cod_situacao_divida IN ('01','02','03') ";
-    $sql = $sql . " AND vencimento < '{$data_atual}'";
+    $sql = $sql ." WHERE inscricao_imob = '{$inscricao}' ";
+    $sql = $sql ." AND cod_situacao_divida IN ('01','02','03') ";
+    $sql = $sql ." AND ano_divida < '{$ano_atual}'";
     $query = $pdo->prepare($sql);
     //executo o comando sql
     $query->execute();
@@ -209,6 +209,7 @@ function fun_verifica_divida($pdo, $inscricao) {
     } else {
         return "0"; // senão tiver débitos retorna 0
     }
+    
 }
 
 ?>
