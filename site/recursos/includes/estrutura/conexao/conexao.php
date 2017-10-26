@@ -2,7 +2,7 @@
 
 try {
 //      $Localizacao_Banco = "34.208.42.129";
-    $Localizacao_Banco = "BARROZO\SQLEXPRESS";
+    $Localizacao_Banco = "BARROZAUM\SQLEXPRESS";
 
     $nome_Base_Dados = "Japeri";
     $usuario_Banco = $_SESSION["usuario"];

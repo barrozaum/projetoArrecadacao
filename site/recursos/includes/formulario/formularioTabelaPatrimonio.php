@@ -36,13 +36,19 @@ function formularioCadastro() {
     if (empty($dados['Codigo'])) {
         $cod = str_pad(1, 1, "0", STR_PAD_LEFT);
     } else {
-        $cod = str_pad(++$dados['Codigo'], 1, "0", STR_PAD_LEFT);
+        $cod = str_pad( ++$dados['Codigo'], 1, "0", STR_PAD_LEFT);
     }
     ?>
 
     <form method="post" action="recursos/includes/cadastrar/cadastrarPatrimonio.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO PATRIMÔNIO</div>
@@ -65,9 +71,8 @@ function formularioCadastro() {
                             <div class="col-sm-12">
                                 <?php
                                 //   INPUT - Descricao Patrimônio                             
-                                criar_input_text('Descrição-Patrimônio', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome do Patrimônio'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                                criar_input_text('Descrição-Patrimônio', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome do Patrimônio'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
                                 ?>
-
                             </div>
                         </div> 
 
@@ -121,7 +126,7 @@ function formularioAlterar() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Codigo Patrimônio                             
-                    criar_input_text('Descrição-Patrimônio', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome do Patrimônio'), $dados['Descricao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Patrimônio', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome do Patrimônio'), $dados['Descricao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
                 </div>
             </div> 
@@ -177,7 +182,7 @@ function formularioExcluir() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Descricao Patrimônio                             
-                    criar_input_text('Descrição-Patrimônio', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome do Patrimônio'), $dados['Descricao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Patrimônio', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome do Patrimônio'), $dados['Descricao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
                 </div>
             </div> 

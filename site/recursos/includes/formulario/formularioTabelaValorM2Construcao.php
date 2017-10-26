@@ -16,14 +16,18 @@ if (empty($_POST['id'])) {
 ?>
 
 <?php
-
 function formularioCadastro() {
     ?>
-
     <form name="cadastro" method="post" action="recursos/includes/cadastrar/cadastrarValorM2Construcao.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0">
             <div id="msg"></div>
             <div class="well">
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">VALOR M2 CONTRUÇÃO</div>
@@ -39,7 +43,7 @@ function formularioCadastro() {
                             <div class="col-sm-3">
                                 <?php
                                 //   INPUT -                         
-                                criar_input_text('Valor [Ufir]', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), '', 'Somente números');
+                                criar_input_text('Valor [Ufir]', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), '', 'Somente números');
                                 ?>
                             </div>
 
@@ -76,7 +80,6 @@ function formularioCadastro() {
 
                             </div>
                         </div> 
-
                     </div>
 
                     <div class="row">
@@ -127,7 +130,7 @@ function formularioAlterar() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Valor [Ufir]', 'alterar_valor', 'alterar_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), $valor, 'Somente números');
+                    criar_input_text('Valor [Ufir]', 'alterar_valor', 'alterar_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), $valor, 'Somente números');
                     ?>
                 </div>
 
@@ -213,7 +216,7 @@ function formularioExcluir() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Valor [Ufir]', 'excluir_valor', 'excluir_valor', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), $valor, 'Somente números');
+                    criar_input_text('Valor [Ufir]', 'excluir_valor', 'excluir_valor', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), $valor, 'Somente números');
                     ?>
                 </div>
 

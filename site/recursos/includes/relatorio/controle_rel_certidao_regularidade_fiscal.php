@@ -52,14 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             func_executa_sql($pdo);
             $pdo->commit();   
            
-            header("Location: relatorio_certidao_positiva.php");
+            header("Location: relatorio_certidao_regularidade_fiscal.php");
             
          
             
 //    $pdo->commit();
         } catch (Exception $ex) {
              echo '<script>window.alert("' . $ex->getMessage() . '");
-               location.href = "../../../RelCertidaoPositiva.php";
+               location.href = "../../../RelCertidaoRegularidadeFiscal.php";
         </script>';
         }
     } else {
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../RelCertidaoPositiva.php";
+               location.href = "../../../RelCertidaoRegularidadeFiscal.php";
         </script>';
     }
 
@@ -104,7 +104,7 @@ function func_executa_sql($pdo) {
     $requerente = $_POST['txt_nome_completo_requerente'];
     $obs = $_POST['txt_obs'];
     $data_emissao = dataAmericano(date('d/m/Y'));
-    $tipo_certidao = '02';
+    $tipo_certidao = '03';
     
 
     $sql_insert = "INSERT INTO Certidao (Num_Certidao, Ano_Certidao, Inscricao, Cadastro, Cod_Divida, Requerente, Obs, Data_Emissao, Tipo_Certidao, USUARIO, ESTACAO)";

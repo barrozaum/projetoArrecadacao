@@ -8,9 +8,9 @@ $cod_moeda = $_REQUEST['cod'];
 $mes = $_REQUEST['mes'];
 $ano = $_REQUEST['ano'];
 
+
+
 $data_inicial = dataAmericano("01/".$mes."/".$ano);
-
-
 $data_final = dataAmericano(diaBisesto($ano,$mes)."/".$mes."/".$ano);
 
 
@@ -22,6 +22,7 @@ $sql = "SELECT * FROM moeda
         WHERE cod_tipo_moeda = '$cod_moeda'
         AND data_moeda >= '$data_inicial'
         AND data_moeda <= '$data_final'";
+
 $res = $pdo->query($sql);
 /* Check the number of rows that match the SELECT statement */
 if ($res->fetchColumn() > 0) {

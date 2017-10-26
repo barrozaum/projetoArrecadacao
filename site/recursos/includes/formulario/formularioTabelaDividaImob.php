@@ -45,6 +45,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarDividaImob.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO DÍVIDA IMÓVEL</div>
@@ -257,7 +263,7 @@ function formularioAlterar() {
                                 <div class="col-sm-4">
                                     <?php
                                     //   INPUT - Codigo Divida                             
-                                    criar_input_text('Mult/Juros', 'alterar_multas_juros', 'alterar_multas_juros', array('required' => 'true', 'maxlength' => '2', 'placeholder' => 'XX', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Contabil_DA'], 'Somente numeros');
+                                    criar_input_text('Mult/Juros', 'alterar_multas_juros', 'alterar_multas_juros', array('required' => 'true', 'maxlength' => '2', 'placeholder' => 'XX', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Contabil_Multa_Juros'], 'Somente numeros');
                                     ?>
                                 </div> 
 
@@ -392,7 +398,7 @@ function formularioExcluir() {
                                 <div class="col-sm-4">
                                     <?php
                                     //   INPUT - Codigo Divida                             
-                                    criar_input_text('Mult/Juros', 'excluir_multas_juros', 'excluir_multas_juros', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => 'XX', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Contabil_DA'], 'Somente numeros');
+                                    criar_input_text('Mult/Juros', 'excluir_multas_juros', 'excluir_multas_juros', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => 'XX', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Contabil_Multa_Juros'], 'Somente numeros');
                                     ?>
                                 </div> 
                             </div>

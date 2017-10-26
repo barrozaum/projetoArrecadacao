@@ -44,11 +44,11 @@ include_once '../funcaoPHP/funcaoDinheiro.php';
                     $data_final = dataAmericano(diaBisesto($ano, $mes) . "/" . $mes . "/" . $ano);
 
                     $sql = "SELECT * 
-                FROM moeda m,tipo_moeda t   
-                WHERE m.cod_tipo_moeda = '$cod_moeda'
-                AND m.data_moeda >= '$data_inicial'
-                AND m.data_moeda <= '$data_final'
-                AND m.cod_tipo_moeda = t.cod_tipo_moeda";
+                    FROM moeda m,tipo_moeda t   
+                    WHERE m.cod_tipo_moeda = '$cod_moeda'
+                    AND m.data_moeda >= '$data_inicial'
+                    AND m.data_moeda <= '$data_final'
+                    AND m.cod_tipo_moeda = t.cod_tipo_moeda";
                     $query = $pdo->prepare($sql);
                     //executo o comando sql
                     $query->execute();

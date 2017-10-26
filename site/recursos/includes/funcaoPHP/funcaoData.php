@@ -28,7 +28,7 @@ function dataAmericano($data) {
         $ano = $partes_data[2];
 
         //servidor web
-        return $mes . "-" . $dia . "-" . $ano;
+        return $ano . "-" . $dia . "-" . $mes;
     }
 }
 

@@ -56,8 +56,5 @@ if ($hora >= 00 AND $hora <= 05) {
             }
             ?>
         </div><!-- /card-container -->
-
-
-
     </body>
 </html>

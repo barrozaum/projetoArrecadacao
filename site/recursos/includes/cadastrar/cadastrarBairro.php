@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // biblioteca para validar string informada    
     include ('../funcaoPHP/function_letraMaiscula.php');
-//    aplica filtro na string enviada (LetraMaiuscula)
+
+// aplica filtro na string enviada (LetraMaiuscula)
     $codigo_Letra_Maiscula = letraMaiuscula($_POST['txt_codigo']);
     $descricao_Letra_Maiscula = letraMaiuscula($_POST['txt_descricao']);
 
@@ -24,59 +25,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 11) || is_int($codigo_Letra_Maiscula) === TRUE) {
         $codigo = $codigo_Letra_Maiscula;
     } else {
-        $array_erros['txt_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO \n';
+        $array_erros['txt_alterar_descricao'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO !!! <BR />';
     }
 
-// filtro pra validar Nome do Bairro (não ter nenhum sql_injection)
-    if (strlen($descricao_Letra_Maiscula) > 2) {
+    if ((strlen($descricao_Letra_Maiscula) > 2) && (strlen($descricao_Letra_Maiscula) < 31)) {
         $descricao = $descricao_Letra_Maiscula;
     } else {
-        $array_erros['txt_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA \n';
+        $array_erros['txt_alterar_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA !!!';
     }
 
 // verifico se tem erro na validação
-    if (empty($array_erros)) {
-
+   if (empty($array_erros)) {
         try {
-//              Conexao com o banco de dados  
             include_once '../estrutura/conexao/conexao.php';
-
-//      Inicio a transação com o banco        
             $pdo->beginTransaction();
 
-//      Comando sql a ser executado  
-            $sql = "INSERT INTO bairro (Cod_Bairro, Desc_Bairro) VALUES (:codigo, :descricao)";
+            //  preparo comando sql para receber valores
+            
+            $stmt = $pdo->prepare("INSERT INTO Bairro (Cod_Bairro, Desc_Bairro) VALUES (:codigo, :descricao)");
 
-//      execução com comando sql    
-            $executa = $pdo->prepare($sql);
-            $executa->bindParam(':codigo', $codigo_Letra_Maiscula);
-            $executa->bindParam(':descricao', $descricao_Letra_Maiscula);
-            $executa->execute();
+            //  passando valores para o sql
+            $stmt->bindParam(':codigo', $codigo);
+            $stmt->bindParam(':descricao', $descricao);
 
-//      mando inserir no banco de dados 
+            //  executa comando sql
+            $stmt->execute();
+
+            //  persiste comando sql
             $pdo->commit();
-            $msg = "BAIRRO CADASTRADO COM SUCESSO !!!";
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-success'>CADASTRADO COM SUCESSO !!!</div>";
         } catch (Exception $exc) {
-            $pdo->rollBack();
-            $msg = "ERRO ". $exc->getMessage() ."!!!";
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
+        
 
-//        fecho conexao
-        $pdo = null;
-//        exibo mensagem    
-       
-         
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaBairro.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
+    header("Location: ../../../TabelaBairro.php");
 
 
 

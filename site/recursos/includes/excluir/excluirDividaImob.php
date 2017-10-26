@@ -1,130 +1,114 @@
 <?php
+
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
-//die(print_r($_POST));
 //verifico se a página está sendo chamada pelo méthod POST
 // Se sim executa escript
 // Senao dispara Erro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-//BIBLIOTECA COM FUNÇÕES DATA
-    include_once '../funcaoPHP/funcaoData.php';
-
 //ARRAY PARA ARMAZENAR ERROS
     $array_erros = array();
 
 // biblioteca para validar string informada    
-    include ('../funcaoPHP/function_letraMaiscula.php');
-//    aplica filtro na string enviada (LetraMaiuscula)
-    $codigo_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_codigo']);
+    include_once ('../funcaoPHP/function_letraMaiscula.php');
+    include_once ('../funcaoPHP/funcaoData.php');
+
+// aplica filtro na string enviada (LetraMaiuscula)
+   $codigo_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_codigo']);
+    $descricao_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_descricao']);
+    $descricao_completa_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_descricao_completa']);
+    $data_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_data']);
+    $codigo_contabil_ano_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_codigo_ano']);
+    $codigo_divida_ativa_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_divida_ativa']);
+    $codigo_desconto_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_desconto']);
+    $codigo_multas_juros_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_multas_juros']);
+
 
 // variaves serão preenchidas por valores do formulario
-// // valido o tamanho do campo informado pelo usuário
+// valido o tamanho do campo informado pelo usuário
 // verifico se o tamanho do campo é correto
 
-    if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 11) || is_int($codigo_Letra_Maiscula) === TRUE) {
+    if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 3)) {
         $codigo = $codigo_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO \n';
+        $array_erros['txt_error_descricao'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO !!! <BR />';
     }
 
-
-// filtro pra validar Nome do Bairro (não ter nenhum sql_injection)
-    if (strlen($_POST['txt_excluir_descricao_completa']) > 2) {
-        $descricaoCompleta = preg_replace("/[^a-zA-Z0-9ãÃáÁàÀâÂéÉèÈêÊíÍìÌîÎõÕóÓòÒôÔúÚùÙûÛçÇ@ ]/", "", $_POST['txt_excluir_descricao_completa']);
+    if ((strlen($descricao_Letra_Maiscula) > 2) && (strlen($descricao_Letra_Maiscula) < 31)) {
+        $descricao = $descricao_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_descricao_completa'] = 'POR FAVOR ENTRE COM O NOME COMPLETO DA DÍVIDA VÁLIDA \n';
+        $array_erros['txt_error_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA !!!';
     }
 
-
-//  valida se o tipo da data está correta
-    if (validar_estrutura_data($_POST['txt_excluir_data'])) {
-        $vencimento = dataAmericano($_POST['txt_excluir_data']);
+    if (validar_estrutura_data($data_Letra_Maiscula)) {
+        $vencimento = dataAmericano($data_Letra_Maiscula);
     } else {
-        $array_erros['txt_excluir_data'] = 'POR FAVOR ENTRE COM UMA DATA VÁLIDA \n';
+        $array_erros['txt_data'] = 'POR FAVOR ENTRE COM UMA DATA VÁLIDA !!! <br />';
     }
 
-
-//    Valida o desconto
-    if (strlen($_POST['txt_excluir_desconto']) === 2 || is_int($_POST['txt_excluir_desconto']) === TRUE) {
-        $desconto = $_POST['txt_excluir_desconto'];
+    if ((strlen($codigo_desconto_Letra_Maiscula) > 0 && strlen($codigo_desconto_Letra_Maiscula) < 11) || is_int($codigo_desconto_Letra_Maiscula) === TRUE) {
+        $desconto = $codigo_desconto_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_desconto'] = 'POR FAVOR ENTRE COM PORCENTAGEM DESCONTO VÁLIDO \n';
+        $array_erros['txt_desconto'] = 'POR FAVOR ENTRE COM PORCENTAGEM DESCONTO VÁLIDO !!! <br />';
     }
 
-
-//    Valida o ano informado
-    if (strlen($_POST['txt_excluir_codigo_ano']) === 3 || is_int($_POST['txt_excluir_codigo_ano']) === TRUE) {
-        $ano_divida = $_POST['txt_excluir_codigo_ano'];
+    if ((strlen($codigo_contabil_ano_Letra_Maiscula) > 0 && strlen($codigo_contabil_ano_Letra_Maiscula) < 4) || is_int($codigo_divida_ativa_Letra_Maiscula) === TRUE) {
+        $codigo_contabil_ano = $codigo_contabil_ano_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_codigo_ano'] = 'POR FAVOR ENTRE COM ANO VÁLIDO \n';
+        $array_erros['txt_divida_ativa'] = 'POR FAVOR ENTRE COM COD CONTÁBIL ANO VÁLIDO !!! <br />';
     }
 
-
-//    Valida o cod div ativ
-    if (strlen($_POST['txt_excluir_divida_ativa']) === 3 || is_int($_POST['txt_excluir_divida_ativa']) === TRUE) {
-        $codigo_div_ativ = $_POST['txt_excluir_divida_ativa'];
+    if ((strlen($codigo_divida_ativa_Letra_Maiscula) > 0 && strlen($codigo_divida_ativa_Letra_Maiscula) < 4) || is_int($codigo_divida_ativa_Letra_Maiscula) === TRUE) {
+        $codigo_div_ativ = $codigo_divida_ativa_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_divida_ativa'] = 'POR FAVOR ENTRE COM DÍV ATIVA VÁLIDA \n';
+        $array_erros['txt_divida_ativa'] = 'POR FAVOR ENTRE COM DÍV ATIVA VÁLIDA !!! <br />';
     }
 
-
-
-//    Valida multas
-    if (strlen($_POST['txt_excluir_multas_juros']) < 4 || is_int($_POST['txt_excluir_multas_juros']) === TRUE) {
-        $multas = $_POST['txt_excluir_multas_juros'];
+    if ((strlen($codigo_multas_juros_Letra_Maiscula) > 0 && strlen($codigo_multas_juros_Letra_Maiscula) < 4) || is_int($codigo_divida_ativa_Letra_Maiscula) === TRUE) {
+        $contabil_multas_juros = $codigo_multas_juros_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_multas_juros'] = 'POR FAVOR ENTRE COM PORCENTAGEM MULTA VÁLIDA \n';
+        $array_erros['txt_divida_ativa'] = 'POR FAVOR ENTRE COM PORCENTAGEM MULTA VÁLIDA  !!! <br />';
     }
 
-
+    if ((strlen($descricao_completa_Letra_Maiscula) > 2) && (strlen($descricao_completa_Letra_Maiscula) < 60)) {
+        $descricaoCompleta = $descricao_completa_Letra_Maiscula;
+    } else {
+        $array_erros['txt_descricao_completa'] = 'POR FAVOR ENTRE COM O NOME COMPLETO DA DÍVIDA VÁLIDA !!! <br />';
+    }
 
 // verifico se tem erro na validação
     if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            $sql = "DELETE FROM Divida_Imob ";
+            $sql = $sql . " WHERE Cod_Divida_Imob = :codigoDividaImob";
+            $stmt = $pdo->prepare($sql);
+            //  passando valores para o sql
+            $stmt->bindParam(':codigoDividaImob', $codigo);
+         
+            //  executa comando sql
+            $stmt->execute();
 
-//      Comando sql a ser executado  
-        $sql = "DELETE  FROM Divida_Imob  WHERE Cod_Divida_Imob = '".$codigo."'";
-
-//      execução com comando sql    
-        $executa = $pdo->query($sql);
-
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao Excluir  !!!");location.href = "../../../TabelaDividaImob.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-warning'>DELETADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Dívida Imob excluida com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaDividaImob.php";
-        </script>
-
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+        
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaDividaImob.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
+    header("Location: ../../../TabelaDividaImob.php");
 
 
 

@@ -24,6 +24,12 @@ function formularioCadastro() {
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0">
             <div id="msg"></div>
             <div class="well">
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">VALOR M2 TERRENO</div>
@@ -39,7 +45,7 @@ function formularioCadastro() {
                             <div class="col-sm-3">
                                 <?php
                                 //   INPUT -                         
-                                criar_input_text('Valor [Ufir]', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), '', 'Somente números');
+                                criar_input_text('Valor [Ufir]', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), '', 'Somente números');
                                 ?>
                             </div>
 
@@ -100,13 +106,13 @@ function formularioAlterar() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Zona', 'excluir_zona', 'excluir_zona', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $zona, 'Somente números');
+                    criar_input_text('Zona', 'alterar_zona', 'alterar_zona', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $zona, 'Somente números');
                     ?>
                 </div>
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Valor [Ufir]', 'excluir_valor', 'excluir_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), $valor, 'Somente números');
+                    criar_input_text('Valor [Ufir]', 'alterar_valor', 'alterar_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), $valor, 'Somente números');
                     ?>
                 </div>
 
@@ -115,14 +121,14 @@ function formularioAlterar() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text_com_lupa('Código Utilização', 'excluir_cod_utilizacao', 'excluir_cod_utilizacao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod_utilizacao, 'Somente números');
+                    criar_input_text('Código Utilização', 'alterar_cod_utilizacao', 'alterar_cod_utilizacao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod_utilizacao, 'Somente números');
                     ?>
                 </div>
 
                 <div class="col-sm-8">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Desc - Utilização', 'excluir_desc_utilizacao', 'excluir_desc_utilizacao', array('readonly' => 'true', 'readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => 'INSIRA CÓDIGO UTILIZAÇÃO', 'onkeypress' => 'return SomenteNumero(event)'), $desc_utilizacao, '');
+                    criar_input_text('Desc - Utilização', 'alterar_desc_utilizacao', 'alterar_desc_utilizacao', array('readonly' => 'true', 'readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => 'INSIRA CÓDIGO UTILIZAÇÃO', 'onkeypress' => 'return SomenteNumero(event)'), $desc_utilizacao, '');
                     ?>
                 </div>
             </div> 
@@ -170,7 +176,7 @@ function formularioExcluir() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text('Valor [Ufir]', 'excluir_valor', 'excluir_valor', array('readonly' => 'true' ,'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor(this, '.', ',', event)"), $valor, 'Somente números');
+                    criar_input_text('Valor [Ufir]', 'excluir_valor', 'excluir_valor', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', 'onKeyPress' => "return formatarValor_5Casas(this, '.', ',', event)"), $valor, 'Somente números');
                     ?>
                 </div>
 
@@ -179,7 +185,7 @@ function formularioExcluir() {
                 <div class="col-sm-3">
                     <?php
                     //   INPUT -                         
-                    criar_input_text_com_lupa('Código Utilização', 'excluir_cod_utilizacao', 'excluir_cod_utilizacao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod_utilizacao, 'Somente números');
+                    criar_input_text('Código Utilização', 'excluir_cod_utilizacao', 'excluir_cod_utilizacao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '2', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod_utilizacao, 'Somente números');
                     ?>
                 </div>
 

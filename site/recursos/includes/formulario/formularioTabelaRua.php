@@ -36,13 +36,19 @@ function formularioCadastro() {
     if (empty($dados['Cod_Rua'])) {
         $cod = str_pad(1, 5, "0", STR_PAD_LEFT);
     } else {
-        $cod = str_pad( ++$dados['Cod_Rua'], 5, "0", STR_PAD_LEFT);
+        $cod = str_pad(++$dados['Cod_Rua'], 5, "0", STR_PAD_LEFT);
     }
     ?>
 
     <form method="post" action="recursos/includes/cadastrar/cadastrarRua.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center "> CADASTRO RUA 
@@ -60,7 +66,7 @@ function formularioCadastro() {
                                 <?php
                                 //   INPUT - Codigo Bairro                             
                                 criar_input_text('Codigo', 'codigo', 'codigo', array('required' => 'true', 'maxlength' => '5', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod);
-                                criar_input_hidden('codigo_automatico',  array('required' => 'true', 'maxlength' => '5'), $cod);
+                                criar_input_hidden('codigo_automatico', array('required' => 'true', 'maxlength' => '5'), $cod);
                                 ?>
                             </div>
                             <div class="row">
@@ -73,7 +79,7 @@ function formularioCadastro() {
                             <div class="col-sm-12">
                                 <?php
                                 //   INPUT - Descricao Rua                             
-                                criar_input_text('Descrição-Rua', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Rua'), '', 'conter no mínimo 3 caracteres');
+                                criar_input_text('Descrição-Rua', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '40', 'placeholder' => 'Informe o Nome da Rua'), '', 'conter no mínimo 3 caracteres');
                                 ?>
                             </div>
                         </div> 
@@ -146,7 +152,7 @@ function formularioAlterar() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Descricao Rua                             
-                    criar_input_text('Descrição-Rua', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Rua'), $dados['Desc_rua'], 'conter no minímo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Rua', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '40', 'placeholder' => 'Informe o Nome da Rua'), $dados['Desc_rua'], 'conter no minímo 3 caracteres [a-z A-Z]');
                     ?>
 
                 </div>
@@ -222,7 +228,7 @@ function formularioExcluir() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Descricao Rua                             
-                    criar_input_text('Descrição-Rua', 'excluir_descricao', 'alterar_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Rua'), $dados['Desc_rua'], 'conter no minímo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Rua', 'excluir_descricao', 'alterar_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '40', 'placeholder' => 'Informe o Nome da Rua'), $dados['Desc_rua'], 'conter no minímo 3 caracteres [a-z A-Z]');
                     ?>
 
                 </div>
@@ -230,7 +236,7 @@ function formularioExcluir() {
             <div class="row">
                 <div class="col-sm-6">
                     <?php
-                    criar_input_text('Tipo', 'alterar_tipo', 'excluir_tipo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '4', 'placeholder' => 'Av. Rua. Est'), $dados['Tipo']);
+                    criar_input_text('Tipo', 'alterar_tipo', 'excluir_tipo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '', 'placeholder' => 'Av. Rua. Est'), $dados['Tipo']);
                     ?>
                 </div>
                 <div class="col-sm-6">

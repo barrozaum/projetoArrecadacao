@@ -38,7 +38,6 @@ function retornaCampo(param, mostraCampo) {
         dataType: "json",
         // função para de sucesso
         success: function (data) {
-            console.log(data);
             if (data.achou == 0) {
                 $("#" + mostraCampo).val('');
                 $("#msg").html('<div class="alert alert-danger"><strong>' + data.descricao + '</strong></div>');
@@ -63,16 +62,13 @@ function validaCamposFormulário() {
 
     if ((codigo === "") || (descricao === "")) {
         window.alert("Código Não Preenchido");
-        $("#id_codigo").focus();
         return false;
     } else if (mes === "") {
         window.alert("Mês Não Preenchido");
-        $("#id_mes").focus();
         return false;
 
     } else if (valor < "0,01") {
         window.alert("Valor Não Preenchido");
-        $("#id_valor").focus();
         return false;
     } else {
         validarValorMoeda(codigo, mes, ano);
@@ -84,7 +80,7 @@ function validaCamposFormulário() {
 function validarValorMoeda(cod, mes, ano) {
     $("#msg").html('');
     $("#listar").html('');
-
+    
     $.ajax({
         // url para o arquivo json.php
         url: "recursos/includes/validar/validarValorMoeda.php?cod=" + cod + "&mes=" + mes + "&ano=" + ano,
@@ -92,9 +88,6 @@ function validarValorMoeda(cod, mes, ano) {
         dataType: "json",
         // função para de sucesso
         success: function (data) {
-            // vamos gerar um html e guardar nesta variável
-            var data = data;
-
             if (data == 1) {
                 $("#txtCod").focus();
                 $("#msg").html('<div class="alert alert-danger"><strong>VALOR JÁ INSERIDO !!!</strong></div>');
@@ -102,6 +95,8 @@ function validarValorMoeda(cod, mes, ano) {
             } else {
                 document.cadastrar.submit();
             }
+         }, error: function (error) {
+            $("#msg").html(error.responseText);
         }
     });//termina o ajax
 }

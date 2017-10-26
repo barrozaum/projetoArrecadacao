@@ -1,4 +1,5 @@
 <?php
+
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
@@ -12,63 +13,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // biblioteca para validar string informada    
     include ('../funcaoPHP/function_letraMaiscula.php');
-//    aplica filtro na string enviada (LetraMaiuscula)
+
+// aplica filtro na string enviada (LetraMaiuscula)
     $codigo_Letra_Maiscula = letraMaiuscula($_POST['txt_excluir_codigo']);
 
+
 // variaves serão preenchidas por valores do formulario
-// // valido o tamanho do campo informado pelo usuário
+// valido o tamanho do campo informado pelo usuário
 // verifico se o tamanho do campo é correto
 
     if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 11) || is_int($codigo_Letra_Maiscula) === TRUE) {
         $codigo = $codigo_Letra_Maiscula;
     } else {
-        $array_erros['txt_excluir_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO \n';
+        $array_erros['txt_alterar_descricao'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO !!! <BR />';
     }
+
 
 // verifico se tem erro na validação
     if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            $stmt = $pdo->prepare("DELETE FROM Tipo_Isencao WHERE Codigo =:codigo");
 
-//      Comando sql a ser executado 
-        $sql = "DELETE  FROM Tipo_Isencao  WHERE codigo = '" . $codigo . "'";
+            //  passando valores para o sql
+            $stmt->bindParam(':codigo', $codigo);
 
-//  execução com comando sql    
-        $executa = $pdo->query($sql);
+            //  executa comando sql
+            $stmt->execute();
 
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao TabelaIsencao  !!!");location.href = "../../../TabelaBairro.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+            //  persiste comando sql
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-warning'>DELETADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Isenção Excluida com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaIsencao.php";
-        </script>
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaIsencao.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
+    header("Location: ../../../TabelaIsencao.php");
 
 
 

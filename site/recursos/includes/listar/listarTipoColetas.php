@@ -48,7 +48,7 @@ include_once '../funcaoPHP/funcaoDinheiro.php';
                         <tr>
                             <td><?php echo $dados['Cod_Tipo_Coleta']; ?></td>
                             <td><?php echo $dados['Desc_Tipo_Coleta']; ?></td>
-                            <td><?php echo mostrarDinheiro($dados['Valor']); ?></td>
+                            <td><?php echo mostrarDinheiro5Casas($dados['Valor']); ?></td>
                             <td><a href="#" id="edit-editar" data-id="<?php echo $dados['Cod_Tipo_Coleta']; ?>"><img src="recursos/imagens/estrutura/alterar.png" height="20px;" alt="alterar"></a></td>
                             <td><a href="#" id="edit-excluir"     data-id="<?php echo $dados['Cod_Tipo_Coleta']; ?>"><img src="recursos/imagens/estrutura/lixeira.png" alt="excluir" height="20px;"></a></td>
                         </tr>

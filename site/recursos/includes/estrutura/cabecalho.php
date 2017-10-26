@@ -63,8 +63,6 @@ include_once './controle/validarSessao.php';
                                 <ul class="dropdown-menu">
                                     <li><a href="LancamentoDivida.php">Lançamento de Dívida</a></li>
                                     <li><a href="CalcularIptu.php">Cálculo IPTU</a></li>
-
-
                                 </ul>
                             </li>
 
@@ -178,7 +176,7 @@ include_once './controle/validarSessao.php';
                                         <ul class="dropdown-menu">
                                             <li><a href="RelCertidaoNegativa.php">Certidões Negativa</a></li>
                                             <li><a href="RelCertidaoPositiva.php">Certidões Positiva</a></li>
-                                            <li><a href="#">Certidões Regularidade Fiscal</a></li>
+                                            <li><a href="RelCertidaoRegularidadeFiscal.php">Certidões Regularidade Fiscal</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"> <a tabindex="-1" href="#">Levantamentos</a>
@@ -241,17 +239,15 @@ include_once './controle/validarSessao.php';
                                         <ul class="dropdown-menu">
                                             <li><a href="BaixaOnlineDocarj.php">Baixa On Line</a></li>
                                             <li><a href="EstornoPagamentoDocarj.php">Estorno</a></li>
-
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"> <a tabindex="-1" href="#">Cancelamento</a>
                                         <ul class="dropdown-menu">
                                             <li><a href="CancelamentoDocarj.php">Cancelamento DOCARJ</a></li>
                                             <li><a href="EstornoCancelamentoDocarj.php">Estorno Cancelamento</a></li>
-
                                         </ul>
                                     </li>
-                                     <li><a href="RelatorioDocarj.php">Relatório</a></li>
+                                    <li><a href="RelatorioDocarj.php">Relatório</a></li>
                                    
                                     <li class="dropdown-submenu"> <a tabindex="-1" href="#">Dívida Ativa</a>
                                         <ul class="dropdown-menu">
@@ -273,7 +269,7 @@ include_once './controle/validarSessao.php';
                                     <li><a href="TabelaIsencao.php">Tipo Isenção</a></li>
                                     <li><a href="TabelaBairro.php">Bairro</a></li>
                                     <li><a href="TabelaRua.php">Rua</a></li>
-                                    <li><a href="motivoCancelamento.php">Motivo Cancelamento</a></li>
+                                    <li><a href="TabelaMotivoCancelamento.php">Motivo Cancelamento</a></li>
                                     <li><a href="TabelaNaturezaTransmissao.php">Natureza Transmição</a></li>
                                 </ul>
                             </li>

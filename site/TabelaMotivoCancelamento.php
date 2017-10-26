@@ -25,6 +25,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <script src="recursos/js/estrutura.js"></script>
         <script src="recursos/js/modalMotivoCancelamento.js"></script>
+        <script src="recursos/js/adiciona_zero.js"></script>
         <script src="recursos/js/camposNumeros.js"></script>
 
         <link rel="stylesheet" href="recursos/css/jquery.dataTables.min.css">
@@ -35,7 +36,7 @@ include "recursos/includes/estrutura/controle/validarParametrosSistema.php";
             });
 
             function estruturaPagina() {
-                $('#formulario').load('recursos/includes/formulario/formularioMotivoCancelamento.php');
+                $('#formulario').load('recursos/includes/formulario/formularioTabelaMotivoCancelamento.php');
                 $('#listar').load('recursos/includes/listar/listarMotivoCancelamentos.php');
 
 

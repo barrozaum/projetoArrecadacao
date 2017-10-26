@@ -43,7 +43,7 @@ include_once '../funcaoPHP/funcaoDinheiro.php';
 
                 //loop para listar todos os dados encontrados
                 for ($i = 0; $dados = $query->fetch(); $i++) {
-                    $valor = mostrarDinheiro($dados['vlr_m2_terreno']);
+                    $valor = mostrarDinheiro5Casas($dados['vlr_m2_terreno']);
                     $button = $dados['Zona_Fiscal'] . "|" . $dados['Cod_Utilizacao'] . "|" . $valor . "|" . $dados['Descricao'];
                     ?>   	
                     <tr>

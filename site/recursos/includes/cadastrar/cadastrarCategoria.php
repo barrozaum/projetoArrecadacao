@@ -24,67 +24,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 11) || is_int($codigo_Letra_Maiscula) === TRUE) {
         $codigo = $codigo_Letra_Maiscula;
     } else {
-        $array_erros['txt_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO \n';
+        $array_erros['txt_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO !!! <BR />';
     }
 
-// filtro pra validar Nome do Bairro (não ter nenhum sql_injection)
-    if (strlen($descricao_Letra_Maiscula) > 2) {
+    if ((strlen($descricao_Letra_Maiscula) > 2) && (strlen($descricao_Letra_Maiscula) < 21)) {
         $descricao = $descricao_Letra_Maiscula;
     } else {
-        $array_erros['txt_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA \n';
+        $array_erros['txt_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA !!!';
     }
 
 
 // verifico se tem erro na validação
     if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
+            $stmt = $pdo->prepare("INSERT INTO Categoria (Codigo, Descricao)
+            VALUES (:codigo, :descricao)");
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            //  passando valores para o sql
+            $stmt->bindParam(':codigo', $codigo);
+            $stmt->bindParam(':descricao', $descricao);
 
-//      Comando sql a ser executado  
-        $sql = "INSERT INTO Categoria (Codigo, Descricao) VALUES ('$codigo', '$descricao')";
-        
-//      execução com comando sql    
-        $executa = $pdo->query($sql);
+            //  executa comando sql
+            $stmt->execute();
 
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao Cadastrar  !!!");location.href = "../../../TabelaCategoria.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+            //  persiste comando sql
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-success'>CADASTRADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Categoria Cadastrada com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaCategoria.php";
-        </script>
+        
 
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaCategoria.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
-
-
-
-// if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
-} else {
+    header("Location: ../../../TabelaCategoria.php");
+} else {// if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
     die(header("Location: ../../../logout.php"));
 }
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
@@ -8,14 +7,14 @@ include_once '../estrutura/controle/validarSessao.php';
 // Senao dispara Erro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    include_once ('../funcaoPHP/funcaoDinheiro.php');
-    
 //ARRAY PARA ARMAZENAR ERROS
     $array_erros = array();
 
 // biblioteca para validar string informada    
-    include_once ('../funcaoPHP/function_letraMaiscula.php');
-//    aplica filtro na string enviada (LetraMaiuscula)
+    include_once '../funcaoPHP/function_letraMaiscula.php';
+    include_once '../funcaoPHP/funcaoDinheiro.php';
+
+// aplica filtro na string enviada (LetraMaiuscula)
     $zona_Letra_Maiscula = letraMaiuscula($_POST['txt_zona']);
     $valor_Letra_Maiscula = letraMaiuscula($_POST['txt_valor']);
     $codigo_utilizacao_Letra_Maiscula = letraMaiuscula($_POST['txt_cod_utilizacao']);
@@ -26,72 +25,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // verifico se o tamanho do campo é correto
 
     if ((strlen($zona_Letra_Maiscula) > 0 && strlen($zona_Letra_Maiscula) < 11) || is_int($zona_Letra_Maiscula) === TRUE) {
-        $codigo = $zona_Letra_Maiscula;
+        $zona = $zona_Letra_Maiscula;
     } else {
-        $array_erros['txt_zona'] = 'POR FAVOR ENTRE COM UMA ZONA VÁLIDA \n';
+        $array_erros['txt_zona'] = 'POR FAVOR ENTRE COM UMA ZONA VÁLIDA !!! <br />';
     }
 
 //    filtro pra saber se o valor está correto
     if (is_numeric(inserirDinheiro($valor_Letra_Maiscula)) && strlen($valor_Letra_Maiscula) >= 3) {
         $valor = inserirDinheiro($valor_Letra_Maiscula);
     } else {
-        $array_erros['txt_valor'] = 'POR FAVOR ENTRE COM UM VALOR (UFIR) VÁLIDO \n';
+        $array_erros['txt_valor'] = 'POR FAVOR ENTRE COM UM VALOR (UFIR) VÁLIDO !!! <br />';
     }
     
 //    CODIGO UTILIZACAO
      if ((strlen($codigo_utilizacao_Letra_Maiscula) > 0 && strlen($codigo_utilizacao_Letra_Maiscula) < 11) || is_int($codigo_utilizacao_Letra_Maiscula) === TRUE) {
-        $cod_uti = $codigo_utilizacao_Letra_Maiscula;
+        $utilizacao = $codigo_utilizacao_Letra_Maiscula;
     } else {
-        $array_erros['txt_cod_utilizacao'] = 'POR FAVOR ENTRE COM UMA UTILIZAÇÃO VÁLIDA \n';
+        $array_erros['txt_cod_utilizacao'] = 'POR FAVOR ENTRE COM UMA UTILIZAÇÃO VÁLIDA !!! ';
     }
-    
-    
-    
-    
+
 // verifico se tem erro na validação
-    if (empty($array_erros)) {
+   if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
+            
+            $stmt = $pdo->prepare("INSERT INTO Valor_M2_Terreno (Zona_Fiscal, Cod_Utilizacao, vlr_m2_Terreno) VALUES (:zona, :utilizacao,:valor)");
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            //  passando valores para o sql
+            $stmt->bindParam(':zona', $zona);
+            $stmt->bindParam(':utilizacao', $utilizacao);
+            $stmt->bindParam(':valor', $valor);
 
-//      Comando sql a ser executado  
-        $sql = "INSERT INTO Valor_M2_Terreno (Zona_Fiscal, Cod_Utilizacao, vlr_m2_Terreno) VALUES ('$codigo', '$cod_uti', '$valor')";
-//      execução com comando sql    
-        $executa = $pdo->query($sql);
+            //  executa comando sql
+            $stmt->execute();
 
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao Cadastrar  !!!");location.href = "../../../TabelaValorM2Terreno.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+            //  persiste comando sql
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-success'>CADASTRADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Valor Construção Cadastrado com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaValorM2Terreno.php";
-        </script>
+        
 
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaValorM2Terreno.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
+    header("Location: ../../../TabelaValorM2Terreno.php");
 
 
 

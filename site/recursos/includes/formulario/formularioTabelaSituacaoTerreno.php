@@ -42,6 +42,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarSituacaoTerreno.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO SITUAÇÃO TERRENO</div>
@@ -65,7 +71,7 @@ function formularioCadastro() {
                             <div class="col-sm-12">
                                 <?php
                                 //   INPUT - Descricao Situação Terreno                             
-                                criar_input_text('Descrição-Terreno', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Situação do Terreno'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                                criar_input_text('Descrição-Terreno', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '15', 'placeholder' => 'Informe o Nome da Situação do Terreno'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
                                 ?>
 
                             </div>
@@ -121,7 +127,7 @@ function formularioAlterar() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Codigo Situação Terreno                             
-                    criar_input_text('Descrição-Situação Terreno', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome do Situação Terreno'), $dados['Desc_situacao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Situação Terreno', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '15', 'placeholder' => 'Informe o Nome do Situação Terreno'), $dados['Desc_situacao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
                 </div>
             </div> 
@@ -173,7 +179,7 @@ function formularioExcluir() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Descricao Situação Terreno                             
-                    criar_input_text('Descrição-Situação Terreno', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome do Situação Terreno'), $dados['Desc_situacao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Situação Terreno', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '15', 'placeholder' => 'Informe o Nome do Situação Terreno'), $dados['Desc_situacao'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
                 </div>
             </div> 

@@ -4,7 +4,6 @@ include_once '../estrutura/controle/validarSessao.php';
 include_once '../funcaoPHP/function_letraMaiscula.php';
 // criacao dos campos inputs 
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
-?>
 if (empty($_POST['id'])) {
     formularioCadastro();
 } else if ($_POST['id'] == 1) {
@@ -41,6 +40,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarCategoria.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO CATEGORIA</div>

@@ -35,24 +35,30 @@ function formularioCadastro() {
     if (empty($dados['Cod_Motivo_Cancelamento'])) {
         $cod = str_pad(1, 2, "0", STR_PAD_LEFT);
     } else {
-        $cod = str_pad(++$dados['Cod_Motivo_Cancelamento'], 2, "0", STR_PAD_LEFT);
+        $cod = str_pad( ++$dados['Cod_Motivo_Cancelamento'], 2, "0", STR_PAD_LEFT);
     }
     ?>
 
     <form method="post" action="recursos/includes/cadastrar/cadastrarMotivoCancelamento.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO MOTIVO CANCELAMENTO</div>
                     <div class="panel-body">
                         <!-- inicio dados inscrição-->
                         <div class="row">
-                            <div class="col-sm-1">
-                                <div class="form-group">
-                                    <label for="txtCod">Cod:</label>
-                                    <input type="text" class="form-control" name ="txtCod" id="txtCod" required="true" value="<?php echo $cod; ?>" maxlength="3" placeholder="" onkeypress='return SomenteNumero(event)' onblur="tamanhoCampo(txtCod)">
-                                </div>
+                            <div class="col-sm-2">
+                                <?php
+                                //   INPUT -                      
+                                criar_input_text('Codigo', 'codigo', 'codigo', array('required' => 'true', 'maxlength' => '3', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $cod);
+                                ?>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
@@ -62,10 +68,10 @@ function formularioCadastro() {
                         </div> 
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="txtDescricao">Descricão:</label>
-                                    <input type="text" class="form-control" name ="txtDescricao" id="txtDescricao" required="true" value="" placeholder="Informe o Motivo Cancelamento" maxlength="20">
-                                </div>
+                                <?php
+                                //   INPUT -                              
+                                criar_input_text('Descrição-Motivo', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Motivo Cancelamento'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                                ?>
                             </div>
                         </div> 
 
@@ -109,18 +115,18 @@ function formularioAlterar() {
         <div class="modal-body">
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="txtAltCod">Cod:</label>
-                        <input type="text" class="form-control" name ="txtAltCod"  id="txtAltCod"  readonly="true" required="true"  value="<?php echo $dados['Cod_Motivo_Cancelamento']; ?>" maxlength="3" placeholder="" >
-                    </div>
+                    <?php
+                    //   INPUT - Codigo Bairro                             
+                    criar_input_text('Codigo', 'alterar_codigo', 'alterar_codigo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '3', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Motivo_Cancelamento']);
+                    ?>
                 </div>
             </div> 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="txtAltDescricao">Descricão:</label>
-                        <input type="text" class="form-control" name ="txtAltDescricao" id="txtAltDescricao" required="true" value="<?php echo $dados['Desc_Motivo_Cancelamento']; ?>" placeholder="Informe o Motivo Cancelamento" maxlength="20">
-                    </div>
+                    <?php
+                    //   INPUT - Codigo Bairro                             
+                    criar_input_text('Descrição-Motivo', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Motivo Cancelamento'), $dados['Desc_Motivo_Cancelamento'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    ?>
                 </div>
             </div> 
         </div>
@@ -165,21 +171,20 @@ function formularioExcluir() {
 
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="txtExcCod">Cod:</label>
-                        <input type="text" class="form-control" name ="txtExcCod" id="txtExcCod" required="true"  value="<?php echo $dados['Cod_Motivo_Cancelamento']; ?>" readonly="true" maxlength="3" placeholder="">
-                    </div>
+                    <?php
+                    //   INPUT - Codigo Bairro                             
+                    criar_input_text('Codigo', 'excluir_codigo', 'alterar_codigo', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '3', 'placeholder' => '', 'onkeypress' => 'return SomenteNumero(event)'), $dados['Cod_Motivo_Cancelamento']);
+                    ?>
                 </div>
             </div> 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="txtExcDescricao">Descricão:</label>
-                        <input type="text" class="form-control" name ="txtExcDescricao" id="txtExcDescricao" required="true" value="<?php echo $dados['Desc_Motivo_Cancelamento']; ?>"  readonly="true" placeholder="Informe o Motivo Cancelamento" maxlength="20">
-                    </div>
+                    <?php
+                    //   INPUT - Codigo Bairro                             
+                    criar_input_text('Descrição-Motivo', 'excluir_descricao', 'alterar_descricao', array('required' => 'true', 'readonly' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Motivo Cancelamento'), $dados['Desc_Motivo_Cancelamento'], 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    ?>
                 </div>
             </div> 
-
         </div>
 
         <div class="modal-footer">

@@ -46,6 +46,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarTipoColeta.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO TIPO COLETA</div>
@@ -75,7 +81,7 @@ function formularioCadastro() {
                             <div class="col-sm-3">
                                 <?php
                                 //   INPUT - Descricao Tipo Coleta                             
-                                criar_input_text('Valor(UFIR)', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor_5Casas(this, '.', ',', event);"), '', 'Conter apenas Numeros[0-9]');
+                                criar_input_text('Valor-UFIR', 'valor', 'valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor_5Casas(this, '.', ',', event);"), '', 'Conter apenas Numeros[0-9]');
                                 ?>
                                 
                             </div>
@@ -138,7 +144,7 @@ function formularioAlterar() {
                <div class="col-sm-4">
                    <?php
                    //   INPUT - Descricao Tipo Coleta                             
-                   criar_input_text('Valor(UFIR)', 'alterar_valor', 'alterar_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor(this, '.', ',', event);"), mostrarDinheiro($dados['Valor']), 'Conter apenas Numeros[0-9]');
+                   criar_input_text('Valor-UFIR', 'alterar_valor', 'alterar_valor', array('required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor_5Casas(this, '.', ',', event);"), mostrarDinheiro5Casas($dados['Valor']), 'Conter apenas Numeros[0-9]');
                    ?>
 
                </div>
@@ -203,7 +209,7 @@ function formularioExcluir() {
                <div class="col-sm-4">
                    <?php
                    //   INPUT - Descricao Tipo Coleta                             
-                   criar_input_text('Valor(UFIR)', 'excluir_valor', 'excluir_valor', array('readonly'=>'true','required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor(this, '.', ',', event);"), mostrarDinheiro($dados['Valor']), 'Conter apenas Numeros[0-9]');
+                   criar_input_text('Valor-UFIR', 'excluir_valor', 'excluir_valor', array('readonly'=>'true','required' => 'true', 'maxlength' => '11', 'placeholder' => 'R$000.00', "onKeyPress" => "return formatarValor(this, '.', ',', event);"), mostrarDinheiro5Casas($dados['Valor']), 'Conter apenas Numeros[0-9]');
                    ?>
 
                </div>

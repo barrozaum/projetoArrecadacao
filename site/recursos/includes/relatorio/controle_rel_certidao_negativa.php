@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $array_erros['txt_proprietario_imovel'] = 'POR FAVOR ENTRE COM PROPRIETARIO VÁLIDO  \n';
     }
 
-    if (!fun_aplica_validacao_campo($_POST['txt_logradouro_imovel'], 3, 50)) {
+    if (!fun_aplica_validacao_campo($_POST['txt_logradouro_imovel'], 1, 50)) {
         $array_erros['txt_logradouro_imovel'] = 'POR FAVOR ENTRE COM LOGRADOURO VÁLIDO  \n';
     }
 

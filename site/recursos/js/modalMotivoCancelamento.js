@@ -1,16 +1,24 @@
-function tamanhoCampo(nomeCampo) {
-
-    var valor = nomeCampo.value;
-
-    if (valor.length == 1)
-        nomeCampo.value = "0" + valor;
-    if (nomeCampo.value < '01') {
+// quando o campo código sofrer alteração executo
+$(document).on('blur', "#id_codigo", function (e) {
+// pego o valor informado no campo
+// coloco no formato correto 
+// atribuo o valor formatado na variavel valor
+    var valor = preencheZeros(this.value, 2);
+//    comparo se o valor é menor que
+    if (valor < 01) {
+//        zero o campo cdigo
+        $(this).val('');
+//        disparo erro na tela 
         $("#msg").html('<div class="alert alert-danger"><strong>Código Inválido!</strong></div>');
-        $("#txtCod").focus();
-    } else
-        validaInsercao(nomeCampo.value);
-}
+    } else {
+//        atribuo o valor informado pelo usario no campo
+        $(this).val(valor);
 
+//    valido no banco de dados se o codigo está sendo usado
+        validaInsercao(valor);
+    }
+
+});
 
 function validaInsercao(param) {
     // inicio uma requisição
@@ -23,11 +31,8 @@ function validaInsercao(param) {
         dataType: "json",
         // função para de sucesso
         success: function (data) {
-            // vamos gerar um html e guardar nesta variável
-            var data = data;
-
-            if (data == 1) {
-                $("#txtCod").focus();
+            if (data === 1) {
+                $("#id_codigo").val('');
                 $("#msg").html('<div class="alert alert-danger"><strong>Código Já Cadastrado!</strong></div>');
             }
         }
@@ -46,7 +51,7 @@ $(function () {
         $(".modal-content").html('');
         $(".modal-content").addClass('loader');
         $("#dialog-example").modal('show');
-        $.post('recursos/includes/formulario/formularioMotivoCancelamento.php',
+        $.post('recursos/includes/formulario/formularioTabelaMotivoCancelamento.php',
                 {id: 1,
                     codigo: $(this).attr('data-id')
                 },
@@ -63,7 +68,7 @@ $(function () {
         $(".modal-content").html('');
         $(".modal-content").addClass('loader');
         $("#dialog-example").modal('show');
-        $.post('recursos/includes/formulario/formularioMotivoCancelamento.php',
+        $.post('recursos/includes/formulario/formularioTabelaMotivoCancelamento.php',
                 {id: 2,
                     codigo: $(this).attr('data-id')
                 },

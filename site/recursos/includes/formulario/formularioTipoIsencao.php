@@ -42,6 +42,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarTipoIsencao.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO TIPO ISENÇÃO</div>
@@ -65,7 +71,7 @@ function formularioCadastro() {
                             <div class="col-sm-12">
                                 <?php
                                 //   INPUT - Descricao Bairro                             
-                                criar_input_text('Descrição-Isenção', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Isenção'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
+                                criar_input_text('Descrição-Isenção', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome da Isenção'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
                                 ?>
 
                             </div>
@@ -121,7 +127,7 @@ function formularioAlterar() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Codigo Bairro                             
-                    criar_input_text('Descrição-Isenção', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Isenção'), $dados['Descricao'],  'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Isenção', 'alterar_descricao', 'alterar_descricao', array('required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome da Isenção'), $dados['Descricao'],  'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
 
                 </div>
@@ -179,7 +185,7 @@ function formularioExcluir() {
                 <div class="col-sm-12">
                     <?php
                     //   INPUT - Codigo Bairro                             
-                    criar_input_text('Descrição-Isenção', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Isenção'), $dados['Descricao'],  'Conter no Minimo 3 caracteres [a-z A-Z]');
+                    criar_input_text('Descrição-Isenção', 'excluir_descricao', 'excluir_descricao', array('readonly' => 'true', 'required' => 'true', 'maxlength' => '20', 'placeholder' => 'Informe o Nome da Isenção'), $dados['Descricao'],  'Conter no Minimo 3 caracteres [a-z A-Z]');
                     ?>
                 </div>
             </div>

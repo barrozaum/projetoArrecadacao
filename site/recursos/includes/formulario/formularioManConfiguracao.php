@@ -5,16 +5,13 @@ include_once '../funcaoPHP/function_letraMaiscula.php';
 // criacao dos campos inputs 
 include_once '../funcaoPHP/funcaoCriacaoInput.php';
 ?>
-?>
 <?php
 if (empty($_POST['id'])) {
-    
     formularioCadastro();
 }
 ?>
 
 <?php
-
 function formularioCadastro() {
     
     ?>
@@ -27,18 +24,18 @@ function formularioCadastro() {
         </div>
     </div>
     <!-- fim do bloco mensagens retornadas pelo sistema -->
-    <form  method="post" action="recursos/includes/cadastrar/cadastra_configuracao_cliente.php" name="formularioItbi" id="formularioItbi" enctype="multipart/form-data">  <!-- inicio do formulário --> 
+    <form  method="post" action="recursos/includes/alterar/alterar_configuracao_cliente.php" name="formularioItbi" id="formularioItbi" enctype="multipart/form-data">  <!-- inicio do formulário --> 
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
                 <P ALIGN="CENTER">CONFIGURAÇÃO SISTEMA</P>
                 <HR />
-
-                <ul class="nav nav-tabs"> <!-- menu das abas -->
-                    <li class="active"><a data-toggle="tab" href="#home">Informações-Cliente</a></li>
-                    <!--<li><a data-toggle="tab" href="#menu1">Outros</a></li>-->
-                </ul> <!-- fim dos menu das abas -->
-
-
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO']; 
+                    echo "<hr />";
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="tab-content"><!-- abertura das abas do formulário -->
                     <div id="home" class="tab-pane fade in active"> <!-- primeira aba -->
                         <div class="panel-group" id="accordion">
@@ -76,7 +73,6 @@ function formularioCadastro() {
                                                 criar_input_text('CNPJ', 'cpf_cnpj_adquirinte', 'cpf_cnpj_adquirinte', array('required' => 'true', 'maxlength' => '17', 'placeholder' => 'INFORME CNPJ DO CLIENTE', 'onkeypress' => 'return SomenteNumero(event)', 'onkeyUp' => 'mascaraMutuario(this, cpfCnpj)', 'onblur' => 'validar_cpf_cnpj(this, \'id_tipo_pessoa_adquirinte\')'), $_SESSION['C_CNPJ'], 'somente os numeros');
                                                 criar_input_hidden('tipo_pessoa_adquirinte', array('required' => 'true'), 'JURÍDICA');
                                                 ?>
-
                                             </div>
                                         </div> 
                                         <div class="row">

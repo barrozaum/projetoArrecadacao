@@ -1,4 +1,5 @@
 <?php
+
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once '../funcaoPHP/funcaoCpfCnpj.php';
 
 //    aplica filtro na string enviada (LetraMaiuscula)
+    $caminho = $_SESSION['C_CAMINHO_LOGO'];
     $nome_cliente_Letra_Maiscula = letraMaiuscula($_POST['txt_nome_cliente']);
     $unidade_gestora_Letra_Maiscula = letraMaiuscula($_POST['txt_unidade_gestora']);
     $cnpj_Letra_Maiscula = letraMaiuscula($_POST['txt_cpf_cnpj_adquirinte']);
@@ -103,13 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //logo do sistema
     if (isset($_FILES['txt_logo_tipo_cliente'])) {
+        
         if ($_FILES['txt_logo_tipo_cliente']['error'] == 0) {
             $logo_name = $_FILES['txt_logo_tipo_cliente']['tmp_name'];
             $fundo = $_FILES['txt_logo_tipo_cliente']['name'];
 
-            $diretorio = '../../imagens/estrutura/logo.jpg';
+            $diretorio = '../../imagens/estrutura/'.$fundo;
+            $caminho = 'recursos/imagens/estrutura/'.$fundo;
+            $_SESSION['C_CAMINHO_LOGO'] = $caminho; 
             if (!move_uploaded_file($logo_name, $diretorio)) {
-                
+                   
             }
         }
     }
@@ -118,77 +123,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // verifico se tem erro na validação
     if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
+            $sql = "UPDATE configuracao_sistema SET ";
+            $sql = $sql . "Caminho_logo = :caminho, ";
+            $sql = $sql . "Prefeitura = :prefeitura, ";
+            $sql = $sql . "Secretaria = :secretaria, ";
+            $sql = $sql . "logo_pb = :logo, ";
+            $sql = $sql . "CNPJ_Prefeitura = :cnpj, ";
+            $sql = $sql . "Endereco_Prefeitura = :endereco, ";
+            $sql = $sql . "Bairro_Prefeitura = :bairro, ";
+            $sql = $sql . "Cep_Prefeitura = :cep, ";
+            $sql = $sql . "numero = :numero, ";
+            $sql = $sql . "uf = :uf, ";
+            $sql = $sql . "cidade = :cidade, ";
+            $sql = $sql . "complemento = :complemento";
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            $stmt = $pdo->prepare($sql);
 
-//      Comando sql a ser executado  
-        $sql = "UPDATE configuracao_sistema SET ";
-        $sql = $sql . "Caminho_logo = 'recursos/imagens/estrutura/logo.jpg', ";
-        $sql = $sql . "Prefeitura = '$nome_empresa_cliente', ";
-        $sql = $sql . "Secretaria = '$unidade_gestora_sistema_cliente', ";
-        $sql = $sql . "logo_pb =  'recursos/imagens/estrutura/logo.jpg', ";
-        $sql = $sql . "CNPJ_Prefeitura =  '$cnpj_empresa_cliente', ";
-        $sql = $sql . "Endereco_Prefeitura =  '$rua_empresa', ";
-        $sql = $sql . "Bairro_Prefeitura =  '$bairro_empresa', ";
-        $sql = $sql . "Cep_Prefeitura =  '$cep_empresa', ";
-        $sql = $sql . "numero =  '$numero_end_empresa', ";
-        $sql = $sql . "uf =  '$uf_empresa', ";
-        $sql = $sql . "cidade =  '$cidade_empresa', ";
-        $sql = $sql . "complemento =  '$complemento_end_empresa' ";
+            //  passando valores para o sql
+            $stmt->bindParam(':caminho', $caminho);
+            $stmt->bindParam(':prefeitura', $nome_empresa_cliente);
+            $stmt->bindParam(':secretaria', $unidade_gestora_sistema_cliente);
+            $stmt->bindParam(':logo', $caminho);
+            $stmt->bindParam(':cnpj', $cnpj_empresa_cliente);
+            $stmt->bindParam(':endereco', $rua_empresa);
+            $stmt->bindParam(':bairro', $bairro_empresa);
+            $stmt->bindParam(':cep', $cep_empresa);
+            $stmt->bindParam(':numero', $numero_end_empresa);
+            $stmt->bindParam(':uf', $uf_empresa);
+            $stmt->bindParam(':cidade', $cidade_empresa);
+            $stmt->bindParam(':complemento', $complemento_end_empresa);
+            //  executa comando sql
+            $stmt->execute();
 
-//      execução com comando sql    
-        $executa = $pdo->query($sql);
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("ERRO AO ALTERAR CONFIGURAÇÃO!!!");location.href = "../../../Man_Configuracao.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+//            variaveis de sessao
+
+            $_SESSION['C_PREFEITURA'] = $nome_empresa_cliente;
+            $_SESSION['C_SECRETARIA'] = $unidade_gestora_sistema_cliente;
+            $_SESSION['C_CNPJ'] = FUN_COLOCAR_MASCARA_CPF_CNPJ($cnpj_empresa_cliente);
+            $_SESSION['C_CEP'] = $cep_empresa;
+            $_SESSION['C_ENDERECO'] = $rua_empresa;
+            $_SESSION['C_BAIRRO'] = $bairro_empresa;
+            $_SESSION['C_CIDADE'] = $cidade_empresa;
+            $_SESSION['C_UF'] = $uf_empresa;
+            $_SESSION['C_NUMERO'] = $numero_end_empresa;
+            $_SESSION['C_COMPLEMENTO'] = $complemento_end_empresa;
+           
+
+            //  persiste comando sql
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-info'>ALTERADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-
-        <?php
-//        alterando o valor da configuração do sistema
-        $_SESSION['C_PREFEITURA'] = $nome_empresa_cliente;
-        $_SESSION['C_SECRETARIA'] = $unidade_gestora_sistema_cliente;
-        $_SESSION['C_CNPJ'] = FUN_COLOCAR_MASCARA_CPF_CNPJ($cnpj_empresa_cliente);
-        $_SESSION['C_CEP'] = $cep_empresa;
-        $_SESSION['C_ENDERECO'] = $rua_empresa;
-        $_SESSION['C_BAIRRO'] = $bairro_empresa;
-        $_SESSION['C_CIDADE'] = $cidade_empresa;
-        $_SESSION['C_UF'] = $uf_empresa;
-        $_SESSION['C_NUMERO'] = $numero_end_empresa;
-        $_SESSION['C_COMPLEMENTO'] = $complemento_end_empresa;
-        ?>
-
-
-
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "CONFIGURAÇÃO REALIZADA COM SUCESSO!!!"; ?> ");
-            location.href = "../../../Man_Configuracao.php";
-        </script>
-
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../Man_Configuracao.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
+    header("Location: ../../../Man_Configuracao.php");
 
 
 // if($_SERVER['REQUEST_METHOD'] === 'POST'){ 

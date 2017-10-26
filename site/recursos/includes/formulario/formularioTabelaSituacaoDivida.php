@@ -41,6 +41,12 @@ function formularioCadastro() {
     <form method="post" action="recursos/includes/cadastrar/cadastrarSituacaoDivida.php">    
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0"> <!-- div que posiciona o formulário na tela -->
             <div class="well"><!-- div que coloca a cor no formulário -->
+                 <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">CADASTRO SITUAÇÃO DA DÍVIDA</div>
@@ -65,7 +71,6 @@ function formularioCadastro() {
                                 //   INPUT - Descricao Situação                             
                                 criar_input_text('Descrição-Situação', 'descricao', 'descricao', array('required' => 'true', 'maxlength' => '30', 'placeholder' => 'Informe o Nome da Situação'), '', 'Conter no Minimo 3 caracteres [a-z A-Z]');
                                 ?>
-
                             </div>
                         </div> 
 

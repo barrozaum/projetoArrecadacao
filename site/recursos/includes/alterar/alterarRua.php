@@ -1,4 +1,5 @@
 <?php
+
 //valido a sessão do usuário 
 include_once '../estrutura/controle/validarSessao.php';
 
@@ -6,6 +7,7 @@ include_once '../estrutura/controle/validarSessao.php';
 // Se sim executa escript
 // Senao dispara Erro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 
 //ARRAY PARA ARMAZENAR ERROS
     $array_erros = array();
@@ -24,25 +26,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // valido o tamanho do campo informado pelo usuário
 // verifico se o tamanho do campo é correto
 
-   
     if ((strlen($codigo_Letra_Maiscula) > 0 && strlen($codigo_Letra_Maiscula) < 11) || is_int($codigo_Letra_Maiscula) === TRUE) {
         $codigo = $codigo_Letra_Maiscula;
     } else {
-        $array_erros['txt_alterar_descricao'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO \n';
+        $array_erros['txt_codigo'] = 'POR FAVOR ENTRE COM UM CÓDIGO VÁLIDO !!! <br />';
     }
 
 // filtro pra validar Nome do Bairro (não ter nenhum sql_injection)
-    if (strlen($descricao_Letra_Maiscula) > 2) {
+    if ((strlen($descricao_Letra_Maiscula) > 2) && (strlen($descricao_Letra_Maiscula) < 41)) {
         $descricao = $descricao_Letra_Maiscula;
     } else {
-        $array_erros['txt_alterar_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA \n';
+        $array_erros['txt_descricao'] = 'POR FAVOR ENTRE COM A DESCRIÇÃO VÁLIDA !!! <br />';
     }
 
 // filtro pra validar o TIPO  (não ter nenhum sql_injection)
     if (strlen($tipo_Letra_Maiscula) > 2) {
         $tipo = $tipo_Letra_Maiscula;
     } else {
-        $array_erros['txt_alterar_tipo'] = 'POR FAVOR ENTRE COM O TIPO VÁLIDO \n';
+        $array_erros['txt_tipo'] = 'POR FAVOR ENTRE COM O TIPO VÁLIDO !!! <br />';
     }
 
 
@@ -50,56 +51,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($cep_Letra_Maiscula) === 8 || is_int($cep_Letra_Maiscula) === TRUE) {
         $cep = $cep_Letra_Maiscula;
     } else {
-        $array_erros['txt_alterar_cep'] = 'POR FAVOR ENTRE COM UM CEP VÁLIDO \n';
+        $array_erros['txt_cep'] = 'POR FAVOR ENTRE COM UM CEP VÁLIDO !!! <br />';
     }
 
 
 // verifico se tem erro na validação
     if (empty($array_erros)) {
+        try {
+            include_once '../estrutura/conexao/conexao.php';
+            $pdo->beginTransaction();
 
-//      Conexao com o banco de dados  
-        include_once '../estrutura/conexao/conexao.php';
+            //  preparo comando sql para receber valores
+            $stmt = $pdo->prepare("UPDATE Rua SET Desc_rua =:rua, Tipo =:tipo, cep =:cep
+            WHERE Cod_Rua =:codigo");
 
-//      Inicio a transação com o banco        
-        $pdo->beginTransaction();
+            //  passando valores para o sql
+            $stmt->bindParam(':codigo', $codigo);
+            $stmt->bindParam(':rua', $descricao);
+            $stmt->bindParam(':tipo', $tipo);
+            $stmt->bindParam(':cep', $cep);
 
-//      Comando sql a ser executado 
-        $sql = "UPDATE rua SET Desc_Rua = '" . $descricao . "', Tipo = '" . $tipo . "', cep = '" . $cep . "'  WHERE Cod_Rua = '" . $codigo . "'";
+            //  executa comando sql
+            $stmt->execute();
 
-//  execução com comando sql    
-        $executa = $pdo->query($sql);
-
-//      Verifico se comando foi realizado      
-        if (!$executa) {
-//          Caso tenha errro 
-//          lanço erro na tela
-            die('<script>window.alert("Erro ao Alterar  !!!");location.href = "../../../TabelaRua.php";</script>'); /* É disparado em caso de erro na inserção de movimento */
-        } else {
-//          salvo alteração no banco de dados
-            $pdo->commit(); /* Se não houve erro nas querys, confirma os dados no banco */
+            //  persiste comando sql
+            $pdo->commit();
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-info'>ALTERADO COM SUCESSO !!!</div>";
+        } catch (Exception $exc) {
+            $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $exc->getMessage() . "</div>";
         }
-//        fecho conexao
-        $pdo = null;
-        ?>
-        <!-- Dispara mensagem de sucesso -->
-        <script>
-            window.alert("<?php echo "Rua Alterada com Sucesso !!!"; ?> ");
-            location.href = "../../../TabelaRua.php";
-        </script>
-        <?php
-//  if (empty($array_erros)) {
-    } else {
+    } else {//  if (empty($array_erros)) {
         $msg_erro = '';
         foreach ($array_erros as $msg) {
             $msg_erro = $msg_erro . $msg;
         }
-
-        echo '<script>window.alert("' . $msg_erro . '");
-               location.href = "../../../TabelaRua.php";
-        </script>';
+        $_SESSION['MENSAGEM_RETORNO_OPERACAO'] = "<div class='alert alert-danger'>" . $msg_erro . "</div>";
     }
-
-
+    header("Location: ../../../TabelaRua.php");
 
 // if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 } else {

@@ -54,6 +54,12 @@ function formularioCadastro() {
         <div class="mainbox col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0">
             <div id="msg"></div>
             <div class="well">
+                <?php
+                if (isset($_SESSION['MENSAGEM_RETORNO_OPERACAO'])) {
+                    echo $_SESSION['MENSAGEM_RETORNO_OPERACAO'];
+                    unset($_SESSION['MENSAGEM_RETORNO_OPERACAO']);
+                }
+                ?>
                 <div class="panel panel-default">
                     <!-- INICIO Dados do imóvel -->
                     <div class="panel-heading text-center">VALOR MOEDA</div>
